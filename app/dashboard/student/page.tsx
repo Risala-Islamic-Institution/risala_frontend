@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { api } from '@/lib/api';
 import { Button } from '@/components/ui/Button';
+import { clearToken, getToken } from '@/lib/auth';
 
 interface TeacherProfile {
   id: string;
@@ -23,15 +24,13 @@ export default function StudentDashboardPage() {
   useEffect(() => {
     const run = async () => {
       try {
-        const token = localStorage.getItem('authToken');
+        const token = getToken();
         if (!token) {
           window.location.href = '/login';
           return;
         }
         // Ensure current user is student
-        const me = await api.get<{ primary_role?: string; roles?: { name: string }[] }>('/auth/user/', {
-          headers: { 'Authorization': `Token ${token}` }
-        });
+        const me = await api.get<{ primary_role?: string; roles?: { name: string }[] }>('/auth/user/');
         const role = (me.primary_role || me.roles?.[0]?.name || '').toUpperCase();
         if (role === 'USTAZ') {
           window.location.href = '/dashboard/ustaz';
@@ -39,8 +38,7 @@ export default function StudentDashboardPage() {
         }
         // Load student profile
         const prof = await api.get<{ type?: string; profile?: StudentProfile }>(
-          '/users/profile/',
-          { headers: { 'Authorization': `Token ${token}` } }
+          '/users/profile/'
         );
         if (prof.type === 'student' && prof.profile) {
           setProfile(prof.profile);
@@ -54,6 +52,16 @@ export default function StudentDashboardPage() {
     run();
   }, []);
 
+  const handleLogout = async () => {
+    try {
+      await api.post('/auth/logout/', {});
+    } catch (e) {
+      /* ignore */
+    }
+    clearToken();
+    window.location.href = '/login';
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
@@ -66,9 +74,14 @@ export default function StudentDashboardPage() {
     <div className="min-h-screen bg-background">
       {/* Header using Deep Emerald Serenity */}
       <header className="bg-primary text-white">
-        <div className="max-w-6xl mx-auto px-6 py-6">
-          <h1 className="text-2xl font-bold">Student Dashboard</h1>
-          <p className="text-white/80">Your learning hub: sessions, progress, and feedback</p>
+        <div className="max-w-6xl mx-auto px-6 py-6 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+          <div>
+            <h1 className="text-2xl font-bold">Student Dashboard</h1>
+            <p className="text-white/80">Your learning hub: sessions, progress, and feedback</p>
+          </div>
+          <Button variant="outline" onClick={handleLogout} className="border-white text-white hover:bg-white/10">
+            Logout
+          </Button>
         </div>
       </header>
 

@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import { api } from '@/lib/api';
+import { setToken, clearToken } from '@/lib/auth';
 
 export default function RegisterPage() {
     const [username, setUsername] = useState('');
@@ -18,6 +19,7 @@ export default function RegisterPage() {
         e.preventDefault();
         setIsLoading(true);
         setError('');
+        clearToken();
 
         if (password1 !== password2) {
             setError('Passwords do not match.');
@@ -34,9 +36,8 @@ export default function RegisterPage() {
                 password2,
                 role,
             });
-            // Store token and redirect
             if (response.key) {
-                localStorage.setItem('authToken', response.key);
+                setToken(response.key);
             }
             window.location.href = '/login?registered=true';
         } catch (err: any) {

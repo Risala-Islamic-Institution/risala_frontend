@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import { api } from '@/lib/api';
+import { setToken, clearToken } from '@/lib/auth';
 
 export default function LoginPage() {
     const [email, setEmail] = useState('');
@@ -14,20 +15,17 @@ export default function LoginPage() {
         e.preventDefault();
         setIsLoading(true);
         setError('');
+        clearToken();
 
         try {
             const response = await api.post<{ key: string }>('/auth/login/', {
                 email,
                 password,
             });
-            localStorage.setItem('authToken', response.key);
 
-            // Fetch user details to determine role and redirect accordingly
-            const user = await api.get<{ primary_role?: string; roles?: { name: string }[] }>('/auth/user/', {
-                headers: {
-                    'Authorization': `Token ${response.key}`,
-                },
-            });
+            setToken(response.key);
+
+            const user = await api.get<{ primary_role?: string; roles?: { name: string }[] }>('/auth/user/');
 
             const role = (user.primary_role || user.roles?.[0]?.name || '').toUpperCase();
             if (role === 'USTAZ') {

@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/Button';
 import { api } from '@/lib/api';
+import { getToken, clearToken } from '@/lib/auth';
 
 interface UserProfile {
     username: string;
@@ -17,18 +18,14 @@ export default function DashboardPage() {
 
     useEffect(() => {
         const fetchProfile = async () => {
-            const token = localStorage.getItem('authToken');
-            if (!token) {
-                window.location.href = '/login';
-                return;
-            }
-
             try {
-                const response = await api.get<{ primary_role?: string; roles?: { name: string }[] }>('/auth/user/', {
-                    headers: {
-                        'Authorization': `Token ${token}`,
-                    },
-                });
+                const token = getToken();
+                if (!token) {
+                    window.location.href = '/login';
+                    return;
+                }
+
+                const response = await api.get<{ primary_role?: string; roles?: { name: string }[] }>('/auth/user/');
                 const role = (response.primary_role || response.roles?.[0]?.name || '').toUpperCase();
                 if (role === 'USTAZ') {
                     window.location.href = '/dashboard/ustaz';
@@ -37,7 +34,7 @@ export default function DashboardPage() {
                 }
             } catch (err) {
                 setError('Failed to load profile. Please login again.');
-                localStorage.removeItem('authToken');
+                clearToken();
             } finally {
                 setIsLoading(false);
             }
@@ -47,17 +44,12 @@ export default function DashboardPage() {
     }, []);
 
     const handleLogout = async () => {
-        const token = localStorage.getItem('authToken');
         try {
-            await api.post('/auth/logout/', {}, {
-                headers: {
-                    'Authorization': `Token ${token}`,
-                },
-            });
+            await api.post('/auth/logout/', {});
         } catch (err) {
             // Ignore logout errors
         }
-        localStorage.removeItem('authToken');
+        clearToken();
         window.location.href = '/login';
     };
 

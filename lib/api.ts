@@ -1,3 +1,4 @@
+import { getToken, clearToken } from './auth';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api';
 
@@ -8,10 +9,15 @@ interface RequestOptions extends RequestInit {
 class ApiClient {
     private async request<T>(endpoint: string, options: RequestOptions = {}): Promise<T> {
         const url = `${API_BASE_URL}${endpoint}`;
-        const headers = {
+        const token = getToken();
+
+        const headers: Record<string, string> = {
             'Content-Type': 'application/json',
             ...options.headers,
         };
+        if (token) {
+            headers['Authorization'] = `Token ${token}`;
+        }
 
         const config: RequestInit = {
             ...options,
@@ -22,17 +28,17 @@ class ApiClient {
             const response = await fetch(url, config);
 
             if (!response.ok) {
-                // Handle specific error status codes here (e.g., 401 for auth)
+                if (response.status === 401) {
+                    clearToken();
+                }
                 throw new Error(`API Error: ${response.status} ${response.statusText}`);
             }
 
-            // Check if response has content before parsing
             const contentType = response.headers.get("content-type");
             if (contentType && contentType.indexOf("application/json") !== -1) {
                 return await response.json();
-            } else {
-                return {} as T; // Return empty object for 204 or non-json
             }
+            return {} as T;
 
         } catch (error) {
             console.error('Request Failed:', error);
