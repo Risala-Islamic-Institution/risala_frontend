@@ -6,9 +6,11 @@ import { api } from '@/lib/api';
 
 export default function RegisterPage() {
     const [username, setUsername] = useState('');
+    const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
     const [password1, setPassword1] = useState('');
     const [password2, setPassword2] = useState('');
+    const [role, setRole] = useState('STUDENT');
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
@@ -24,13 +26,18 @@ export default function RegisterPage() {
         }
 
         try {
-            await api.post('/auth/registration/', {
+            const response = await api.post<{ key: string }>('/auth/registration/', {
                 username,
+                full_name: fullName,
                 email,
                 password1,
                 password2,
+                role,
             });
-            // Redirect to login page after successful registration
+            // Store token and redirect
+            if (response.key) {
+                localStorage.setItem('authToken', response.key);
+            }
             window.location.href = '/login?registered=true';
         } catch (err: any) {
             setError('Registration failed. Please check your details.');
@@ -52,6 +59,37 @@ export default function RegisterPage() {
                 )}
 
                 <form onSubmit={handleSubmit} className="space-y-5">
+                    <div>
+                        <label htmlFor="role" className="block text-sm font-medium text-secondary mb-2">
+                            I want to join as
+                        </label>
+                        <select
+                            id="role"
+                            value={role}
+                            onChange={(e) => setRole(e.target.value)}
+                            className="w-full px-4 py-3 rounded-lg border border-neutral focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors bg-white"
+                            required
+                        >
+                            <option value="STUDENT">Learner / Student</option>
+                            <option value="USTAZ">Instructor / Ustaz</option>
+                        </select>
+                        <p className="text-xs text-secondary/70 mt-1">Platform staff roles (admin, finance, support) are provisioned internally.</p>
+                    </div>
+
+                    <div>
+                        <label htmlFor="fullName" className="block text-sm font-medium text-secondary mb-2">
+                            Full name (optional)
+                        </label>
+                        <input
+                            id="fullName"
+                            type="text"
+                            value={fullName}
+                            onChange={(e) => setFullName(e.target.value)}
+                            className="w-full px-4 py-3 rounded-lg border border-neutral focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors"
+                            placeholder="Your full name"
+                        />
+                    </div>
+
                     <div>
                         <label htmlFor="username" className="block text-sm font-medium text-secondary mb-2">
                             Username

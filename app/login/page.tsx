@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/Button';
 import { api } from '@/lib/api';
 
 export default function LoginPage() {
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -17,13 +17,24 @@ export default function LoginPage() {
 
         try {
             const response = await api.post<{ key: string }>('/auth/login/', {
-                username,
+                email,
                 password,
             });
-            // Store token in localStorage or cookie
             localStorage.setItem('authToken', response.key);
-            // Redirect to dashboard
-            window.location.href = '/dashboard';
+
+            // Fetch user details to determine role and redirect accordingly
+            const user = await api.get<{ primary_role?: string; roles?: { name: string }[] }>('/auth/user/', {
+                headers: {
+                    'Authorization': `Token ${response.key}`,
+                },
+            });
+
+            const role = (user.primary_role || user.roles?.[0]?.name || '').toUpperCase();
+            if (role === 'USTAZ') {
+                window.location.href = '/dashboard/ustaz';
+            } else {
+                window.location.href = '/dashboard/student';
+            }
         } catch (err) {
             setError('Invalid username or password.');
         } finally {
@@ -45,16 +56,16 @@ export default function LoginPage() {
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
-                        <label htmlFor="username" className="block text-sm font-medium text-secondary mb-2">
-                            Username
+                        <label htmlFor="email" className="block text-sm font-medium text-secondary mb-2">
+                            Email
                         </label>
                         <input
-                            id="username"
-                            type="text"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
+                            id="email"
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             className="w-full px-4 py-3 rounded-lg border border-neutral focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors"
-                            placeholder="Enter your username"
+                            placeholder="you@example.com"
                             required
                         />
                     </div>
