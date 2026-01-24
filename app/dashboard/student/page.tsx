@@ -8,6 +8,10 @@ import { clearToken, getToken } from '@/lib/auth';
 interface TeacherProfile {
   id: string;
   verification_status?: string;
+  user?: {
+    full_name?: string;
+    username?: string;
+  };
 }
 
 interface StudentProfile {
@@ -20,6 +24,9 @@ export default function StudentDashboardPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [profile, setProfile] = useState<StudentProfile | null>(null);
+  const [teachers, setTeachers] = useState<TeacherProfile[]>([]);
+  const [teacherId, setTeacherId] = useState('');
+  const [slots, setSlots] = useState<Array<{start_at:string; end_at:string}>>([]);
 
   useEffect(() => {
     const run = async () => {
@@ -43,6 +50,10 @@ export default function StudentDashboardPage() {
         if (prof.type === 'student' && prof.profile) {
           setProfile(prof.profile);
         }
+
+        // Load visible teachers for selection
+        const teacherList = await api.get<TeacherProfile[]>('/teachers/');
+        setTeachers(teacherList);
       } catch (e) {
         setError('Failed to load dashboard.');
       } finally {
@@ -60,6 +71,16 @@ export default function StudentDashboardPage() {
     }
     clearToken();
     window.location.href = '/login';
+  };
+
+  const fetchSlots = async () => {
+    try {
+      if (!teacherId) return;
+      const res = await api.get<{slots: Array<{start_at:string; end_at:string}>}>(`/availability/slots?teacher_id=${teacherId}&days=14&slot_minutes=60`);
+      setSlots(res.slots || []);
+    } catch (e) {
+      setError('Failed to fetch slots');
+    }
   };
 
   if (loading) {
@@ -101,12 +122,48 @@ export default function StudentDashboardPage() {
           <div className="text-secondary/60">You're all caught up.</div>
         </section>
 
-        {/* Booking History per UC-8 */}
+        {/* Booking & Slot discovery */}
         <section className="bg-white rounded-xl border border-neutral p-6 shadow-sm">
           <h2 className="text-primary font-semibold mb-4">Bookings</h2>
-          {/* TODO: Integrate bookings list */}
-          <div className="space-y-2 text-secondary/70">
-            <div className="text-secondary/60">No bookings yet.</div>
+          <div className="space-y-3">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+              <select
+                className="border rounded-lg px-3 py-2"
+                value={teacherId}
+                onChange={e=>setTeacherId(e.target.value)}
+              >
+                <option value="">Select a teacher</option>
+                {teachers.map(t => (
+                  <option key={t.id} value={t.id}>
+                    {t.user?.full_name || t.user?.username || 'Teacher'}
+                  </option>
+                ))}
+              </select>
+              <Button variant="primary" onClick={fetchSlots} disabled={!teacherId}>Find Slots</Button>
+            </div>
+            {slots.length === 0 ? (
+              <div className="text-secondary/60">No slots found. Pick a teacher and search.</div>
+            ) : (
+              <ul className="text-secondary/80 space-y-2">
+                {slots.map(s => (
+                  <li key={s.start_at} className="flex items-center justify-between">
+                    <span>{new Date(s.start_at).toLocaleString()} - {new Date(s.end_at).toLocaleTimeString()}</span>
+                    <Button
+                      variant="accent"
+                      onClick={async ()=>{
+                        try {
+                          await api.post('/bookings/', { teacher: teacherId, start_at: s.start_at, end_at: s.end_at });
+                          // Optional: refresh slots to reflect booking removed
+                          fetchSlots();
+                        } catch (e) {
+                          setError('Booking failed');
+                        }
+                      }}
+                    >Book</Button>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </section>
 

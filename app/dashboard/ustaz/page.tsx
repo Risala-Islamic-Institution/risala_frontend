@@ -17,6 +17,8 @@ export default function UstazDashboardPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [profile, setProfile] = useState<TeacherProfile | null>(null);
+  const [availabilities, setAvailabilities] = useState<Array<{id:string; day_of_week:number; start_time:string; end_time:string; timezone:string; is_active:boolean}>>([]);
+  const [form, setForm] = useState({ day_of_week: 1, start_time: '09:00', end_time: '11:00', timezone: 'UTC' });
 
   const handleLogout = async () => {
     try {
@@ -48,6 +50,8 @@ export default function UstazDashboardPage() {
         if (prof.type === 'teacher' && prof.profile) {
           setProfile(prof.profile);
         }
+        const myAvail = await api.get<Array<any>>('/availability');
+        setAvailabilities(myAvail);
       } catch (e) {
         setError('Failed to load dashboard.');
       } finally {
@@ -106,9 +110,38 @@ export default function UstazDashboardPage() {
         <section className="bg-white rounded-xl border border-neutral p-6 shadow-sm md:col-span-2">
           <h2 className="text-primary font-semibold mb-4">Availability</h2>
           <p className="text-secondary/70 mb-3">Set time slots so students can book sessions.</p>
-          <div className="text-secondary/60">No availability configured.</div>
-          <div className="mt-4">
-            <Button variant="primary">Manage Availability</Button>
+          <div className="space-y-3">
+            {availabilities.length === 0 ? (
+              <div className="text-secondary/60">No availability configured.</div>
+            ) : (
+              <ul className="text-secondary/80 list-disc pl-5">
+                {availabilities.map(a => (
+                  <li key={a.id}>
+                    {['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][a.day_of_week]} {a.start_time} - {a.end_time} ({a.timezone})
+                  </li>
+                ))}
+              </ul>
+            )}
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-2 mt-2">
+              <select className="border rounded-lg px-3 py-2" value={form.day_of_week} onChange={e=>setForm(f=>({...f, day_of_week: parseInt(e.target.value)}))}>
+                {[0,1,2,3,4,5,6].map(d=> <option key={d} value={d}>{['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'][d]}</option>)}
+              </select>
+              <input className="border rounded-lg px-3 py-2" type="time" value={form.start_time} onChange={e=>setForm(f=>({...f, start_time: e.target.value}))} />
+              <input className="border rounded-lg px-3 py-2" type="time" value={form.end_time} onChange={e=>setForm(f=>({...f, end_time: e.target.value}))} />
+              <input className="border rounded-lg px-3 py-2" type="text" value={form.timezone} onChange={e=>setForm(f=>({...f, timezone: e.target.value}))} placeholder="Timezone e.g. Africa/Addis_Ababa" />
+              <Button
+                variant="primary"
+                onClick={async ()=>{
+                  try {
+                    await api.post('/availability/', form);
+                    const refreshed = await api.get<Array<any>>('/availability');
+                    setAvailabilities(refreshed);
+                  } catch (e) {
+                    setError('Failed to add availability.');
+                  }
+                }}
+              >Add</Button>
+            </div>
           </div>
         </section>
 
