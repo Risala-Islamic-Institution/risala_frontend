@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { api } from '@/lib/api';
+import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 import { clearToken, getToken } from '@/lib/auth';
 
@@ -20,6 +21,29 @@ interface StudentProfile {
   enrollment_status?: string;
 }
 
+interface Booking {
+  id: string;
+  teacher: string;
+  teacher_name?: string | null;
+  start_at: string;
+  end_at: string;
+  status: string;
+}
+
+interface EnrollmentItem {
+  id: string;
+  course: { id: string; slug: string; title: string };
+  progress_percent: number;
+}
+
+interface NotificationItem {
+  id: string;
+  title: string;
+  body: string;
+  is_read: boolean;
+  created_at: string;
+}
+
 export default function StudentDashboardPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -27,6 +51,9 @@ export default function StudentDashboardPage() {
   const [teachers, setTeachers] = useState<TeacherProfile[]>([]);
   const [teacherId, setTeacherId] = useState('');
   const [slots, setSlots] = useState<Array<{start_at:string; end_at:string}>>([]);
+  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [notifications, setNotifications] = useState<NotificationItem[]>([]);
+  const [enrollments, setEnrollments] = useState<EnrollmentItem[]>([]);
 
   useEffect(() => {
     const run = async () => {
@@ -39,21 +66,32 @@ export default function StudentDashboardPage() {
         // Ensure current user is student
         const me = await api.get<{ primary_role?: string; roles?: { name: string }[] }>('/auth/user/');
         const role = (me.primary_role || me.roles?.[0]?.name || '').toUpperCase();
+        if (!role) {
+          setError('Your account has no role assigned. Please contact support.');
+          setLoading(false);
+          return;
+        }
         if (role === 'USTAZ') {
           window.location.href = '/dashboard/ustaz';
           return;
         }
-        // Load student profile
-        const prof = await api.get<{ type?: string; profile?: StudentProfile }>(
-          '/users/profile/'
-        );
+        if (role !== 'STUDENT') {
+          setError('Your account is not allowed to access the student dashboard.');
+          setLoading(false);
+          return;
+        }
+
+        // Parallelize dashboard data fetches for faster load
+        const [prof, teacherList] = await Promise.all([
+          api.get<{ type?: string; profile?: StudentProfile }>('/users/profile/'),
+          api.get<TeacherProfile[]>('/teachers/'),
+        ]);
         if (prof.type === 'student' && prof.profile) {
           setProfile(prof.profile);
         }
-
-        // Load visible teachers for selection
-        const teacherList = await api.get<TeacherProfile[]>('/teachers/');
         setTeachers(teacherList);
+
+        await Promise.all([loadBookings(), loadNotifications(), loadEnrollments()]);
       } catch (e) {
         setError('Failed to load dashboard.');
       } finally {
@@ -80,6 +118,53 @@ export default function StudentDashboardPage() {
       setSlots(res.slots || []);
     } catch (e) {
       setError('Failed to fetch slots');
+    }
+  };
+
+  const loadBookings = async () => {
+    try {
+      const res = await api.get<Booking[]>('/bookings/');
+      setBookings(res);
+    } catch (e) {
+      setError('Failed to load bookings');
+    }
+  };
+
+  const loadEnrollments = async () => {
+    try {
+      const res = await api.get<EnrollmentItem[]>("/enrollments/");
+      setEnrollments(res);
+    } catch (e) {
+      setError('Failed to load enrollments');
+    }
+  };
+
+  const cancelBooking = async (id: string) => {
+    try {
+      await api.post(`/bookings/${id}/cancel/`, {});
+      await loadBookings();
+      await fetchSlots();
+      await loadNotifications();
+    } catch (e) {
+      setError('Cancellation failed');
+    }
+  };
+
+  const loadNotifications = async () => {
+    try {
+      const res = await api.get<NotificationItem[]>('/notifications/');
+      setNotifications(res);
+    } catch (e) {
+      setError('Failed to load notifications');
+    }
+  };
+
+  const markRead = async (id: string) => {
+    try {
+      await api.post(`/notifications/${id}/read/`, {});
+      await loadNotifications();
+    } catch (e) {
+      setError('Failed to update notification');
     }
   };
 
@@ -118,8 +203,24 @@ export default function StudentDashboardPage() {
         {/* Notifications per use case UC-24 */}
         <section className="bg-white rounded-xl border border-neutral p-6 shadow-sm">
           <h2 className="text-primary font-semibold mb-4">Notifications</h2>
-          {/* TODO: Integrate /notifications endpoint */}
-          <div className="text-secondary/60">You're all caught up.</div>
+          {notifications.length === 0 ? (
+            <div className="text-secondary/60">You're all caught up.</div>
+          ) : (
+            <ul className="divide-y divide-neutral/60">
+              {notifications.map(n => (
+                <li key={n.id} className="py-3 flex items-start justify-between gap-3">
+                  <div>
+                    <div className="font-semibold text-primary">{n.title}</div>
+                    {n.body ? <div className="text-secondary/70 text-sm">{n.body}</div> : null}
+                    <div className="text-xs text-secondary/60">{new Date(n.created_at).toLocaleString()}</div>
+                  </div>
+                  {!n.is_read && (
+                    <Button variant="secondary" onClick={()=>markRead(n.id)}>Mark read</Button>
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
         </section>
 
         {/* Booking & Slot discovery */}
@@ -155,8 +256,14 @@ export default function StudentDashboardPage() {
                           await api.post('/bookings/', { teacher: teacherId, start_at: s.start_at, end_at: s.end_at });
                           // Optional: refresh slots to reflect booking removed
                           fetchSlots();
+                          loadBookings();
                         } catch (e) {
-                          setError('Booking failed');
+                          const message = e instanceof Error ? e.message : 'Booking failed';
+                          if (message.includes('Only students can create bookings')) {
+                            setError('Only students can create bookings. Please complete student registration.');
+                          } else {
+                            setError(message);
+                          }
                         }
                       }}
                     >Book</Button>
@@ -167,11 +274,51 @@ export default function StudentDashboardPage() {
           </div>
         </section>
 
+        {/* My Bookings */}
+        <section className="bg-white rounded-xl border border-neutral p-6 shadow-sm md:col-span-2">
+          <h2 className="text-primary font-semibold mb-4">My Bookings</h2>
+          {bookings.length === 0 ? (
+            <div className="text-secondary/60">No bookings yet.</div>
+          ) : (
+            <ul className="divide-y divide-neutral/60">
+              {bookings.map(b => (
+                <li key={b.id} className="py-3 flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+                  <div className="space-y-1">
+                    <div className="font-semibold text-primary">{b.teacher_name || 'Teacher'}</div>
+                    <div className="text-secondary/70">
+                      {new Date(b.start_at).toLocaleString()} - {new Date(b.end_at).toLocaleTimeString()}
+                    </div>
+                    <div className="text-xs uppercase tracking-wide text-secondary/60">{b.status}</div>
+                  </div>
+                  {b.status === 'PENDING' && (
+                    <Button variant="secondary" onClick={() => cancelBooking(b.id)}>
+                      Cancel
+                    </Button>
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+
         {/* Learning Progress per Enrollment + LessonProgress */}
         <section className="bg-white rounded-xl border border-neutral p-6 shadow-sm md:col-span-2">
-          <h2 className="text-primary font-semibold mb-4">Progress</h2>
-          {/* TODO: Integrate lesson progress visuals */}
-          <div className="text-secondary/60">Start a course to see progress here.</div>
+          <h2 className="text-primary font-semibold mb-4">Course Progress</h2>
+          {enrollments.length === 0 ? (
+            <div className="text-secondary/60">Start a course to see progress here.</div>
+          ) : (
+            <ul className="divide-y divide-neutral/60">
+              {enrollments.map(e => (
+                <li key={e.id} className="py-3 flex items-center justify-between gap-3">
+                  <div>
+                    <div className="font-semibold text-primary">{e.course?.title || 'Course'}</div>
+                    <div className="text-secondary/70 text-sm">{e.progress_percent}% complete</div>
+                  </div>
+                  <Button variant="secondary" onClick={()=>{window.location.href = `/dashboard/student/courses/${e.course?.slug}`;}}>Open</Button>
+                </li>
+              ))}
+            </ul>
+          )}
         </section>
 
         {/* Actions */}
@@ -179,7 +326,8 @@ export default function StudentDashboardPage() {
           <h2 className="text-primary font-semibold mb-4">Quick Actions</h2>
           <div className="space-y-3">
             <Button variant="primary" className="w-full">Browse Instructors</Button>
-            <Button variant="secondary" className="w-full">View Categories</Button>
+            <Button variant="secondary" className="w-full" onClick={()=>{window.location.href='/dashboard/student/courses';}}>Browse Courses</Button>
+            <Button variant="outline" className="w-full" onClick={()=>{window.location.href='/dashboard/student/certificates';}}>My Certificates</Button>
           </div>
         </section>
       </main>

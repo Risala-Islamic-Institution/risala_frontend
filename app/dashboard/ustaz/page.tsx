@@ -13,12 +13,58 @@ interface TeacherProfile {
   hourly_rate?: string;
 }
 
+interface Booking {
+  id: string;
+  student_name?: string | null;
+  start_at: string;
+  end_at: string;
+  status: string;
+}
+
+interface NotificationItem {
+  id: string;
+  title: string;
+  body: string;
+  is_read: boolean;
+  created_at: string;
+}
+
+interface Course {
+  id: string;
+  slug: string;
+  title: string;
+  description: string;
+  category: string;
+  level: string;
+  duration_type: string;
+  total_weeks: number;
+  price: string;
+  is_published: boolean;
+}
+
 export default function UstazDashboardPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [profile, setProfile] = useState<TeacherProfile | null>(null);
   const [availabilities, setAvailabilities] = useState<Array<{id:string; day_of_week:number; start_time:string; end_time:string; timezone:string; is_active:boolean}>>([]);
   const [form, setForm] = useState({ day_of_week: 1, start_time: '09:00', end_time: '11:00', timezone: 'UTC' });
+  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [busy, setBusy] = useState<string | null>(null);
+  const [notifications, setNotifications] = useState<NotificationItem[]>([]);
+  const [courses, setCourses] = useState<Course[]>([]);
+  const [courseForm, setCourseForm] = useState({
+    title: '',
+    description: '',
+    category: 'QURAN',
+    level: 'BEGINNER',
+    duration_type: 'FIXED',
+    total_weeks: 4,
+    syllabus: '',
+    prerequisites: '',
+    price: '0',
+  });
+  const [savingCourse, setSavingCourse] = useState(false);
+  const [publishing, setPublishing] = useState<string | null>(null);
 
   const handleLogout = async () => {
     try {
@@ -40,18 +86,29 @@ export default function UstazDashboardPage() {
         }
         const me = await api.get<{ primary_role?: string; roles?: { name: string }[] }>('/auth/user/');
         const role = (me.primary_role || me.roles?.[0]?.name || '').toUpperCase();
+        if (!role) {
+          setError('Your account has no role assigned. Please contact support.');
+          setLoading(false);
+          return;
+        }
         if (role !== 'USTAZ') {
           window.location.href = '/dashboard/student';
           return;
         }
-        const prof = await api.get<{ type?: string; profile?: TeacherProfile }>(
-          '/users/profile/'
-        );
+        const [prof, myAvail, myBookings, notes, myCourses] = await Promise.all([
+          api.get<{ type?: string; profile?: TeacherProfile }>('/users/profile/'),
+          api.get<Array<any>>('/availability'),
+          api.get<Booking[]>('/bookings/'),
+          api.get<NotificationItem[]>('/notifications/'),
+          api.get<Course[]>('/courses/'),
+        ]);
         if (prof.type === 'teacher' && prof.profile) {
           setProfile(prof.profile);
         }
-        const myAvail = await api.get<Array<any>>('/availability');
         setAvailabilities(myAvail);
+        setBookings(myBookings);
+        setNotifications(notes);
+        setCourses(myCourses);
       } catch (e) {
         setError('Failed to load dashboard.');
       } finally {
@@ -95,15 +152,91 @@ export default function UstazDashboardPage() {
         {/* Notifications */}
         <section className="bg-white rounded-xl border border-neutral p-6 shadow-sm">
           <h2 className="text-primary font-semibold mb-4">Notifications</h2>
-          <div className="text-secondary/60">You're all caught up.</div>
+          {notifications.length === 0 ? (
+            <div className="text-secondary/60">You're all caught up.</div>
+          ) : (
+            <ul className="divide-y divide-neutral/60">
+              {notifications.map(n => (
+                <li key={n.id} className="py-3 flex items-start justify-between gap-3">
+                  <div>
+                    <div className="font-semibold text-primary">{n.title}</div>
+                    {n.body ? <div className="text-secondary/70 text-sm">{n.body}</div> : null}
+                    <div className="text-xs text-secondary/60">{new Date(n.created_at).toLocaleString()}</div>
+                  </div>
+                  {!n.is_read && (
+                    <Button
+                      variant="secondary"
+                      onClick={async ()=>{
+                        try {
+                          await api.post(`/notifications/${n.id}/read/`, {});
+                          const notes = await api.get<NotificationItem[]>('/notifications/');
+                          setNotifications(notes);
+                        } catch (e) {
+                          setError('Failed to update notification.');
+                        }
+                      }}
+                    >Mark read</Button>
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
         </section>
 
         {/* Bookings / Requests */}
         <section className="bg-white rounded-xl border border-neutral p-6 shadow-sm">
           <h2 className="text-primary font-semibold mb-4">Bookings</h2>
-          <div className="space-y-2 text-secondary/70">
+          {bookings.length === 0 ? (
             <div className="text-secondary/60">No bookings yet.</div>
-          </div>
+          ) : (
+            <ul className="divide-y divide-neutral/60">
+              {bookings.map(b => (
+                <li key={b.id} className="py-3 flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+                  <div className="space-y-1">
+                    <div className="font-semibold text-primary">{b.student_name || 'Student'}</div>
+                    <div className="text-secondary/70">{new Date(b.start_at).toLocaleString()} - {new Date(b.end_at).toLocaleTimeString()}</div>
+                    <div className="text-xs uppercase tracking-wide text-secondary/60">{b.status}</div>
+                  </div>
+                  {b.status === 'PENDING' ? (
+                    <div className="flex gap-2">
+                      <Button
+                        variant="primary"
+                        disabled={busy === b.id}
+                        onClick={async ()=>{
+                          try {
+                            setBusy(b.id);
+                            await api.post(`/bookings/${b.id}/confirm/`, {});
+                            const refreshed = await api.get<Booking[]>('/bookings/');
+                            setBookings(refreshed);
+                          } catch (e) {
+                            setError('Failed to confirm booking.');
+                          } finally {
+                            setBusy(null);
+                          }
+                        }}
+                      >Confirm</Button>
+                      <Button
+                        variant="secondary"
+                        disabled={busy === b.id}
+                        onClick={async ()=>{
+                          try {
+                            setBusy(b.id);
+                            await api.post(`/bookings/${b.id}/decline/`, {});
+                            const refreshed = await api.get<Booking[]>('/bookings/');
+                            setBookings(refreshed);
+                          } catch (e) {
+                            setError('Failed to decline booking.');
+                          } finally {
+                            setBusy(null);
+                          }
+                        }}
+                      >Decline</Button>
+                    </div>
+                  ) : null}
+                </li>
+              ))}
+            </ul>
+          )}
         </section>
 
         {/* Availability slot mirrors student Progress positioning */}
@@ -145,11 +278,132 @@ export default function UstazDashboardPage() {
           </div>
         </section>
 
+        {/* Courses management */}
+        <section id="courses-section" className="bg-white rounded-xl border border-neutral p-6 shadow-sm md:col-span-2">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h2 className="text-primary font-semibold">Courses</h2>
+              <p className="text-secondary/70 text-sm">Create, publish, and manage your courses.</p>
+            </div>
+            <Button
+              variant="primary"
+              isLoading={savingCourse}
+              onClick={async ()=>{
+                try {
+                  setSavingCourse(true);
+                  await api.post('/courses/', {
+                    ...courseForm,
+                    total_weeks: Number(courseForm.total_weeks || 0),
+                    price: courseForm.price || '0',
+                  });
+                  const refreshed = await api.get<Course[]>('/courses/');
+                  setCourses(refreshed);
+                  setCourseForm({
+                    title: '',
+                    description: '',
+                    category: 'QURAN',
+                    level: 'BEGINNER',
+                    duration_type: 'FIXED',
+                    total_weeks: 4,
+                    syllabus: '',
+                    prerequisites: '',
+                    price: '0',
+                  });
+                } catch (e) {
+                  setError('Failed to save course.');
+                } finally {
+                  setSavingCourse(false);
+                }
+              }}
+            >Save Course</Button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <input className="border rounded-lg px-3 py-2" placeholder="Title" value={courseForm.title} onChange={e=>setCourseForm(f=>({...f, title: e.target.value}))} />
+            <input className="border rounded-lg px-3 py-2" placeholder="Price" value={courseForm.price} onChange={e=>setCourseForm(f=>({...f, price: e.target.value}))} />
+            <textarea className="border rounded-lg px-3 py-2 md:col-span-2" placeholder="Description" value={courseForm.description} onChange={e=>setCourseForm(f=>({...f, description: e.target.value}))} />
+            <textarea className="border rounded-lg px-3 py-2" placeholder="Syllabus (optional)" value={courseForm.syllabus} onChange={e=>setCourseForm(f=>({...f, syllabus: e.target.value}))} />
+            <textarea className="border rounded-lg px-3 py-2" placeholder="Prerequisites (optional)" value={courseForm.prerequisites} onChange={e=>setCourseForm(f=>({...f, prerequisites: e.target.value}))} />
+            <select className="border rounded-lg px-3 py-2" value={courseForm.category} onChange={e=>setCourseForm(f=>({...f, category: e.target.value}))}>
+              {['QURAN','TAJWEED','ARABIC','TAFSIR','HIFZ','FIQH','AQEEDAH'].map(c=> <option key={c} value={c}>{c}</option>)}
+            </select>
+            <select className="border rounded-lg px-3 py-2" value={courseForm.level} onChange={e=>setCourseForm(f=>({...f, level: e.target.value}))}>
+              {['BEGINNER','INTERMEDIATE','ADVANCED'].map(l=> <option key={l} value={l}>{l}</option>)}
+            </select>
+            <select className="border rounded-lg px-3 py-2" value={courseForm.duration_type} onChange={e=>setCourseForm(f=>({...f, duration_type: e.target.value}))}>
+              {['FIXED','SUBSCRIPTION'].map(d=> <option key={d} value={d}>{d}</option>)}
+            </select>
+            <input className="border rounded-lg px-3 py-2" type="number" min={0} placeholder="Total weeks" value={courseForm.total_weeks} onChange={e=>setCourseForm(f=>({...f, total_weeks: Number(e.target.value)}))} />
+          </div>
+
+          <div className="space-y-3">
+            {courses.length === 0 ? (
+              <div className="text-secondary/60">No courses yet. Add one above.</div>
+            ) : (
+              <ul className="divide-y divide-neutral/60">
+                {courses.map(c => (
+                  <li key={c.id} className="py-3 flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+                    <div>
+                      <div className="font-semibold text-primary">{c.title}</div>
+                      <div className="text-secondary/70 text-sm">{c.category} • {c.level} • {c.duration_type}</div>
+                      <div className="text-xs text-secondary/60">{c.is_published ? 'Published' : 'Draft'}</div>
+                    </div>
+                    <div className="flex gap-2">
+                      {c.is_published ? (
+                        <Button
+                          variant="secondary"
+                          isLoading={publishing === c.slug}
+                          onClick={async ()=>{
+                            try {
+                              setPublishing(c.slug);
+                              await api.post(`/courses/${c.slug}/unpublish/`, {});
+                              const refreshed = await api.get<Course[]>('/courses/');
+                              setCourses(refreshed);
+                            } catch (e) {
+                              setError('Failed to unpublish course.');
+                            } finally {
+                              setPublishing(null);
+                            }
+                          }}
+                        >Unpublish</Button>
+                      ) : (
+                        <Button
+                          variant="primary"
+                          isLoading={publishing === c.slug}
+                          onClick={async ()=>{
+                            try {
+                              setPublishing(c.slug);
+                              await api.post(`/courses/${c.slug}/publish/`, {});
+                              const refreshed = await api.get<Course[]>('/courses/');
+                              setCourses(refreshed);
+                            } catch (e) {
+                              setError('Failed to publish course.');
+                            } finally {
+                              setPublishing(null);
+                            }
+                          }}
+                        >Publish</Button>
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </section>
+
         {/* Quick Actions */}
         <section className="bg-white rounded-xl border border-neutral p-6 shadow-sm">
           <h2 className="text-primary font-semibold mb-4">Quick Actions</h2>
           <div className="space-y-3">
-            <Button variant="primary" className="w-full">Create Course</Button>
+            <Button
+              variant="primary"
+              className="w-full"
+              onClick={()=>{
+                const el = document.getElementById('courses-section');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >Create Course</Button>
             <Button variant="secondary" className="w-full">Schedule Live Session</Button>
           </div>
         </section>
