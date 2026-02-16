@@ -1,29 +1,45 @@
+# syntax=docker/dockerfile:1
 
-# syntax=docker/dockerfile:1.6
-
-# 1) Install dependencies (cached)
-FROM node:22-alpine AS deps
+# 1) Base stage for common environment
+FROM node:22-alpine AS base
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
 WORKDIR /app
-COPY package.json package-lock.json ./
-RUN --mount=type=cache,target=/root/.npm \
-	npm ci --no-audit --progress=false --prefer-offline
 
-# 2) Build the app
-FROM node:22-alpine AS builder
-WORKDIR /app
+# 2) Install dependencies (cached)
+FROM base AS deps
+# Use bind mounts for package.json and package-lock.json, then generate pnpm-lock.yaml
+RUN --mount=type=bind,source=package.json,target=package.json \
+	--mount=type=bind,source=package-lock.json,target=package-lock.json \
+	--mount=type=cache,target=/pnpm/store \
+	# Check if pnpm-lock.yaml exists; if not, generate it from package-lock.json
+	if [ ! -f pnpm-lock.yaml ]; then pnpm import; fi && \
+	pnpm install --frozen-lockfile
+
+# 3) Build the app
+FROM base AS builder
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
-RUN npm run build
+ARG NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+ENV NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=$NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
 
-# 3) Runtime image
+# Use cache mount for Next.js build cache to speed up subsequent builds
+RUN --mount=type=cache,target=/app/.next/cache \
+	pnpm run build
+
+# 4) Runtime image
 FROM node:22-alpine AS runner
+LABEL app=risala_frontend
 WORKDIR /app
+
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN addgroup -g 1001 -S nodejs && adduser -S nextjs -u 1001
 
+# Automatically leverage standalone output (smaller image)
 COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static

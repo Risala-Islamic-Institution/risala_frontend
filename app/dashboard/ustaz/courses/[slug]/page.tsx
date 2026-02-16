@@ -3,7 +3,7 @@
 import React, { useEffect, useState, use } from 'react';
 import { api } from '@/lib/api';
 import { Button } from '@/components/ui/Button';
-import ModuleManager from '@/components/teacher/ModuleManager';
+import ModuleManager from '@/components/dashboard/teacher/ModuleManager';
 import CourseAnnouncements from '@/components/courses/CourseAnnouncements';
 import CourseQnA from '@/components/courses/CourseQnA';
 
