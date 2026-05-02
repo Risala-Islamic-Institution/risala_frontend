@@ -10,20 +10,17 @@ import AuthGuard from '@/components/AuthGuard';
 import { DashboardHeader } from '@/components/dashboard/DashboardHeader';
 import { TeacherProfile, Booking, NotificationItem, Course, Slot, UserProfile } from '@/types';
 
-// Components - Lazy Loaded for Performance
 const TeacherStats = dynamic(() => import('@/components/dashboard/teacher/TeacherStats').then(mod => mod.TeacherStats), {
-  loading: () => <div className="h-32 bg-neutral/5 rounded-2xl animate-pulse" />
+  loading: () => <div className="h-24 rounded-xl border border-border bg-muted animate-pulse" />
 });
 const BookingRequests = dynamic(() => import('@/components/dashboard/teacher/BookingRequests').then(mod => mod.BookingRequests));
 const ConfirmedSessions = dynamic(() => import('@/components/dashboard/teacher/ConfirmedSessions').then(mod => mod.ConfirmedSessions));
 const AvailabilityManager = dynamic(() => import('@/components/dashboard/teacher/AvailabilityManager').then(mod => mod.AvailabilityManager));
 const CourseManager = dynamic(() => import('@/components/dashboard/teacher/CourseManager').then(mod => mod.CourseManager));
 const TeacherProfileCard = dynamic(() => import('@/components/dashboard/teacher/TeacherProfileCard').then(mod => mod.TeacherProfileCard), {
-  loading: () => <div className="h-48 bg-primary/10 rounded-3xl animate-pulse mb-6" />
+  loading: () => <div className="h-44 rounded-xl border border-border bg-muted animate-pulse" />
 });
 const NotificationPanel = dynamic(() => import('@/components/dashboard/teacher/NotificationPanel').then(mod => mod.NotificationPanel));
-
-// ... imports remain ...
 
 export default function UstazDashboardPage() {
   const [loading, setLoading] = useState(true);
@@ -67,10 +64,15 @@ export default function UstazDashboardPage() {
 
   if (loading) return (
     <AuthGuard allowedRoles={['USTAZ']}>
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-12 h-12 rounded-full border-4 border-primary/20 border-t-primary animate-spin" />
-          <span className="text-secondary/60 text-sm font-medium tracking-wide">Loading dashboard...</span>
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="flex flex-col items-center gap-3" role="status" aria-live="polite">
+          <span aria-hidden className="relative inline-flex h-2.5 w-2.5">
+            <span className="absolute inset-0 rounded-full bg-primary animate-pulse-ring" />
+            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-primary" />
+          </span>
+          <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
+            Loading workspace
+          </p>
         </div>
       </div>
     </AuthGuard>
@@ -78,64 +80,77 @@ export default function UstazDashboardPage() {
 
   return (
     <AuthGuard allowedRoles={['USTAZ']}>
-      <div className="min-h-screen islamic-page-shell pb-20">
-        {/* ═══════ HEADER ═══════ */}
+      <div className="min-h-screen bg-background pb-16">
         <DashboardHeader
           profile={user}
           onLogout={handleLogout}
           userType="teacher"
         />
 
-        <div className="max-w-7xl mx-auto px-6 pt-4">
-          <section className="hero-lamp gold-shine rounded-3xl px-8 py-10 md:px-10 md:py-12 mb-6 animate-in fade-in slide-in-from-top-2 duration-500">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
-              <div className="md:col-span-2 space-y-4">
-                <p className="text-[11px] font-bold tracking-[0.2em] uppercase text-accent/90">Ustaz Command Center</p>
-                <h1 className="text-3xl md:text-4xl font-black text-white leading-tight">Teach with Presence, Lead with Wisdom</h1>
-                <p className="text-white/80 max-w-2xl">
-                  Manage requests, publish courses, and shape meaningful sessions in a bright and polished educator workspace.
-                </p>
-              </div>
-              <div className="grid grid-cols-2 gap-3 text-center">
-                <div className="rounded-2xl border border-white/15 bg-white/10 px-3 py-4">
-                  <p className="text-white text-2xl font-black">{requestBookings.length}</p>
-                  <p className="text-[10px] uppercase tracking-[0.18em] text-white/70 font-bold">Requests</p>
-                </div>
-                <div className="rounded-2xl border border-white/15 bg-white/10 px-3 py-4">
-                  <p className="text-white text-2xl font-black">{confirmedBookings.length}</p>
-                  <p className="text-[10px] uppercase tracking-[0.18em] text-white/70 font-bold">Sessions</p>
-                </div>
-              </div>
+        {/* Editorial intro */}
+        <section className="mx-auto w-full max-w-7xl px-4 pt-10 pb-6 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-end">
+            <div className="lg:col-span-8">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+                Ustaz workspace
+              </p>
+              <h1 className="mt-2 font-display text-3xl font-semibold leading-tight tracking-tight text-foreground sm:text-4xl text-balance">
+                Approve requests, manage availability, and shape your courses with calm authority.
+              </h1>
+              <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+                A focused command surface for verified Ustaz — disciplined scheduling, clear approvals, and a structured course studio.
+              </p>
             </div>
-          </section>
-        </div>
+            <dl className="grid grid-cols-2 gap-4 border-t border-border pt-4 lg:col-span-4 lg:grid-cols-3 lg:border-t-0 lg:pt-0">
+              <div>
+                <dt className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">Pending</dt>
+                <dd className="mt-1 font-display text-2xl font-semibold tabular-nums">{requestBookings.length}</dd>
+              </div>
+              <div>
+                <dt className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">Sessions</dt>
+                <dd className="mt-1 font-display text-2xl font-semibold tabular-nums">{confirmedBookings.length}</dd>
+              </div>
+              <div>
+                <dt className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">Courses</dt>
+                <dd className="mt-1 font-display text-2xl font-semibold tabular-nums">{courses.length}</dd>
+              </div>
+            </dl>
+          </div>
+        </section>
 
-        <main className="max-w-7xl mx-auto px-6 py-8 space-y-8">
+        <main className="mx-auto w-full max-w-7xl space-y-8 px-4 sm:px-6 lg:px-8">
           {error && (
-            <div className="p-4 bg-[#B5473F]/10 border border-[#B5473F]/20 rounded-2xl flex justify-between items-center cursor-pointer" onClick={() => setError('')}>
-              <span className="text-[#B5473F] text-sm font-medium">{error}</span>
+            <div
+              role="alert"
+              className="cursor-pointer rounded-md border border-[color:var(--error)]/25 bg-[color:var(--error)]/8 px-3.5 py-2.5 text-sm text-[color:var(--error)]"
+              onClick={() => setError('')}
+            >
+              {error}
             </div>
           )}
 
-          {/* ═══════ Stats ═══════ */}
-          <section className="glass-card rounded-3xl p-5 md:p-7">
-            <TeacherStats
-              requests={requestBookings.length}
-              confirmed={confirmedBookings.length}
-              courses={courses.length}
-              slots={availabilities.filter(a => a.is_active).length}
-            />
-          </section>
+          {/* Stats */}
+          <TeacherStats
+            requests={requestBookings.length}
+            confirmed={confirmedBookings.length}
+            courses={courses.length}
+            slots={availabilities.filter(a => a.is_active).length}
+          />
 
-          {/* ═══════ MAIN GRID ═══════ */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* ── Left Column ── */}
+          {/* MAIN GRID */}
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
             <div className="lg:col-span-2 space-y-8">
-              {/* Booking Requests */}
-              <section className="glass-card rounded-3xl p-5 md:p-7">
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-xl font-black text-secondary">Booking Requests</h2>
-                  <span className="text-[10px] font-bold tracking-[.15em] uppercase text-secondary/30">{requestBookings.length} Pending</span>
+              <section
+                className="rounded-xl border border-border bg-card p-5 shadow-card sm:p-6"
+                aria-labelledby="booking-requests-heading"
+              >
+                <div className="mb-4 flex items-center justify-between">
+                  <h2 id="booking-requests-heading" className="font-display text-lg font-semibold text-foreground">
+                    Booking requests
+                  </h2>
+                  <span className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+                    {requestBookings.length} pending
+                  </span>
                 </div>
                 <BookingRequests
                   bookings={requestBookings}
@@ -144,17 +159,22 @@ export default function UstazDashboardPage() {
                 />
               </section>
 
-              {/* Confirmed Sessions */}
-              <section className="glass-card rounded-3xl p-5 md:p-7">
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-xl font-black text-secondary">Upcoming Sessions</h2>
-                  <span className="text-[10px] font-bold tracking-[.15em] uppercase text-secondary/30">{confirmedBookings.length} Sessions</span>
+              <section
+                className="rounded-xl border border-border bg-card p-5 shadow-card sm:p-6"
+                aria-labelledby="upcoming-heading"
+              >
+                <div className="mb-4 flex items-center justify-between">
+                  <h2 id="upcoming-heading" className="font-display text-lg font-semibold text-foreground">
+                    Upcoming sessions
+                  </h2>
+                  <span className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+                    {confirmedBookings.length} sessions
+                  </span>
                 </div>
                 <ConfirmedSessions bookings={confirmedBookings} />
               </section>
 
-              {/* Availability */}
-              <section className="glass-card rounded-3xl p-5 md:p-7">
+              <section className="rounded-xl border border-border bg-card p-5 shadow-card sm:p-6">
                 <AvailabilityManager
                   slots={availabilities}
                   onChange={setAvailabilities}
@@ -162,8 +182,7 @@ export default function UstazDashboardPage() {
                 />
               </section>
 
-              {/* Courses */}
-              <section className="glass-card rounded-3xl p-5 md:p-7">
+              <section className="rounded-xl border border-border bg-card p-5 shadow-card sm:p-6">
                 <CourseManager
                   courses={courses}
                   onChange={setCourses}
@@ -172,30 +191,36 @@ export default function UstazDashboardPage() {
               </section>
             </div>
 
-            {/* ── Right Sidebar ── */}
-            <div className="space-y-6">
-              <section className="glass-card rounded-3xl p-5 md:p-6">
-                <TeacherProfileCard profile={profile} />
-              </section>
+            {/* Sidebar */}
+            <aside className="space-y-6">
+              <TeacherProfileCard profile={profile} />
 
-              <section className="glass-card rounded-3xl p-5 md:p-6">
-                <NotificationPanel
-                  notifications={notifications}
-                  onRead={async () => setNotifications(await api.get<NotificationItem[]>('/notifications/'))}
-                />
-              </section>
+              <NotificationPanel
+                notifications={notifications}
+                onRead={async () => setNotifications(await api.get<NotificationItem[]>('/notifications/'))}
+              />
 
-              {/* Quick Actions */}
-              <div className="hero-lamp rounded-2xl p-5 space-y-3 border border-accent/35">
-                <p className="text-accent text-[10px] font-bold tracking-[.15em] uppercase">Quick Actions</p>
-                <Button variant="primary" className="w-full rounded-xl" onClick={() => document.getElementById('courses-section')?.scrollIntoView({ behavior: 'smooth' })}>
-                  Create Course
-                </Button>
-                <Button variant="outline" className="w-full rounded-xl border-white/35 text-white hover:bg-white/10 hover:text-white">
-                  Schedule Live Session
-                </Button>
+              <div className="rounded-xl border border-border bg-card p-5 shadow-card">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
+                  Quick actions
+                </p>
+                <h3 className="mt-1 font-display text-base font-semibold text-foreground">
+                  Move your studio forward
+                </h3>
+                <div className="mt-4 space-y-2">
+                  <Button
+                    variant="primary"
+                    className="w-full"
+                    onClick={() => document.getElementById('courses-section')?.scrollIntoView({ behavior: 'smooth' })}
+                  >
+                    Create a course
+                  </Button>
+                  <Button variant="outline" className="w-full">
+                    Schedule a live session
+                  </Button>
+                </div>
               </div>
-            </div>
+            </aside>
           </div>
         </main>
       </div>

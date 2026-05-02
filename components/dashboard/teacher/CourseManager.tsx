@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Course } from '@/types';
 import { api } from '@/lib/api';
 import { Button } from '@/components/ui/Button';
+import { Badge } from '@/components/ui/Badge';
 
 interface CourseManagerProps {
     courses: Course[];
@@ -9,10 +10,21 @@ interface CourseManagerProps {
     onError: (msg: string) => void;
 }
 
+const CATEGORIES = ['QURAN', 'TAJWEED', 'ARABIC', 'TAFSIR', 'HIFZ', 'FIQH', 'AQEEDAH'] as const;
+const LEVELS = ['BEGINNER', 'INTERMEDIATE', 'ADVANCED'] as const;
+const DURATION_TYPES = ['FIXED', 'SUBSCRIPTION'] as const;
+
 export function CourseManager({ courses, onChange, onError }: CourseManagerProps) {
     const [courseForm, setCourseForm] = useState({
-        title: '', description: '', category: 'QURAN', level: 'BEGINNER',
-        duration_type: 'FIXED', total_weeks: 4, syllabus: '', prerequisites: '', price: '0',
+        title: '',
+        description: '',
+        category: 'QURAN',
+        level: 'BEGINNER',
+        duration_type: 'FIXED',
+        total_weeks: 4,
+        syllabus: '',
+        prerequisites: '',
+        price: '0',
     });
     const [saving, setSaving] = useState(false);
     const [publishing, setPublishing] = useState<string | null>(null);
@@ -26,7 +38,17 @@ export function CourseManager({ courses, onChange, onError }: CourseManagerProps
                 price: courseForm.price || '0',
             });
             onChange(await api.get<Course[]>('/courses/'));
-            setCourseForm({ title: '', description: '', category: 'QURAN', level: 'BEGINNER', duration_type: 'FIXED', total_weeks: 4, syllabus: '', prerequisites: '', price: '0' });
+            setCourseForm({
+                title: '',
+                description: '',
+                category: 'QURAN',
+                level: 'BEGINNER',
+                duration_type: 'FIXED',
+                total_weeks: 4,
+                syllabus: '',
+                prerequisites: '',
+                price: '0',
+            });
         } catch {
             onError('Failed to save course.');
         } finally {
@@ -46,107 +68,170 @@ export function CourseManager({ courses, onChange, onError }: CourseManagerProps
         }
     };
 
+    const inputCls =
+        'h-10 w-full rounded-md border border-border bg-card px-3 text-sm text-foreground placeholder:text-muted-foreground/70 focus-visible:border-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/30';
+    const textareaCls =
+        'block w-full rounded-md border border-border bg-card px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/70 focus-visible:border-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/30';
+
     return (
         <section id="courses-section">
-            <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xl font-black text-secondary">Courses</h2>
-                <span className="text-[10px] font-bold tracking-[.15em] uppercase text-secondary/35 border border-primary/15 px-2.5 py-1 rounded-full bg-white/80">{courses.length} Created</span>
+            <div className="mb-4 flex items-center justify-between">
+                <h2 className="font-display text-lg font-semibold text-foreground">Courses</h2>
+                <span className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+                    {courses.length} created
+                </span>
             </div>
 
             {/* Form */}
-            <div className="relative overflow-hidden bg-linear-to-br from-[#123b31] via-[#135147] to-[#10362e] border border-[#0E5A47]/50 ring-1 ring-accent/35 rounded-[1.6rem] p-5 mb-5 shadow-[0_24px_52px_rgba(10,43,34,0.36)]">
-                <div className="pointer-events-none absolute -top-12 -right-10 h-36 w-36 rounded-full bg-accent/20 blur-2xl" />
-                <div className="pointer-events-none absolute -bottom-10 -left-10 h-28 w-28 rounded-full bg-white/10 blur-2xl" />
-                <p className="relative text-[10px] font-black tracking-[.18em] uppercase text-[#F4E6B2]/85 mb-3">+ Create New Course</p>
+            <div className="mb-5 rounded-xl border border-border bg-muted/40 p-5">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-primary">
+                    New course
+                </p>
+                <h3 className="mt-1 font-display text-base font-semibold text-foreground">
+                    Create a new course
+                </h3>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3 relative">
+                <div className="mt-4 grid grid-cols-1 gap-3 md:grid-cols-2">
                     <input
-                        className="border border-white/20 rounded-xl px-3 py-2.5 text-sm bg-white/95 focus:outline-none focus:border-[#F4E6B2]"
+                        aria-label="Course title"
+                        className={inputCls}
                         placeholder="Course title"
                         value={courseForm.title}
-                        onChange={e => setCourseForm(f => ({ ...f, title: e.target.value }))}
+                        onChange={(e) => setCourseForm((f) => ({ ...f, title: e.target.value }))}
                     />
                     <input
-                        className="border border-white/20 rounded-xl px-3 py-2.5 text-sm bg-white/95 focus:outline-none focus:border-[#F4E6B2]"
+                        aria-label="Price in USD"
+                        className={inputCls}
                         placeholder="Price ($)"
                         value={courseForm.price}
-                        onChange={e => setCourseForm(f => ({ ...f, price: e.target.value }))}
+                        onChange={(e) => setCourseForm((f) => ({ ...f, price: e.target.value }))}
                     />
                     <textarea
-                        className="border border-white/20 rounded-xl px-3 py-2.5 text-sm bg-white/95 md:col-span-2 focus:outline-none focus:border-[#F4E6B2]"
+                        aria-label="Description"
+                        className={`${textareaCls} md:col-span-2`}
                         placeholder="Description"
                         rows={2}
                         value={courseForm.description}
-                        onChange={e => setCourseForm(f => ({ ...f, description: e.target.value }))}
+                        onChange={(e) => setCourseForm((f) => ({ ...f, description: e.target.value }))}
                     />
-                    <select className="border border-white/20 rounded-xl px-3 py-2.5 text-sm bg-white/95 focus:outline-none focus:border-[#F4E6B2]" value={courseForm.category} onChange={e => setCourseForm(f => ({ ...f, category: e.target.value }))}>
-                        {['QURAN', 'TAJWEED', 'ARABIC', 'TAFSIR', 'HIFZ', 'FIQH', 'AQEEDAH'].map(c => <option key={c} value={c}>{c}</option>)}
+                    <select
+                        aria-label="Category"
+                        className={inputCls}
+                        value={courseForm.category}
+                        onChange={(e) => setCourseForm((f) => ({ ...f, category: e.target.value }))}
+                    >
+                        {CATEGORIES.map((c) => (
+                            <option key={c} value={c}>
+                                {c}
+                            </option>
+                        ))}
                     </select>
-                    <select className="border border-white/20 rounded-xl px-3 py-2.5 text-sm bg-white/95 focus:outline-none focus:border-[#F4E6B2]" value={courseForm.level} onChange={e => setCourseForm(f => ({ ...f, level: e.target.value }))}>
-                        {['BEGINNER', 'INTERMEDIATE', 'ADVANCED'].map(l => <option key={l} value={l}>{l}</option>)}
+                    <select
+                        aria-label="Level"
+                        className={inputCls}
+                        value={courseForm.level}
+                        onChange={(e) => setCourseForm((f) => ({ ...f, level: e.target.value }))}
+                    >
+                        {LEVELS.map((l) => (
+                            <option key={l} value={l}>
+                                {l}
+                            </option>
+                        ))}
                     </select>
-                    <input
-                        className="border border-white/20 rounded-xl px-3 py-2.5 text-sm bg-white/95 focus:outline-none focus:border-[#F4E6B2]"
-                        placeholder="Duration type (e.g. FIXED)"
+                    <select
+                        aria-label="Duration type"
+                        className={inputCls}
                         value={courseForm.duration_type}
-                        onChange={e => setCourseForm(f => ({ ...f, duration_type: e.target.value }))}
-                    />
+                        onChange={(e) => setCourseForm((f) => ({ ...f, duration_type: e.target.value }))}
+                    >
+                        {DURATION_TYPES.map((d) => (
+                            <option key={d} value={d}>
+                                {d}
+                            </option>
+                        ))}
+                    </select>
                     <input
+                        aria-label="Total weeks"
                         type="number"
                         min={1}
-                        className="border border-white/20 rounded-xl px-3 py-2.5 text-sm bg-white/95 focus:outline-none focus:border-[#F4E6B2]"
+                        className={inputCls}
                         placeholder="Total weeks"
                         value={courseForm.total_weeks}
-                        onChange={e => setCourseForm(f => ({ ...f, total_weeks: Number(e.target.value || 0) }))}
+                        onChange={(e) =>
+                            setCourseForm((f) => ({ ...f, total_weeks: Number(e.target.value || 0) }))
+                        }
                     />
                     <textarea
-                        className="border border-white/20 rounded-xl px-3 py-2.5 text-sm bg-white/95 md:col-span-2 focus:outline-none focus:border-[#F4E6B2]"
+                        aria-label="Syllabus"
+                        className={`${textareaCls} md:col-span-2`}
                         placeholder="Syllabus"
                         rows={2}
                         value={courseForm.syllabus}
-                        onChange={e => setCourseForm(f => ({ ...f, syllabus: e.target.value }))}
+                        onChange={(e) => setCourseForm((f) => ({ ...f, syllabus: e.target.value }))}
                     />
                     <textarea
-                        className="border border-white/20 rounded-xl px-3 py-2.5 text-sm bg-white/95 md:col-span-2 focus:outline-none focus:border-[#F4E6B2]"
+                        aria-label="Prerequisites"
+                        className={`${textareaCls} md:col-span-2`}
                         placeholder="Prerequisites"
                         rows={2}
                         value={courseForm.prerequisites}
-                        onChange={e => setCourseForm(f => ({ ...f, prerequisites: e.target.value }))}
+                        onChange={(e) => setCourseForm((f) => ({ ...f, prerequisites: e.target.value }))}
                     />
                 </div>
-                <div className="flex justify-end relative">
-                    <Button variant="primary" className="rounded-xl shadow-lg shadow-primary/30" isLoading={saving} onClick={saveCourse}>Save Course</Button>
+                <div className="mt-4 flex justify-end">
+                    <Button variant="primary" isLoading={saving} onClick={saveCourse}>
+                        Save course
+                    </Button>
                 </div>
             </div>
 
             {/* List */}
-            <div className="space-y-3">
-                {courses.map(c => (
-                    <div key={c.id} className="relative overflow-hidden bg-linear-to-br from-white via-[#f9fcf7] to-[#f1f8ec] border border-primary/12 ring-1 ring-primary/10 rounded-[1.35rem] hover:shadow-[0_20px_40px_rgba(15,61,46,0.18)] transition-all">
-                        <div className="h-1 bg-linear-to-r from-primary via-primary/70 to-accent" />
-                        <div className="p-5 flex items-center justify-between gap-4">
-                            <div>
-                                <p className="font-black text-secondary tracking-[0.01em]">{c.title}</p>
-                                <div className="flex flex-wrap items-center gap-2 mt-2">
-                                    <span className="text-[10px] font-black tracking-[0.14em] uppercase text-accent border border-accent/30 bg-accent/10 rounded-full px-2.5 py-1">{c.category}</span>
-                                    <span className="text-[10px] font-black tracking-[0.14em] uppercase text-secondary/45 border border-primary/15 bg-white/70 rounded-full px-2.5 py-1">{c.level}</span>
-                                    <span className="text-[10px] font-black tracking-[0.14em] uppercase text-[#2F7D5A] border border-[#2F7D5A]/30 bg-[#2F7D5A]/10 rounded-full px-2.5 py-1">${c.price}</span>
+            {courses.length === 0 ? (
+                <div className="rounded-xl border border-dashed border-border bg-muted/30 p-8 text-center">
+                    <p className="font-display text-base font-semibold text-foreground">
+                        No courses yet
+                    </p>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                        Create your first course above. You can publish it once it&apos;s ready.
+                    </p>
+                </div>
+            ) : (
+                <ul className="space-y-2">
+                    {courses.map((c) => (
+                        <li
+                            key={c.id}
+                            className="rounded-xl border border-border bg-card p-4 shadow-card transition-shadow hover:shadow-elevated sm:p-5"
+                        >
+                            <div className="flex items-start justify-between gap-4">
+                                <div className="min-w-0 flex-1">
+                                    <h3 className="truncate font-display text-base font-semibold text-foreground">
+                                        {c.title}
+                                    </h3>
+                                    <div className="mt-2 flex flex-wrap gap-1.5">
+                                        <Badge variant="default" label={String(c.category)} />
+                                        <Badge variant="outline" label={String(c.level)} />
+                                        <Badge variant="success" label={`$${c.price}`} />
+                                    </div>
+                                </div>
+                                <div className="flex shrink-0 items-center gap-2">
+                                    <Badge
+                                        variant={c.is_published ? 'success' : 'ghost'}
+                                        label={c.is_published ? 'Published' : 'Draft'}
+                                    />
+                                    <Button
+                                        variant={c.is_published ? 'outline' : 'primary'}
+                                        size="sm"
+                                        isLoading={publishing === c.slug}
+                                        onClick={() => togglePublish(c)}
+                                    >
+                                        {c.is_published ? 'Unpublish' : 'Publish'}
+                                    </Button>
                                 </div>
                             </div>
-                            <div className="flex items-center gap-3">
-                                <span className={`text-[10px] font-black tracking-[0.14em] uppercase px-2.5 py-1 rounded-full border ${c.is_published ? 'bg-[#2F7D5A]/10 text-[#2F7D5A] border-[#2F7D5A]/30' : 'bg-neutral/20 text-secondary/40 border-neutral/30'}`}>
-                                    {c.is_published ? 'Published' : 'Draft'}
-                                </span>
-                                <Button variant={c.is_published ? 'outline' : 'primary'} size="sm" className="rounded-xl"
-                                    isLoading={publishing === c.slug}
-                                    onClick={() => togglePublish(c)}>
-                                    {c.is_published ? 'Unpublish' : 'Publish'}
-                                </Button>
-                            </div>
-                        </div>
-                    </div>
-                ))}
-            </div>
+                        </li>
+                    ))}
+                </ul>
+            )}
         </section>
     );
 }

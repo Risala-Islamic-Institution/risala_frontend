@@ -1,6 +1,5 @@
 import React from 'react';
 import { UserProfile, Booking } from '@/types';
-import { Card, CardBody } from '@/components/ui/Card';
 import { Avatar } from '@/components/ui/Avatar';
 
 interface ProfileViewProps {
@@ -13,45 +12,67 @@ export function ProfileView({ profile, bookings, activeCount }: ProfileViewProps
     if (!profile) return null;
 
     const confirmedCount = bookings.filter(b => b.status === 'CONFIRMED').length;
+    const name = profile.full_name || profile.username;
 
     return (
-        <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 max-w-2xl mx-auto">
-            <Card className="mb-6 border-primary/12 ring-1 ring-accent/20 bg-linear-to-b from-white to-[#f6f8f2] shadow-[0_14px_30px_rgba(15,61,46,0.10)]">
-                <CardBody className="p-8">
-                    <p className="text-[10px] uppercase tracking-[0.2em] text-primary/55 font-bold mb-5">Identity Canvas</p>
-                    <div className="flex items-center gap-6 mb-8">
-                        <Avatar name={profile.full_name || profile.username} size="xl" />
-                        <div>
-                            <h2 className="text-2xl font-black text-secondary">{profile.full_name || profile.username}</h2>
-                            <p className="text-secondary/55 capitalize font-medium">
-                                {profile.is_student ? 'Student Account' : 'User Account'}
-                            </p>
-                        </div>
+        <div className="mx-auto max-w-2xl space-y-6">
+            <section className="rounded-xl border border-border bg-card p-6 shadow-card">
+                <div className="flex items-center gap-4">
+                    <Avatar name={name} size="xl" />
+                    <div className="min-w-0">
+                        <h2 className="font-display text-xl font-semibold text-foreground">
+                            {name}
+                        </h2>
+                        <p className="text-sm text-muted-foreground">
+                            {profile.is_student ? 'Student account' : 'Risala account'}
+                        </p>
                     </div>
+                </div>
 
-                    <div className="grid grid-cols-2 gap-4 mb-8">
-                        <div className="p-4 bg-linear-to-br from-primary/10 to-primary/3 rounded-2xl text-center border border-primary/15">
-                            <div className="text-3xl font-black text-primary">{confirmedCount}</div>
-                            <div className="text-xs font-bold uppercase tracking-widest text-secondary/45">Confirmed Sessions</div>
-                        </div>
-                        <div className="p-4 bg-linear-to-br from-accent/20 to-accent/8 rounded-2xl text-center border border-accent/30">
-                            <div className="text-3xl font-black text-primary">{activeCount}</div>
-                            <div className="text-xs font-bold uppercase tracking-widest text-secondary/45">Active Requests</div>
-                        </div>
+                <dl className="mt-6 grid grid-cols-2 gap-3">
+                    <div className="rounded-md border border-border bg-muted/40 p-4">
+                        <dt className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+                            Confirmed sessions
+                        </dt>
+                        <dd className="mt-1 font-display text-2xl font-semibold tabular-nums text-foreground">
+                            {confirmedCount}
+                        </dd>
                     </div>
+                    <div className="rounded-md border border-border bg-muted/40 p-4">
+                        <dt className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+                            Active requests
+                        </dt>
+                        <dd className="mt-1 font-display text-2xl font-semibold tabular-nums text-foreground">
+                            {activeCount}
+                        </dd>
+                    </div>
+                </dl>
+            </section>
 
-                    <div className="space-y-4">
-                        <div className="p-4 border border-primary/12 bg-white/85 rounded-2xl">
-                            <div className="text-xs font-bold uppercase tracking-widest text-secondary/40 mb-1">Learning Goals</div>
-                            <div className="text-secondary text-sm leading-relaxed">{profile.learning_goals || 'Not set'}</div>
-                        </div>
-                        <div className="p-4 border border-primary/12 bg-white/85 rounded-2xl">
-                            <div className="text-xs font-bold uppercase tracking-widest text-secondary/40 mb-1">Email</div>
-                            <div className="text-secondary text-sm">{profile.email}</div>
-                        </div>
+            <section className="space-y-3">
+                <div className="rounded-xl border border-border bg-card p-5 shadow-card">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                        Learning goals
+                    </p>
+                    <p className="mt-2 text-sm leading-relaxed text-foreground">
+                        {profile.learning_goals || 'Not set yet — describe what you want to focus on next.'}
+                    </p>
+                </div>
+                <div className="rounded-xl border border-border bg-card p-5 shadow-card">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                        Email
+                    </p>
+                    <p className="mt-2 text-sm text-foreground">{profile.email}</p>
+                </div>
+                {profile.user_timezone ? (
+                    <div className="rounded-xl border border-border bg-card p-5 shadow-card">
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                            Timezone
+                        </p>
+                        <p className="mt-2 text-sm text-foreground">{profile.user_timezone}</p>
                     </div>
-                </CardBody>
-            </Card>
+                ) : null}
+            </section>
         </div>
     );
 }

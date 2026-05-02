@@ -12,7 +12,12 @@ interface AvailabilityManagerProps {
 }
 
 export function AvailabilityManager({ slots, onChange, onError }: AvailabilityManagerProps) {
-    const [form, setForm] = useState({ day_of_week: 1, start_time: '09:00', end_time: '11:00', timezone: 'UTC' });
+    const [form, setForm] = useState({
+        day_of_week: 1,
+        start_time: '09:00',
+        end_time: '11:00',
+        timezone: 'UTC',
+    });
     const [loading, setLoading] = useState(false);
 
     const toggleSlot = async (a: Slot) => {
@@ -35,72 +40,85 @@ export function AvailabilityManager({ slots, onChange, onError }: AvailabilityMa
             setLoading(true);
             await api.post('/availability/', form);
             onChange(await api.get<Slot[]>('/availability'));
-        } catch (e: any) {
-            onError(e?.message || 'Failed to add slot.');
+        } catch (e) {
+            const msg = e instanceof Error ? e.message : 'Failed to add slot.';
+            onError(msg);
         } finally {
             setLoading(false);
         }
     };
 
+    const inputCls =
+        'h-10 w-full rounded-md border border-border bg-card px-3 text-sm text-foreground focus-visible:border-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/30';
+
     return (
         <section>
-            <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xl font-black text-secondary">Availability</h2>
-                <span className="text-[10px] font-bold tracking-[.15em] uppercase text-secondary/35 border border-primary/15 px-2.5 py-1 rounded-full bg-white/75">
-                    {slots.filter((a) => a.is_active).length} Active
+            <div className="mb-4 flex items-center justify-between">
+                <h2 className="font-display text-lg font-semibold text-foreground">Availability</h2>
+                <span className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+                    {slots.filter((a) => a.is_active).length} active
                 </span>
             </div>
 
             {slots.length === 0 ? (
-                <div className="rounded-[2rem] border border-primary/15 bg-linear-to-br from-white via-[#f8fbf5] to-[#edf7e8] p-10 text-center mb-4 ring-1 ring-accent/20 shadow-[0_26px_60px_rgba(15,61,46,0.12)]">
-                    <div className="mx-auto mb-3 h-14 w-14 rounded-2xl border border-primary/20 bg-white/80 text-2xl text-primary flex items-center justify-center">◌</div>
-                    <p className="text-secondary/45 font-semibold">No availability configured</p>
-                    <p className="text-secondary/30 text-sm mt-1">Add your sacred teaching windows so students can request sessions.</p>
-                    <p className="text-[10px] uppercase tracking-[0.2em] text-primary/55 font-bold mt-4">Sacred Schedule</p>
+                <div className="mb-5 rounded-xl border border-dashed border-border bg-muted/30 p-8 text-center">
+                    <p className="font-display text-base font-semibold text-foreground">
+                        No availability configured
+                    </p>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                        Add your weekly teaching windows so students can request sessions.
+                    </p>
                 </div>
             ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-5">
+                <ul className="mb-5 grid grid-cols-1 gap-2 sm:grid-cols-2">
                     {slots.map((a) => (
-                        <div
+                        <li
                             key={a.id}
-                            className={`relative overflow-hidden flex items-center justify-between p-4 border rounded-[1.2rem] transition-all duration-200 ${a.is_active
-                                    ? 'bg-linear-to-br from-white via-[#f7fcf5] to-[#eef7e9] border-primary/18 hover:shadow-[0_16px_32px_rgba(15,61,46,0.14)] ring-1 ring-primary/10'
-                                    : 'bg-neutral/10 border-neutral/20 opacity-60'
-                                }`}
+                            className={`flex items-center justify-between rounded-md border p-3.5 transition-colors ${
+                                a.is_active
+                                    ? 'border-border bg-card hover:border-foreground/30'
+                                    : 'border-border bg-muted/40 opacity-70'
+                            }`}
                         >
-                            {a.is_active ? <div className="pointer-events-none absolute top-0 left-0 h-full w-1.5 bg-linear-to-b from-primary/70 to-primary/10" /> : null}
-                            <div>
-                                <p className={`text-sm font-black tracking-[0.01em] ${a.is_active ? 'text-secondary' : 'text-secondary/40'}`}>
+                            <div className="min-w-0">
+                                <p
+                                    className={`text-sm font-medium ${a.is_active ? 'text-foreground' : 'text-muted-foreground'}`}
+                                >
                                     {DAYS[a.day_of_week]}
                                 </p>
-                                <p className="text-xs text-secondary/45 mt-0.5">
+                                <p className="mt-0.5 text-xs tabular-nums text-muted-foreground">
                                     {a.start_time} – {a.end_time}
                                 </p>
-                                <p className="text-[10px] text-secondary/25 mt-0.5">{a.timezone}</p>
+                                <p className="mt-0.5 text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+                                    {a.timezone}
+                                </p>
                             </div>
                             <button
+                                type="button"
                                 title={a.is_active ? 'Deactivate' : 'Activate'}
-                                className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold transition-all duration-200 ${a.is_active
-                                        ? 'bg-[#2F7D5A]/15 text-[#2F7D5A] hover:bg-[#2F7D5A]/25 border border-[#2F7D5A]/25 shadow-[0_8px_18px_rgba(47,125,90,0.2)]'
-                                        : 'bg-neutral/20 text-secondary/30 hover:bg-neutral/30'
-                                    }`}
+                                aria-pressed={a.is_active}
                                 onClick={() => toggleSlot(a)}
+                                className={`inline-flex h-9 w-9 items-center justify-center rounded-md border text-sm font-medium transition-colors ${
+                                    a.is_active
+                                        ? 'border-[color:var(--success)]/30 bg-[color:var(--success)]/10 text-[color:var(--success)] hover:bg-[color:var(--success)]/15'
+                                        : 'border-border bg-card text-muted-foreground hover:bg-muted'
+                                }`}
                             >
                                 {a.is_active ? '✓' : '—'}
                             </button>
-                        </div>
+                        </li>
                     ))}
-                </div>
+                </ul>
             )}
 
-            {/* Add Slot Form */}
-            <div className="relative overflow-hidden bg-linear-to-br from-[#143f35] via-[#145346] to-[#10372f] border border-[#0E5A47]/50 ring-1 ring-accent/30 rounded-[1.4rem] p-5 shadow-[0_22px_46px_rgba(10,43,34,0.35)]">
-                <div className="pointer-events-none absolute -top-8 -right-8 h-24 w-24 rounded-full bg-accent/22 blur-2xl" />
-                <div className="pointer-events-none absolute bottom-0 left-0 h-1.5 w-full bg-linear-to-r from-transparent via-[#F4E6B2]/60 to-transparent" />
-                <p className="relative text-[10px] font-black tracking-[.18em] uppercase text-[#F4E6B2]/85 mb-3">+ Add New Slot</p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3">
+            <div className="rounded-xl border border-border bg-muted/40 p-4">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                    Add a new window
+                </p>
+                <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-5">
                     <select
-                        className="border border-white/20 rounded-xl px-3 py-2.5 text-sm bg-white/95 text-secondary focus:ring-2 focus:ring-[#F4E6B2]/40 focus:border-[#F4E6B2] outline-none"
+                        aria-label="Day of week"
+                        className={inputCls}
                         value={form.day_of_week}
                         onChange={(e) => setForm((f) => ({ ...f, day_of_week: parseInt(e.target.value) }))}
                     >
@@ -111,19 +129,22 @@ export function AvailabilityManager({ slots, onChange, onError }: AvailabilityMa
                         ))}
                     </select>
                     <input
+                        aria-label="Start time"
                         type="time"
-                        className="border border-white/20 rounded-xl px-3 py-2.5 text-sm bg-white/95 text-secondary focus:ring-2 focus:ring-[#F4E6B2]/40 focus:border-[#F4E6B2] outline-none"
+                        className={inputCls}
                         value={form.start_time}
                         onChange={(e) => setForm((f) => ({ ...f, start_time: e.target.value }))}
                     />
                     <input
+                        aria-label="End time"
                         type="time"
-                        className="border border-white/20 rounded-xl px-3 py-2.5 text-sm bg-white/95 text-secondary focus:ring-2 focus:ring-[#F4E6B2]/40 focus:border-[#F4E6B2] outline-none"
+                        className={inputCls}
                         value={form.end_time}
                         onChange={(e) => setForm((f) => ({ ...f, end_time: e.target.value }))}
                     />
                     <select
-                        className="border border-white/20 rounded-xl px-3 py-2.5 text-sm bg-white/95 text-secondary focus:ring-2 focus:ring-[#F4E6B2]/40 focus:border-[#F4E6B2] outline-none"
+                        aria-label="Timezone"
+                        className={inputCls}
                         value={form.timezone}
                         onChange={(e) => setForm((f) => ({ ...f, timezone: e.target.value }))}
                     >
@@ -135,8 +156,8 @@ export function AvailabilityManager({ slots, onChange, onError }: AvailabilityMa
                         <option value="America/New_York">America/New_York</option>
                         <option value="Asia/Kuala_Lumpur">Asia/Kuala_Lumpur</option>
                     </select>
-                    <Button variant="primary" className="rounded-xl w-full shadow-lg shadow-primary/25" onClick={addSlot} isLoading={loading}>
-                        Add
+                    <Button variant="primary" className="w-full" onClick={addSlot} isLoading={loading}>
+                        Add window
                     </Button>
                 </div>
             </div>

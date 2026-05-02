@@ -1,19 +1,11 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/Button';
+import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { api } from '@/lib/api';
 import { getToken, clearToken } from '@/lib/auth';
 
-interface UserProfile {
-    username: string;
-    name: string;
-    email: string;
-    role: string;
-}
-
 export default function DashboardPage() {
-    const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState('');
 
     useEffect(() => {
@@ -32,48 +24,48 @@ export default function DashboardPage() {
                 } else {
                     window.location.href = '/dashboard/student';
                 }
-            } catch (err) {
-                setError('Failed to load profile. Please login again.');
+            } catch {
+                setError('Failed to load profile. Please sign in again.');
                 clearToken();
-            } finally {
-                setIsLoading(false);
             }
         };
 
         fetchProfile();
     }, []);
 
-    const handleLogout = async () => {
-        try {
-            await api.post('/auth/logout/', {});
-        } catch (err) {
-            // Ignore logout errors
-        }
-        clearToken();
-        window.location.href = '/login';
-    };
-
-    if (isLoading) {
-        return (
-            <div className="min-h-screen flex items-center justify-center bg-background">
-                <div className="text-center">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
-                    <p className="mt-4 text-secondary">Loading your dashboard...</p>
-                </div>
-            </div>
-        );
-    }
-
     if (error) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-background">
-                <div className="text-center">
-                    <p className="text-error mb-4">{error || 'Please login to continue'}</p>
-                    <a href="/login" className="text-accent hover:underline">Go to Login</a>
+            <div className="min-h-screen flex items-center justify-center bg-background px-4">
+                <div className="max-w-sm text-center">
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--error)]">
+                        Session expired
+                    </p>
+                    <h1 className="mt-2 font-display text-2xl font-semibold text-foreground">
+                        We couldn&apos;t verify your session
+                    </h1>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{error}</p>
+                    <Link
+                        href="/login"
+                        className="mt-5 inline-flex items-center justify-center rounded-md bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground hover:bg-[#0b2e22]"
+                    >
+                        Go to sign in
+                    </Link>
                 </div>
             </div>
         );
     }
 
-    return null;
+    return (
+        <div className="min-h-screen flex items-center justify-center bg-background">
+            <div className="flex flex-col items-center gap-3" role="status" aria-live="polite">
+                <span aria-hidden className="relative inline-flex h-2.5 w-2.5">
+                    <span className="absolute inset-0 rounded-full bg-primary animate-pulse-ring" />
+                    <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-primary" />
+                </span>
+                <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
+                    Routing you to your dashboard
+                </p>
+            </div>
+        </div>
+    );
 }

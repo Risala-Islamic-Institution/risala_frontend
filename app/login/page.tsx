@@ -1,7 +1,10 @@
 "use client";
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
+import { BrandMark } from '@/components/brand-mark';
+import { GeometricPattern } from '@/components/geometric-pattern';
 import { api } from '@/lib/api';
 import { setToken, clearToken } from '@/lib/auth';
 
@@ -33,7 +36,7 @@ export default function LoginPage() {
             } else {
                 window.location.href = '/dashboard/student';
             }
-        } catch (err) {
+        } catch {
             setError('Invalid username or password.');
         } finally {
             setIsLoading(false);
@@ -41,58 +44,110 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-background">
-            <div className="w-full max-w-md p-8 bg-white rounded-xl shadow-lg border border-neutral">
-                <h1 className="text-3xl font-bold text-primary mb-6 text-center">Welcome Back</h1>
-                <p className="text-secondary/70 text-center mb-8">Sign in to continue your journey</p>
+        <div className="relative min-h-screen overflow-hidden">
+            {/* Backdrop */}
+            <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 -z-10"
+                style={{
+                    background:
+                        "radial-gradient(900px 500px at 85% -10%, color-mix(in oklab, #C6A75E 10%, transparent), transparent 60%), radial-gradient(700px 400px at -10% 0%, color-mix(in oklab, #0F3D2E 8%, transparent), transparent 60%)",
+                }}
+            />
+            <div aria-hidden className="absolute inset-0 -z-10 opacity-[0.3]">
+                <GeometricPattern />
+            </div>
 
-                {error && (
-                    <div className="mb-4 p-3 bg-error/10 text-error rounded-lg text-sm">
-                        {error}
-                    </div>
-                )}
+            <div className="mx-auto flex min-h-screen w-full max-w-md flex-col px-4 py-10 sm:px-6">
+                <div className="flex items-center justify-between">
+                    <Link href="/" aria-label="Risala home">
+                        <BrandMark />
+                    </Link>
+                    <Link
+                        href="/register"
+                        className="text-sm font-medium text-foreground/70 transition-colors hover:text-foreground"
+                    >
+                        Create account
+                    </Link>
+                </div>
 
-                <form onSubmit={handleSubmit} className="space-y-6">
-                    <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-secondary mb-2">
-                            Email
-                        </label>
-                        <input
-                            id="email"
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className="w-full px-4 py-3 rounded-lg border border-neutral focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors"
-                            placeholder="you@example.com"
-                            required
-                        />
-                    </div>
+                <div className="my-auto py-12">
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+                        Welcome back
+                    </p>
+                    <h1 className="mt-2 font-display text-3xl font-semibold leading-tight tracking-tight text-foreground sm:text-4xl">
+                        Sign in to continue
+                        <span className="block text-primary">your journey.</span>
+                    </h1>
+                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                        Bismillāh. Pick up where you left off — your bookings, lessons, and progress are waiting.
+                    </p>
 
-                    <div>
-                        <label htmlFor="password" className="block text-sm font-medium text-secondary mb-2">
-                            Password
-                        </label>
-                        <input
-                            id="password"
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="w-full px-4 py-3 rounded-lg border border-neutral focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors"
-                            placeholder="Enter your password"
-                            required
-                        />
-                    </div>
+                    {error && (
+                        <div
+                            role="alert"
+                            className="mt-6 rounded-md border border-[color:var(--error)]/25 bg-[color:var(--error)]/8 px-3.5 py-2.5 text-sm text-[color:var(--error)]"
+                        >
+                            {error}
+                        </div>
+                    )}
 
-                    <Button type="submit" variant="primary" size="lg" isLoading={isLoading} className="w-full">
-                        Sign In
-                    </Button>
-                </form>
+                    <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+                        <div>
+                            <label htmlFor="email" className="block text-sm font-medium text-foreground">
+                                Email
+                            </label>
+                            <input
+                                id="email"
+                                type="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                className="mt-1.5 block h-11 w-full rounded-md border border-border bg-card px-3.5 text-sm text-foreground placeholder:text-muted-foreground/70 focus-visible:border-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/30"
+                                placeholder="you@example.com"
+                                autoComplete="email"
+                                required
+                            />
+                        </div>
 
-                <p className="mt-6 text-center text-sm text-secondary/70">
-                    Don't have an account?{' '}
-                    <a href="/register" className="text-accent font-medium hover:underline">
-                        Create one
-                    </a>
+                        <div>
+                            <div className="flex items-center justify-between">
+                                <label htmlFor="password" className="block text-sm font-medium text-foreground">
+                                    Password
+                                </label>
+                                <Link
+                                    href="#"
+                                    className="text-xs font-medium text-primary hover:underline"
+                                >
+                                    Forgot?
+                                </Link>
+                            </div>
+                            <input
+                                id="password"
+                                type="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                className="mt-1.5 block h-11 w-full rounded-md border border-border bg-card px-3.5 text-sm text-foreground placeholder:text-muted-foreground/70 focus-visible:border-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/30"
+                                placeholder="Enter your password"
+                                autoComplete="current-password"
+                                required
+                            />
+                        </div>
+
+                        <Button type="submit" variant="primary" size="lg" isLoading={isLoading} className="w-full">
+                            Sign in
+                        </Button>
+                    </form>
+
+                    <p className="mt-6 text-center text-sm text-muted-foreground">
+                        New to Risala?{' '}
+                        <Link href="/register" className="font-medium text-primary hover:underline">
+                            Create an account
+                        </Link>
+                    </p>
+                </div>
+
+                <p className="text-center text-xs text-muted-foreground">
+                    Risala Islamic Knowledge & Skills PLC
                 </p>
             </div>
         </div>

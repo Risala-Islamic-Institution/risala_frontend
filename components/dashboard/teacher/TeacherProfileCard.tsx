@@ -1,25 +1,71 @@
 import React from 'react';
 import { TeacherProfile } from '@/types';
-import { Card, CardBody } from '@/components/ui/Card';
+import { Badge } from '@/components/ui/Badge';
+import { Verified } from '@/components/icons';
 
 export function TeacherProfileCard({ profile }: { profile: TeacherProfile | null }) {
+    const verified =
+        (profile?.verification_status || '').toString().toUpperCase() === 'VERIFIED';
+
     return (
-        <div className="hero-lamp rounded-3xl p-6 relative overflow-hidden shadow-xl shadow-primary/25 text-white mb-6 border border-accent/35">
-            <div className="absolute -right-6 -bottom-6 w-28 h-28 bg-accent/20 rounded-full blur-xl" />
-            <div className="absolute right-4 top-4 w-8 h-8 bg-accent/30 rounded-full blur-md" />
-            <div className="relative z-10">
-                <div className="w-14 h-14 rounded-2xl bg-accent/20 border-2 border-accent/30 flex items-center justify-center mb-4">
-                    <span className="text-accent font-black text-xl">U</span>
+        <section className="rounded-xl border border-border bg-card p-5 shadow-card">
+            <div className="flex items-start justify-between">
+                <div>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-primary">
+                        Ustaz profile
+                    </p>
+                    <h3 className="mt-1 font-display text-lg font-semibold text-foreground">
+                        {profile?.specialization || 'Your specialization'}
+                    </h3>
                 </div>
-                <p className="text-white/40 text-[10px] font-bold tracking-[.2em] uppercase">Teacher Profile</p>
-                <p className="text-white text-lg font-black mt-0.5">{profile?.specialization || 'Ustaz'}</p>
-                {profile?.hourly_rate && (
-                    <div className="mt-3 bg-white/10 backdrop-blur-sm rounded-xl p-3 border border-white/10">
-                        <p className="text-white/30 text-[10px] font-bold tracking-[.15em] uppercase">Hourly Rate</p>
-                        <p className="text-accent text-xl font-black mt-0.5">${profile.hourly_rate}</p>
+                {verified ? (
+                    <Verified className="h-5 w-5 shrink-0 text-accent" aria-label="Verified" />
+                ) : null}
+            </div>
+
+            {profile?.teaching_level ? (
+                <p className="mt-2 text-sm text-muted-foreground">
+                    {String(profile.teaching_level)}
+                    {profile.years_of_experience
+                        ? ` · ${profile.years_of_experience} years experience`
+                        : ''}
+                </p>
+            ) : null}
+
+            <div className="mt-4 grid grid-cols-2 gap-3">
+                {profile?.hourly_rate ? (
+                    <div className="rounded-md border border-border bg-muted/40 p-3">
+                        <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+                            Hourly rate
+                        </p>
+                        <p className="mt-1 font-display text-xl font-semibold tabular-nums text-foreground">
+                            ${profile.hourly_rate}
+                        </p>
                     </div>
+                ) : null}
+                {typeof profile?.total_students === 'number' ? (
+                    <div className="rounded-md border border-border bg-muted/40 p-3">
+                        <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+                            Students
+                        </p>
+                        <p className="mt-1 font-display text-xl font-semibold tabular-nums text-foreground">
+                            {profile.total_students}
+                        </p>
+                    </div>
+                ) : null}
+            </div>
+
+            <div className="mt-4 flex flex-wrap gap-1.5">
+                <Badge
+                    variant={verified ? 'success' : 'warning'}
+                    label={verified ? 'Verified' : 'Verification pending'}
+                />
+                {profile?.profile_visibility ? (
+                    <Badge variant="default" label="Visible to students" />
+                ) : (
+                    <Badge variant="ghost" label="Hidden from directory" />
                 )}
             </div>
-        </div>
+        </section>
     );
 }

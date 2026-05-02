@@ -8,32 +8,41 @@ interface CategoryFilterProps {
 }
 
 const CATEGORIES = [
-    { id: 'all', label: 'All Teachers' },
+    { id: 'all', label: 'All Ustaz' },
     { id: 'quran', label: 'Quran' },
-    { id: 'arabic', label: 'Arabic' },
-    { id: 'hadith', label: 'Hadith' },
-    { id: 'fiqh', label: 'Fiqh' },
     { id: 'tajweed', label: 'Tajweed' },
+    { id: 'arabic', label: 'Arabic' },
+    { id: 'tafsir', label: 'Tafsir' },
+    { id: 'hifz', label: 'Hifz' },
+    { id: 'fiqh', label: 'Fiqh' },
+    { id: 'aqeedah', label: 'Aqeedah' },
 ];
 
 export function CategoryFilter({ activeCategory, onCategoryChange }: CategoryFilterProps) {
     return (
-        <div className="glass-card rounded-2xl p-3 flex items-center gap-3 overflow-x-auto pb-1 scrollbar-hide">
-            {CATEGORIES.map(cat => (
-                <button
-                    key={cat.id}
-                    onClick={() => onCategoryChange(cat.id)}
-                    className={`
-                        px-5 py-2.5 rounded-xl text-sm font-bold whitespace-nowrap transition-all duration-300 border
-                        ${activeCategory === cat.id
-                            ? 'bg-primary text-white border-primary shadow-lg shadow-primary/25 scale-105'
-                            : 'bg-white/80 text-secondary/75 border-primary/10 hover:border-accent/40 hover:text-primary hover:bg-accent/10'
-                        }
-                    `}
-                >
-                    {cat.label}
-                </button>
-            ))}
+        <div
+            role="tablist"
+            aria-label="Filter by specialization"
+            className="flex items-center gap-2 overflow-x-auto no-scrollbar"
+        >
+            {CATEGORIES.map((cat) => {
+                const active = activeCategory === cat.id;
+                return (
+                    <button
+                        key={cat.id}
+                        role="tab"
+                        aria-selected={active}
+                        onClick={() => onCategoryChange(cat.id)}
+                        className={`whitespace-nowrap rounded-full border px-3.5 py-1.5 text-sm font-medium transition-colors ${
+                            active
+                                ? 'border-primary bg-primary text-primary-foreground'
+                                : 'border-border bg-card text-foreground/75 hover:border-foreground/30 hover:text-foreground'
+                        }`}
+                    >
+                        {cat.label}
+                    </button>
+                );
+            })}
         </div>
     );
 }

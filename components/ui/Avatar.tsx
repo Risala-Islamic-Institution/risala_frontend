@@ -8,25 +8,34 @@ interface AvatarProps {
 }
 
 const SIZES = {
-    sm: 'w-8 h-8 text-xs',
-    md: 'w-12 h-12 text-lg',
-    lg: 'w-16 h-16 text-2xl',
-    xl: 'w-24 h-24 text-4xl',
+    sm: 'h-8 w-8 text-xs',
+    md: 'h-10 w-10 text-sm',
+    lg: 'h-14 w-14 text-lg',
+    xl: 'h-20 w-20 text-2xl',
 };
 
 export function Avatar({ src, name, size = 'md', className = '' }: AvatarProps) {
     const initials = name
-        ? name.split(' ').map((n) => n[0]).join('').substring(0, 2).toUpperCase()
+        ? name
+              .split(' ')
+              .map((n) => n[0])
+              .filter(Boolean)
+              .join('')
+              .substring(0, 2)
+              .toUpperCase()
         : '?';
 
     return (
-        <div className={`relative rounded-full overflow-hidden flex items-center justify-center bg-white border-2 border-white shadow-md ${SIZES[size]} ${className}`}>
+        <div
+            className={`relative inline-flex items-center justify-center overflow-hidden rounded-full border border-border bg-muted ${SIZES[size]} ${className}`}
+        >
             {src ? (
-                <img src={src} alt={name} className="w-full h-full object-cover" />
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={src} alt={name} className="h-full w-full object-cover" />
             ) : (
-                <div className="w-full h-full bg-primary/10 flex items-center justify-center text-primary font-black">
+                <span className="font-display font-semibold text-primary">
                     {initials}
-                </div>
+                </span>
             )}
         </div>
     );

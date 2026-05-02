@@ -5,8 +5,8 @@ type StatusVariant = 'default' | 'success' | 'warning' | 'error' | 'outline' | '
 
 const STATUS_MAP: Record<string, { variant: StatusVariant; label: string }> = {
     REQUESTED: { variant: 'default', label: 'Requested' },
-    APPROVED: { variant: 'warning', label: 'Approved' },
-    RESERVED: { variant: 'default', label: 'Reserved' },
+    APPROVED: { variant: 'warning', label: 'Approved · pay' },
+    RESERVED: { variant: 'warning', label: 'Reserved' },
     CONFIRMED: { variant: 'success', label: 'Confirmed' },
     DECLINED: { variant: 'error', label: 'Declined' },
     CANCELLED: { variant: 'ghost', label: 'Cancelled' },

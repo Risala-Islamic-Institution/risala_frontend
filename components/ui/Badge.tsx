@@ -3,12 +3,18 @@ import React from 'react';
 type BadgeVariant = 'default' | 'success' | 'warning' | 'error' | 'outline' | 'ghost';
 
 const VARIANTS: Record<BadgeVariant, string> = {
-    default: 'bg-primary/10 text-primary',
-    success: 'bg-success/10 text-success',
-    warning: 'bg-warning/20 text-[#7A5A18]',
-    error: 'bg-error/10 text-error',
-    outline: 'border border-neutral/40 text-secondary/60',
-    ghost: 'bg-neutral/10 text-secondary/60',
+    default:
+        'bg-[color:var(--primary)]/10 text-primary border border-[color:var(--primary)]/15',
+    success:
+        'bg-[color:var(--success)]/10 text-[color:var(--success)] border border-[color:var(--success)]/20',
+    warning:
+        'bg-[color:var(--warning)]/15 text-[#8a6326] border border-[color:var(--warning)]/30',
+    error:
+        'bg-[color:var(--error)]/10 text-[color:var(--error)] border border-[color:var(--error)]/20',
+    outline:
+        'bg-card text-muted-foreground border border-border',
+    ghost:
+        'bg-muted text-muted-foreground border border-transparent',
 };
 
 interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
@@ -21,7 +27,10 @@ export function Badge({ variant = 'default', label, icon, className = '', ...pro
     const styles = VARIANTS[variant] || VARIANTS.default;
 
     return (
-        <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ${styles} ${className}`} {...props}>
+        <span
+            className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[11px] font-medium tracking-wide ${styles} ${className}`}
+            {...props}
+        >
             {icon}
             {label}
         </span>
