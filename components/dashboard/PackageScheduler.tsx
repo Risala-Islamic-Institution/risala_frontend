@@ -136,8 +136,22 @@ export const PackageScheduler: React.FC<PackageSchedulerProps> = ({ teacher, onS
                                             </p>
                                         </div>
                                         {isSelected ? (
-                                            <span aria-hidden className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[11px] font-medium text-primary-foreground">
-                                                ✓
+                                            <span
+                                                aria-hidden
+                                                className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-primary text-primary-foreground"
+                                            >
+                                                <svg
+                                                    width="11"
+                                                    height="11"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    strokeWidth="3"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                >
+                                                    <polyline points="20 6 9 17 4 12" />
+                                                </svg>
                                             </span>
                                         ) : null}
                                     </button>
