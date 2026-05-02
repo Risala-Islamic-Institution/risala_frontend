@@ -8,13 +8,9 @@ interface ProfileViewProps {
     activeCount: number;
 }
 
-type AnyUserProfile = UserProfile & {
-    user_timezone?: string;
-};
-
 export function ProfileView({ profile, bookings, activeCount }: ProfileViewProps) {
     if (!profile) return null;
-    const p = profile as AnyUserProfile;
+    const p = profile;
 
     const confirmedCount = bookings.filter((b) => b.status === 'CONFIRMED').length;
     const totalCount = bookings.length;
@@ -49,14 +45,6 @@ export function ProfileView({ profile, bookings, activeCount }: ProfileViewProps
                             </dt>
                             <dd className="truncate text-foreground">{p.email}</dd>
                         </div>
-                        {p.user_timezone ? (
-                            <div className="flex items-baseline justify-between gap-4 px-6 py-4">
-                                <dt className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
-                                    Timezone
-                                </dt>
-                                <dd className="truncate text-foreground">{p.user_timezone}</dd>
-                            </div>
-                        ) : null}
                         <div className="flex items-baseline justify-between gap-4 px-6 py-4">
                             <dt className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
                                 Account

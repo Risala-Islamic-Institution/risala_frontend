@@ -22,8 +22,6 @@ export function CourseManager({ courses, onChange, onError }: CourseManagerProps
         level: 'BEGINNER',
         duration_type: 'FIXED',
         total_weeks: 4,
-        syllabus: '',
-        prerequisites: '',
         price: '0',
     });
     const [saving, setSaving] = useState(false);
@@ -45,8 +43,6 @@ export function CourseManager({ courses, onChange, onError }: CourseManagerProps
                 level: 'BEGINNER',
                 duration_type: 'FIXED',
                 total_weeks: 4,
-                syllabus: '',
-                prerequisites: '',
                 price: '0',
             });
         } catch {
@@ -181,26 +177,6 @@ export function CourseManager({ courses, onChange, onError }: CourseManagerProps
                         placeholder="Price ($)"
                         value={courseForm.price}
                         onChange={(e) => setCourseForm((f) => ({ ...f, price: e.target.value }))}
-                    />
-                    <textarea
-                        aria-label="Syllabus"
-                        className={`${textareaCls} md:col-span-2`}
-                        placeholder="Syllabus — outline modules and topics"
-                        rows={2}
-                        value={courseForm.syllabus}
-                        onChange={(e) =>
-                            setCourseForm((f) => ({ ...f, syllabus: e.target.value }))
-                        }
-                    />
-                    <textarea
-                        aria-label="Prerequisites"
-                        className={`${textareaCls} md:col-span-2`}
-                        placeholder="Prerequisites — who is this course for?"
-                        rows={2}
-                        value={courseForm.prerequisites}
-                        onChange={(e) =>
-                            setCourseForm((f) => ({ ...f, prerequisites: e.target.value }))
-                        }
                     />
                 </div>
                 <div className="flex items-center justify-end gap-3 border-t border-border bg-muted/40 px-5 py-3">

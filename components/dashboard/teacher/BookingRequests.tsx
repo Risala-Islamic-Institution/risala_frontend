@@ -81,8 +81,7 @@ export function BookingRequests({ bookings, onChange, onError }: BookingRequests
                 const isPackage = key.startsWith('pkg_');
                 const b = group[0];
                 const orderId = b.order;
-                const studentName =
-                    (b as Booking & { student_name?: string }).student_name || 'Student';
+                const studentName = b.student_name || 'Student';
                 const start = new Date(b.start_at);
 
                 return (

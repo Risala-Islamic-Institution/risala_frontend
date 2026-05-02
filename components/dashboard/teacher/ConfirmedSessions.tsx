@@ -24,8 +24,7 @@ export function ConfirmedSessions({ bookings }: { bookings: Booking[] }) {
     return (
         <ul className="divide-y divide-border overflow-hidden rounded-2xl border border-border bg-card">
             {bookings.map((b, index) => {
-                const studentName =
-                    (b as Booking & { student_name?: string }).student_name || 'Student';
+                const studentName = b.student_name || 'Student';
                 const start = new Date(b.start_at);
                 return (
                     <li

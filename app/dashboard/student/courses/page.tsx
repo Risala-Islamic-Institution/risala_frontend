@@ -6,18 +6,7 @@ import { Button } from "@/components/ui/Button";
 import Link from "next/link";
 import { BrandMark } from "@/components/brand-mark";
 import { ArrowRight, ArrowUpRight, BookOpen } from "@/components/icons";
-
-interface Course {
-    id: string;
-    title: string;
-    slug: string;
-    description: string;
-    category: string;
-    level: string;
-    price: string;
-    total_weeks?: number;
-    created_by?: { full_name?: string; username?: string };
-}
+import { Course } from "@/types";
 
 interface Enrollment {
     id: string;
@@ -296,11 +285,6 @@ export default function StudentCoursesPage() {
                                             <h3 className="mt-4 font-display text-xl font-semibold leading-tight tracking-tight text-foreground">
                                                 {c.title}
                                             </h3>
-                                            {c.created_by ? (
-                                                <p className="mt-1 text-xs text-muted-foreground">
-                                                    By {c.created_by.full_name || c.created_by.username || "Teacher"}
-                                                </p>
-                                            ) : null}
                                         </div>
 
                                         <div className="flex flex-1 flex-col gap-4 p-5">
