@@ -4,9 +4,9 @@ import { Card, CardBody } from '@/components/ui/Card';
 
 export function TeacherProfileCard({ profile }: { profile: TeacherProfile | null }) {
     return (
-        <div className="bg-primary rounded-3xl p-6 relative overflow-hidden shadow-xl shadow-primary/25 text-white mb-6">
-            <div className="absolute -right-6 -bottom-6 w-28 h-28 bg-accent/15 rounded-full blur-xl" />
-            <div className="absolute right-4 top-4 w-8 h-8 bg-accent/20 rounded-full blur-md" />
+        <div className="hero-lamp rounded-3xl p-6 relative overflow-hidden shadow-xl shadow-primary/25 text-white mb-6 border border-accent/35">
+            <div className="absolute -right-6 -bottom-6 w-28 h-28 bg-accent/20 rounded-full blur-xl" />
+            <div className="absolute right-4 top-4 w-8 h-8 bg-accent/30 rounded-full blur-md" />
             <div className="relative z-10">
                 <div className="w-14 h-14 rounded-2xl bg-accent/20 border-2 border-accent/30 flex items-center justify-center mb-4">
                     <span className="text-accent font-black text-xl">U</span>

@@ -3,17 +3,13 @@
 import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { api } from '@/lib/api';
-import { clearToken, getToken } from '@/lib/auth';
+import { clearToken } from '@/lib/auth';
 import { UserProfile, Booking, Teacher, Availability } from '@/types';
-import { useAuth } from '@/hooks/useAuth';
-import { useFetch } from '@/hooks/useFetch';
 
 // UI Components
 import { DashboardHeader } from '@/components/dashboard/DashboardHeader';
 import { CategoryFilter } from '@/components/dashboard/CategoryFilter';
 import { Button } from '@/components/ui/Button';
-import { Badge } from '@/components/ui/Badge';
-import { Avatar } from '@/components/ui/Avatar';
 import AuthGuard from '@/components/AuthGuard';
 
 // Lazy Loaded Components
@@ -98,7 +94,10 @@ export default function StudentDashboardPage() {
       setBookingTeacher(null);
       setBookings(await api.get<Booking[]>('/bookings/'));
       setActiveTab('learning'); // Auto-switch to learning
-    } catch (err: any) { setError(err?.message || 'Failed to request session.'); }
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Failed to request session.';
+      setError(message);
+    }
     finally { setSubmitting(false); }
   };
 
@@ -113,8 +112,9 @@ export default function StudentDashboardPage() {
       } else {
         setError('Could not get checkout URL from server.');
       }
-    } catch (err: any) {
-      setError(err?.message || 'Payment failed.');
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Payment failed.';
+      setError(message);
     }
     setPayingId(null);
   };
@@ -164,7 +164,7 @@ export default function StudentDashboardPage() {
 
   return (
     <AuthGuard allowedRoles={['STUDENT']}>
-      <div className="min-h-screen bg-background pb-20">
+      <div className="min-h-screen islamic-page-shell pb-20">
         {/* 1. New Dashboard Header */}
         <DashboardHeader
           profile={profile}
@@ -189,7 +189,29 @@ export default function StudentDashboardPage() {
           </div>
         )}
 
-        <div className="pt-2"></div>
+        <div className="max-w-7xl mx-auto px-6 pt-4">
+          <section className="hero-lamp gold-shine rounded-3xl px-8 py-10 md:px-10 md:py-12 mb-6 animate-in fade-in slide-in-from-top-2 duration-500">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
+              <div className="md:col-span-2 space-y-4">
+                <p className="text-[11px] font-bold tracking-[0.2em] uppercase text-accent/90">Student Sanctuary</p>
+                <h1 className="text-3xl md:text-4xl font-black text-white leading-tight">Learn with Focus, Grow with Barakah</h1>
+                <p className="text-white/80 max-w-2xl">
+                  Discover trusted teachers, request sessions, and follow your learning rhythm in a calm and inspiring Islamic environment.
+                </p>
+              </div>
+              <div className="grid grid-cols-2 gap-3 text-center">
+                <div className="rounded-2xl border border-white/15 bg-white/10 px-3 py-4">
+                  <p className="text-white text-2xl font-black">{teachers.length}</p>
+                  <p className="text-[10px] uppercase tracking-[0.18em] text-white/70 font-bold">Teachers</p>
+                </div>
+                <div className="rounded-2xl border border-white/15 bg-white/10 px-3 py-4">
+                  <p className="text-white text-2xl font-black">{activeBookings.length}</p>
+                  <p className="text-[10px] uppercase tracking-[0.18em] text-white/70 font-bold">Active</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
 
         {/* 3. Main Content */}
         <main className="max-w-7xl mx-auto px-6">
@@ -207,28 +229,52 @@ export default function StudentDashboardPage() {
 
           {/* View Switching */}
           {activeTab === 'browse' && (
-            <TeacherGrid
-              teachers={teachers}
-              onBook={handleRequestSession}
-              onPackage={(t) => { setSelectedTeacher(t); setShowPackageScheduler(true); }}
-            />
+            <section className="glass-card rounded-3xl p-5 md:p-7 animate-in fade-in slide-in-from-bottom-3 duration-500">
+              <div className="mb-5 flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+                <div>
+                  <h2 className="text-2xl font-black text-secondary">Browse Teachers</h2>
+                  <p className="text-secondary/65">Choose a mentor aligned with your goals and schedule.</p>
+                </div>
+                <span className="text-[11px] uppercase tracking-[0.2em] font-bold text-primary/70">Guided Matching</span>
+              </div>
+              <TeacherGrid
+                teachers={teachers}
+                onBook={handleRequestSession}
+                onPackage={(t) => { setSelectedTeacher(t); setShowPackageScheduler(true); }}
+              />
+            </section>
           )}
 
           {activeTab === 'learning' && (
-            <BookingList
-              bookings={activeBookings}
-              payingId={payingId}
-              onPay={handlePayWrapper}
-              onBrowse={() => setActiveTab('browse')}
-            />
+            <section className="glass-card rounded-3xl p-5 md:p-7 animate-in fade-in slide-in-from-bottom-3 duration-500">
+              <div className="mb-5 flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+                <div>
+                  <h2 className="text-2xl font-black text-secondary">My Learning Journey</h2>
+                  <p className="text-secondary/65">Track session requests, approvals, and upcoming lessons.</p>
+                </div>
+                <span className="text-[11px] uppercase tracking-[0.2em] font-bold text-primary/70">Progress Stream</span>
+              </div>
+              <BookingList
+                bookings={activeBookings}
+                payingId={payingId}
+                onPay={handlePayWrapper}
+                onBrowse={() => setActiveTab('browse')}
+              />
+            </section>
           )}
 
           {activeTab === 'profile' && (
-            <ProfileView
-              profile={profile}
-              bookings={bookings}
-              activeCount={activeBookings.length}
-            />
+            <section className="glass-card rounded-3xl p-5 md:p-7 animate-in fade-in slide-in-from-bottom-3 duration-500">
+              <div className="mb-5">
+                <h2 className="text-2xl font-black text-secondary">Profile & Learning Identity</h2>
+                <p className="text-secondary/65">Keep your goals and account details up to date.</p>
+              </div>
+              <ProfileView
+                profile={profile}
+                bookings={bookings}
+                activeCount={activeBookings.length}
+              />
+            </section>
           )}
         </main>
 

@@ -1,5 +1,18 @@
 import type { Metadata } from "next";
+import { Cairo, Sora } from "next/font/google";
 import "./globals.css";
+
+const sora = Sora({
+  subsets: ["latin"],
+  variable: "--font-sora",
+  display: "swap",
+});
+
+const cairo = Cairo({
+  subsets: ["latin"],
+  variable: "--font-cairo",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: {
@@ -34,7 +47,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">
+      <body className={`${sora.variable} ${cairo.variable} antialiased`}>
         {children}
       </body>
     </html>

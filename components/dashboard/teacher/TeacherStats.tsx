@@ -9,10 +9,10 @@ interface StatProps {
 
 export function TeacherStats({ requests, confirmed, courses, slots }: StatProps) {
     const stats = [
-        { label: 'Requests', value: requests, color: 'text-blue-600' },
-        { label: 'Confirmed', value: confirmed, color: 'text-[#2F7D5A]' },
-        { label: 'Courses', value: courses, color: 'text-primary' },
-        { label: 'Slots', value: slots, color: 'text-accent' },
+        { label: 'Requests', value: requests, tone: 'from-[#163f33] to-[#255846]', chip: 'text-accent' },
+        { label: 'Confirmed', value: confirmed, tone: 'from-[#0f3d2e] to-[#2F7D5A]', chip: 'text-accent' },
+        { label: 'Courses', value: courses, tone: 'from-[#1C1F26] to-[#2a2f3a]', chip: 'text-accent' },
+        { label: 'Slots', value: slots, tone: 'from-[#6f5a2c] to-[#8e7236]', chip: 'text-white' },
     ];
 
     return (
@@ -20,10 +20,10 @@ export function TeacherStats({ requests, confirmed, courses, slots }: StatProps)
             {stats.map((s) => (
                 <div
                     key={s.label}
-                    className="bg-white border border-neutral/30 rounded-2xl p-5 text-center hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
+                    className={`rounded-2xl p-5 text-center border border-white/15 bg-gradient-to-br ${s.tone} shadow-[0_12px_26px_rgba(15,61,46,0.18)] hover:shadow-[0_18px_34px_rgba(15,61,46,0.28)] transition-all duration-300`}
                 >
-                    <p className={`text-3xl font-black ${s.color}`}>{s.value}</p>
-                    <p className="text-[10px] font-bold tracking-[.15em] uppercase text-secondary/30 mt-1">
+                    <p className="text-3xl font-black text-white">{s.value}</p>
+                    <p className={`text-[10px] font-bold tracking-[.15em] uppercase mt-1 ${s.chip}`}>
                         {s.label}
                     </p>
                 </div>

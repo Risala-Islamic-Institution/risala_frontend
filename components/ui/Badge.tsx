@@ -5,7 +5,7 @@ type BadgeVariant = 'default' | 'success' | 'warning' | 'error' | 'outline' | 'g
 const VARIANTS: Record<BadgeVariant, string> = {
     default: 'bg-primary/10 text-primary',
     success: 'bg-success/10 text-success',
-    warning: 'bg-warning/15 text-warning-dark', // adjusting for contrast if needed
+    warning: 'bg-warning/20 text-[#7A5A18]',
     error: 'bg-error/10 text-error',
     outline: 'border border-neutral/40 text-secondary/60',
     ghost: 'bg-neutral/10 text-secondary/60',

@@ -1,13 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --background: #F7F8F5; /* Warm Pearl White */
-  --foreground: #1C1F26; /* Midnight Charcoal Blue */
-  --primary: #0F3D2E;    /* Deep Emerald Serenity */
-  --secondary: #1C1F26;  /* Midnight Charcoal Blue */
-  --accent: #C6A75E;     /* Soft Luminous Gold */
-  --neutral: #D6D2C4;    /* Sandstone Grey */
-  
+  --background: #F7F8F5;
+  --foreground: #1C1F26;
+  --primary: #0F3D2E;
+  --primary-ink: #0A2B21;
+  --secondary: #1C1F26;
+  --accent: #C6A75E;
+  --neutral: #D6D2C4;
+  --card: #FCFCF9;
+
   --success: #2F7D5A;
   --warning: #E6B566;
   --error: #B5473F;
@@ -20,17 +22,84 @@
   --color-secondary: var(--secondary);
   --color-accent: var(--accent);
   --color-neutral: var(--neutral);
+  --color-card: var(--card);
   --color-success: var(--success);
   --color-warning: var(--warning);
   --color-error: var(--error);
-  
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  --font-sans: var(--font-sora);
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 body {
-  background: var(--background);
+  background:
+    radial-gradient(1200px 600px at -10% -10%, rgba(198, 167, 94, 0.20), transparent 55%),
+    radial-gradient(1200px 700px at 110% -20%, rgba(15, 61, 46, 0.14), transparent 60%),
+    linear-gradient(180deg, #fbfcf8 0%, var(--background) 35%, #f2f5ef 100%);
   color: var(--foreground);
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), "Segoe UI", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-cairo), var(--font-sans), sans-serif;
+}
+
+.islamic-page-shell {
+  position: relative;
+}
+
+.islamic-page-shell::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.28;
+  background-image:
+    linear-gradient(30deg, rgba(15, 61, 46, 0.03) 12%, transparent 12.5%, transparent 87%, rgba(15, 61, 46, 0.03) 87.5%, rgba(15, 61, 46, 0.03)),
+    linear-gradient(150deg, rgba(15, 61, 46, 0.03) 12%, transparent 12.5%, transparent 87%, rgba(15, 61, 46, 0.03) 87.5%, rgba(15, 61, 46, 0.03)),
+    linear-gradient(90deg, rgba(198, 167, 94, 0.04) 2%, transparent 2.5%, transparent 97%, rgba(198, 167, 94, 0.04) 98%);
+  background-size: 56px 98px;
+}
+
+.hero-lamp {
+  background:
+    radial-gradient(circle at 22% 20%, rgba(198, 167, 94, 0.20), transparent 45%),
+    radial-gradient(circle at 80% 30%, rgba(15, 61, 46, 0.22), transparent 55%),
+    linear-gradient(120deg, #103e30 0%, #154e3d 45%, #103528 100%);
+  border: 1px solid rgba(198, 167, 94, 0.30);
+  box-shadow: 0 26px 60px rgba(16, 54, 41, 0.22);
+}
+
+.glass-card {
+  background: linear-gradient(180deg, rgba(252, 252, 249, 0.95) 0%, rgba(247, 248, 245, 0.86) 100%);
+  border: 1px solid rgba(15, 61, 46, 0.12);
+  box-shadow: 0 12px 35px rgba(20, 34, 28, 0.08);
+}
+
+.gold-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.gold-shine::after {
+  content: "";
+  position: absolute;
+  inset: -30% auto -30% -45%;
+  width: 40%;
+  transform: rotate(20deg);
+  background: linear-gradient(90deg, transparent, rgba(230, 181, 102, 0.30), transparent);
+  animation: risala-shine 6.5s ease-in-out infinite;
+}
+
+@keyframes risala-shine {
+  0%, 65% {
+    left: -45%;
+  }
+  100% {
+    left: 120%;
+  }
 }
 

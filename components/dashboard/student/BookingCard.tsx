@@ -21,12 +21,12 @@ export function BookingCard({ bookings, isPackage, onPay, isPaying }: BookingCar
         !['CONFIRMED', 'PAID'].includes(status);
 
     return (
-        <div className="bg-white border border-neutral/50 rounded-2xl p-6 hover:shadow-lg transition-all duration-300 group">
+        <div className="bg-white border border-primary/10 rounded-2xl p-6 hover:shadow-[0_16px_32px_rgba(15,61,46,0.12)] transition-all duration-300 group">
             <div className="flex justify-between items-start">
                 <div>
                     <div className="flex items-center gap-3 mb-2">
                         {isPackage && (
-                            <span className="text-[10px] font-bold bg-primary/10 text-primary px-2 py-1 rounded tracking-wider uppercase">
+                            <span className="text-[10px] font-bold bg-accent/20 text-primary px-2 py-1 rounded tracking-wider uppercase border border-accent/40">
                                 Package
                             </span>
                         )}
@@ -51,7 +51,7 @@ export function BookingCard({ bookings, isPackage, onPay, isPaying }: BookingCar
                     <Button
                         variant="accent"
                         size="sm"
-                        className="rounded-xl shadow-lg shadow-accent/20"
+                        className="rounded-xl shadow-lg shadow-accent/30"
                         isLoading={isPaying}
                         onClick={() => onPay(isPackage ? orderId! : mainBooking.id, isPackage)}
                     >
@@ -64,7 +64,7 @@ export function BookingCard({ bookings, isPackage, onPay, isPaying }: BookingCar
                 {bookings.map((sb) => (
                     <div
                         key={sb.id}
-                        className="flex items-center gap-2 bg-neutral/5 border border-neutral/10 px-3 py-2 rounded-lg"
+                        className="flex items-center gap-2 bg-white border border-primary/10 px-3 py-2 rounded-lg"
                     >
                         <StatusBadge status={sb.status} />
                         <span className="text-xs font-mono text-secondary/60">

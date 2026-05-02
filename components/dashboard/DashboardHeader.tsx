@@ -19,24 +19,28 @@ export function DashboardHeader({ profile, activeTab, onTabChange, tabs, onLogou
     const router = useRouter();
 
     return (
-        <header className="sticky top-0 z-40 w-full backdrop-blur-xl bg-background/80 border-b border-neutral/5 transition-all duration-300">
-            <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <header className="sticky top-0 z-40 w-full border-b border-primary/10 bg-background/75 backdrop-blur-xl transition-all duration-300">
+            <div className="max-w-7xl mx-auto px-6 py-3">
+                <div className="hero-lamp gold-shine rounded-2xl px-5 py-3 flex items-center justify-between">
                 {/* 1. Logo & Brand */}
                 <div className="flex items-center gap-8">
                     <div className="flex items-center gap-3 cursor-pointer group" onClick={() => router.push('/')}>
-                        <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/20 group-hover:scale-105 transition-transform duration-300">
+                        <div className="w-11 h-11 rounded-xl bg-linear-to-br from-accent/85 via-accent to-[#e6b566] flex items-center justify-center shadow-xl shadow-accent/40 group-hover:scale-105 transition-transform duration-300">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M2 17L12 22L22 17" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M2 12L12 17L22 12" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#0F3D2E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                <path d="M2 17L12 22L22 17" stroke="#0F3D2E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                <path d="M2 12L12 17L22 12" stroke="#0F3D2E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                         </div>
-                        <span className="text-xl font-black text-primary tracking-tight">RISALA</span>
+                        <div>
+                            <span className="text-xl leading-none font-black text-white tracking-[0.12em]">RISALA</span>
+                            <p className="text-[10px] tracking-[0.22em] uppercase font-bold text-accent/90">Knowledge with Noor</p>
+                        </div>
                     </div>
 
                     {/* 2. Main Navigation (Desktop) */}
                     {tabs && onTabChange && (
-                        <nav className="hidden md:flex items-center gap-1 bg-neutral/5 p-1 rounded-xl">
+                        <nav className="hidden md:flex items-center gap-1 bg-white/10 border border-white/15 p-1 rounded-xl">
                             {tabs.map(tab => (
                                 <button
                                     key={tab.id}
@@ -44,8 +48,8 @@ export function DashboardHeader({ profile, activeTab, onTabChange, tabs, onLogou
                                     className={`
                                         px-4 py-2 text-sm font-bold rounded-lg transition-all duration-300
                                         ${activeTab === tab.id
-                                            ? 'bg-white text-primary shadow-sm'
-                                            : 'text-secondary/50 hover:text-secondary hover:bg-neutral/5'
+                                            ? 'bg-white text-primary shadow-sm shadow-black/10'
+                                            : 'text-white/80 hover:text-white hover:bg-white/10'
                                         }
                                     `}
                                 >
@@ -59,12 +63,12 @@ export function DashboardHeader({ profile, activeTab, onTabChange, tabs, onLogou
                 {/* 3. User Actions */}
                 <div className="flex items-center gap-4">
                     <div className="hidden md:flex flex-col items-end mr-2">
-                        <span className="text-sm font-bold text-secondary">{profile?.full_name || 'User'}</span>
-                        <span className="text-[10px] uppercase tracking-wider text-secondary/40 font-bold">{userType}</span>
+                        <span className="text-sm font-bold text-white">{profile?.full_name || 'User'}</span>
+                        <span className="text-[10px] uppercase tracking-[0.16em] text-accent/95 font-bold">{userType}</span>
                     </div>
 
-                    <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-primary to-primary/80 p-[2px] shadow-lg shadow-primary/10">
-                        <div className="h-full w-full rounded-[10px] bg-white overflow-hidden">
+                    <div className="h-10 w-10 rounded-xl bg-linear-to-br from-accent/85 to-accent p-0.5 shadow-lg shadow-accent/30">
+                        <div className="h-full w-full rounded-[10px] bg-white/95 overflow-hidden">
                             {/* Placeholder Avatar if no image, implemented simply here or use Avatar component */}
                             {profile?.profile_picture ? (
                                 <img src={profile.profile_picture} alt="Profile" className="h-full w-full object-cover" />
@@ -78,7 +82,7 @@ export function DashboardHeader({ profile, activeTab, onTabChange, tabs, onLogou
 
                     <button
                         onClick={onLogout}
-                        className="p-2 text-secondary/30 hover:text-error hover:bg-error/5 rounded-xl transition-colors"
+                        className="p-2 text-white/65 hover:text-white hover:bg-white/10 rounded-xl transition-colors"
                         title="Sign Out"
                     >
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -88,6 +92,7 @@ export function DashboardHeader({ profile, activeTab, onTabChange, tabs, onLogou
                         </svg>
                     </button>
                 </div>
+            </div>
             </div>
         </header>
     );
