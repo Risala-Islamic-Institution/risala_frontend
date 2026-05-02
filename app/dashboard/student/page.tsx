@@ -182,29 +182,44 @@ export default function StudentDashboardPage() {
           userType="student"
         />
 
-        {/* Dashboard hero — slim, utility-first */}
-        <section className="mx-auto w-full max-w-7xl px-4 pt-8 pb-6 sm:px-6 lg:px-8">
-          <div className="flex flex-col gap-5 border-b border-border pb-6 lg:flex-row lg:items-end lg:justify-between">
-            <div>
+        {/* Dashboard hero — editorial heading + stats rail */}
+        <section className="mx-auto w-full max-w-7xl px-4 pt-10 pb-8 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 gap-8 border-b border-border pb-8 lg:grid-cols-12 lg:items-end">
+            <div className="lg:col-span-7">
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
                 As-salāmu ʿalaykum
               </p>
-              <h1 className="mt-1.5 font-display text-2xl font-semibold leading-tight tracking-tight text-foreground sm:text-3xl">
+              <h1 className="mt-2 font-display text-3xl font-semibold leading-[1.1] tracking-tight text-foreground sm:text-4xl text-balance">
                 {profile?.full_name?.split(' ')[0] || profile?.username || 'Welcome back'}
               </h1>
+              <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
+                Pick up where you left off. Browse verified Ustaz, request a session or recurring package, and follow your bookings through approval and payment in one calm flow.
+              </p>
             </div>
-            <dl className="grid grid-cols-3 gap-x-8 gap-y-1 lg:gap-x-10">
+            <dl className="grid grid-cols-3 gap-6 lg:col-span-5 lg:justify-self-end lg:text-right">
               <div>
-                <dt className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">Available</dt>
-                <dd className="mt-0.5 font-display text-xl font-semibold tabular-nums">{teachers.length}</dd>
+                <dt className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+                  Available
+                </dt>
+                <dd className="mt-1 font-display text-2xl font-semibold tabular-nums text-foreground">
+                  {teachers.length}
+                </dd>
               </div>
               <div>
-                <dt className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">Verified</dt>
-                <dd className="mt-0.5 font-display text-xl font-semibold tabular-nums">{verifiedTeachers}</dd>
+                <dt className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+                  Verified
+                </dt>
+                <dd className="mt-1 font-display text-2xl font-semibold tabular-nums text-foreground">
+                  {verifiedTeachers}
+                </dd>
               </div>
               <div>
-                <dt className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">Active</dt>
-                <dd className="mt-0.5 font-display text-xl font-semibold tabular-nums">{activeBookings.length}</dd>
+                <dt className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+                  Active
+                </dt>
+                <dd className="mt-1 font-display text-2xl font-semibold tabular-nums text-foreground">
+                  {activeBookings.length}
+                </dd>
               </div>
             </dl>
           </div>
@@ -233,13 +248,15 @@ export default function StudentDashboardPage() {
 
           {activeTab === 'browse' && (
             <>
-              <div className="mb-5 flex flex-col items-start justify-between gap-3 md:flex-row md:items-center">
+              <div className="mb-6 flex flex-col items-start justify-between gap-5 md:flex-row md:items-end">
                 <div>
-                  <h2 className="font-display text-xl font-semibold text-foreground">Teacher marketplace</h2>
-                  <p className="text-sm text-muted-foreground">Filter by specialization to find the right Ustaz.</p>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
+                    Teacher marketplace
+                  </p>
+                  <h2 className="mt-1.5 font-display text-2xl font-semibold leading-tight tracking-tight text-foreground">
+                    Verified Ustaz, chosen with care.
+                  </h2>
                 </div>
-              </div>
-              <div className="mb-6">
                 <CategoryFilter
                   activeCategory={activeCategory}
                   onCategoryChange={setActiveCategory}
@@ -256,12 +273,16 @@ export default function StudentDashboardPage() {
 
           {activeTab === 'learning' && (
             <>
-              <div className="mb-5 flex items-center justify-between">
+              <div className="mb-6 flex items-end justify-between gap-5">
                 <div>
-                  <h2 className="font-display text-xl font-semibold text-foreground">My learning</h2>
-                  <p className="text-sm text-muted-foreground">Track requests, approvals, and upcoming sessions.</p>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
+                    My learning
+                  </p>
+                  <h2 className="mt-1.5 font-display text-2xl font-semibold leading-tight tracking-tight text-foreground">
+                    Track every session, end to end.
+                  </h2>
                 </div>
-                <span className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+                <span className="hidden shrink-0 rounded-full border border-border bg-card px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground/70 sm:inline-flex">
                   {activeBookings.length} active
                 </span>
               </div>
@@ -276,9 +297,13 @@ export default function StudentDashboardPage() {
 
           {activeTab === 'profile' && (
             <>
-              <div className="mb-5">
-                <h2 className="font-display text-xl font-semibold text-foreground">Profile</h2>
-                <p className="text-sm text-muted-foreground">Keep your goals and account details up to date.</p>
+              <div className="mb-6">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
+                  Profile
+                </p>
+                <h2 className="mt-1.5 font-display text-2xl font-semibold leading-tight tracking-tight text-foreground">
+                  Keep your goals and details up to date.
+                </h2>
               </div>
               <ProfileView
                 profile={profile}
@@ -341,7 +366,7 @@ export default function StudentDashboardPage() {
                             >
                               <span className="font-medium">{DAYS[slot.day_of_week]}</span>
                               <span className="tabular-nums text-muted-foreground">
-                                {slot.start_time} – {slot.end_time}
+                                {slot.start_time} ��� {slot.end_time}
                               </span>
                             </button>
                           );

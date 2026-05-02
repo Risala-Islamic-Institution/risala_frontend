@@ -87,29 +87,44 @@ export default function UstazDashboardPage() {
           userType="teacher"
         />
 
-        {/* Dashboard hero — slim, utility-first */}
-        <section className="mx-auto w-full max-w-7xl px-4 pt-8 pb-6 sm:px-6 lg:px-8">
-          <div className="flex flex-col gap-5 border-b border-border pb-6 lg:flex-row lg:items-end lg:justify-between">
-            <div>
+        {/* Dashboard hero — editorial heading + stats rail */}
+        <section className="mx-auto w-full max-w-7xl px-4 pt-10 pb-8 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 gap-8 border-b border-border pb-8 lg:grid-cols-12 lg:items-end">
+            <div className="lg:col-span-7">
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
                 Ustaz workspace
               </p>
-              <h1 className="mt-1.5 font-display text-2xl font-semibold leading-tight tracking-tight text-foreground sm:text-3xl">
+              <h1 className="mt-2 font-display text-3xl font-semibold leading-[1.1] tracking-tight text-foreground sm:text-4xl text-balance">
                 {user?.full_name?.split(' ')[0] || user?.username || 'Welcome'}
               </h1>
+              <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
+                Approve requests, manage availability, and shape your courses with calm authority. A focused command surface for verified Ustaz.
+              </p>
             </div>
-            <dl className="grid grid-cols-3 gap-x-8 gap-y-1 lg:gap-x-10">
+            <dl className="grid grid-cols-3 gap-6 lg:col-span-5 lg:justify-self-end lg:text-right">
               <div>
-                <dt className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">Pending</dt>
-                <dd className="mt-0.5 font-display text-xl font-semibold tabular-nums">{requestBookings.length}</dd>
+                <dt className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+                  Pending
+                </dt>
+                <dd className="mt-1 font-display text-2xl font-semibold tabular-nums text-foreground">
+                  {requestBookings.length}
+                </dd>
               </div>
               <div>
-                <dt className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">Sessions</dt>
-                <dd className="mt-0.5 font-display text-xl font-semibold tabular-nums">{confirmedBookings.length}</dd>
+                <dt className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+                  Sessions
+                </dt>
+                <dd className="mt-1 font-display text-2xl font-semibold tabular-nums text-foreground">
+                  {confirmedBookings.length}
+                </dd>
               </div>
               <div>
-                <dt className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">Courses</dt>
-                <dd className="mt-0.5 font-display text-xl font-semibold tabular-nums">{courses.length}</dd>
+                <dt className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+                  Courses
+                </dt>
+                <dd className="mt-1 font-display text-2xl font-semibold tabular-nums text-foreground">
+                  {courses.length}
+                </dd>
               </div>
             </dl>
           </div>
@@ -137,15 +152,20 @@ export default function UstazDashboardPage() {
           {/* MAIN GRID */}
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
             <div className="lg:col-span-2 space-y-8">
-              <section
-                className="rounded-xl border border-border bg-card p-5 shadow-card sm:p-6"
-                aria-labelledby="booking-requests-heading"
-              >
-                <div className="mb-4 flex items-center justify-between">
-                  <h2 id="booking-requests-heading" className="font-display text-lg font-semibold text-foreground">
-                    Booking requests
-                  </h2>
-                  <span className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+              <section aria-labelledby="booking-requests-heading">
+                <div className="mb-5 flex items-end justify-between gap-5">
+                  <div>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
+                      Booking inbox
+                    </p>
+                    <h2
+                      id="booking-requests-heading"
+                      className="mt-1.5 font-display text-2xl font-semibold leading-tight tracking-tight text-foreground"
+                    >
+                      Decide with intent.
+                    </h2>
+                  </div>
+                  <span className="hidden shrink-0 rounded-full border border-border bg-card px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground/70 sm:inline-flex">
                     {requestBookings.length} pending
                   </span>
                 </div>
@@ -156,22 +176,27 @@ export default function UstazDashboardPage() {
                 />
               </section>
 
-              <section
-                className="rounded-xl border border-border bg-card p-5 shadow-card sm:p-6"
-                aria-labelledby="upcoming-heading"
-              >
-                <div className="mb-4 flex items-center justify-between">
-                  <h2 id="upcoming-heading" className="font-display text-lg font-semibold text-foreground">
-                    Upcoming sessions
-                  </h2>
-                  <span className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+              <section aria-labelledby="upcoming-heading">
+                <div className="mb-5 flex items-end justify-between gap-5">
+                  <div>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
+                      This week
+                    </p>
+                    <h2
+                      id="upcoming-heading"
+                      className="mt-1.5 font-display text-2xl font-semibold leading-tight tracking-tight text-foreground"
+                    >
+                      Upcoming sessions.
+                    </h2>
+                  </div>
+                  <span className="hidden shrink-0 rounded-full border border-border bg-card px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground/70 sm:inline-flex">
                     {confirmedBookings.length} sessions
                   </span>
                 </div>
                 <ConfirmedSessions bookings={confirmedBookings} />
               </section>
 
-              <section className="rounded-xl border border-border bg-card p-5 shadow-card sm:p-6">
+              <section>
                 <AvailabilityManager
                   slots={availabilities}
                   onChange={setAvailabilities}
@@ -179,7 +204,7 @@ export default function UstazDashboardPage() {
                 />
               </section>
 
-              <section className="rounded-xl border border-border bg-card p-5 shadow-card sm:p-6">
+              <section>
                 <CourseManager
                   courses={courses}
                   onChange={setCourses}
@@ -197,14 +222,16 @@ export default function UstazDashboardPage() {
                 onRead={async () => setNotifications(await api.get<NotificationItem[]>('/notifications/'))}
               />
 
-              <div className="rounded-xl border border-border bg-card p-5 shadow-card">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
-                  Quick actions
-                </p>
-                <h3 className="mt-1 font-display text-base font-semibold text-foreground">
-                  Move your studio forward
-                </h3>
-                <div className="mt-4 space-y-2">
+              <div className="overflow-hidden rounded-2xl border border-border bg-card">
+                <div className="border-b border-border bg-[color:var(--primary)]/[0.04] px-5 py-4">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
+                    Quick actions
+                  </p>
+                  <h3 className="mt-1 font-display text-base font-semibold leading-tight text-foreground">
+                    Move your studio forward.
+                  </h3>
+                </div>
+                <div className="space-y-2 p-5">
                   <Button
                     variant="primary"
                     className="w-full"

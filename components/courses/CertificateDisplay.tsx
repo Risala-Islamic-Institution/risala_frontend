@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
 import { Button } from "@/components/ui/Button";
-import { Card } from "@/components/ui/Card";
+import { Verified } from "@/components/icons";
 
 interface Certificate {
     code: string;
@@ -19,7 +19,7 @@ export default function CertificateDisplay({ courseSlug }: { courseSlug: string 
         const fetchCertificate = async () => {
             try {
                 const res = await api.get<Certificate[]>(
-                    `/courses/certificates/?course_slug=${courseSlug}`
+                    `/courses/certificates/?course_slug=${courseSlug}`,
                 );
                 if (res && res.length > 0) {
                     setCertificate(res[0]);
@@ -36,21 +36,55 @@ export default function CertificateDisplay({ courseSlug }: { courseSlug: string 
     if (loading || !certificate) return null;
 
     return (
-        <Card className="p-10 text-center bg-muted">
-            <p className="text-xs uppercase tracking-[0.3em] text-accent mb-4">Certificate of Completion</p>
-            <p className="text-sm text-muted-foreground mb-3">This certifies that you have completed</p>
-            <h2 className="font-serif text-3xl md:text-4xl text-foreground mb-6 leading-tight">
-                {certificate.course_title}
-            </h2>
-            <div className="inline-flex flex-col gap-1 text-sm text-muted-foreground border-t border-border pt-4 mt-2">
-                <p>Issued on {new Date(certificate.issued_at).toLocaleDateString()}</p>
-                <p className="font-mono text-xs">ID: {certificate.code}</p>
+        <article className="relative overflow-hidden rounded-2xl border border-accent/30 bg-card text-center">
+            <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 opacity-[0.04]"
+                style={{
+                    backgroundImage:
+                        "radial-gradient(circle at 50% 50%, var(--accent) 0 1px, transparent 1px), linear-gradient(45deg, transparent 46%, var(--primary) 46% 54%, transparent 54%), linear-gradient(-45deg, transparent 46%, var(--primary) 46% 54%, transparent 54%)",
+                    backgroundSize: "32px 32px, 64px 64px, 64px 64px",
+                }}
+            />
+            <div className="relative px-8 py-12 sm:px-12 sm:py-16">
+                <span className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-card px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-accent-foreground">
+                    <Verified className="h-3.5 w-3.5 text-accent" />
+                    Certificate of completion
+                </span>
+                <p className="mt-6 text-xs uppercase tracking-[0.18em] text-muted-foreground">
+                    This certifies that you have completed
+                </p>
+                <h2 className="mt-3 font-display text-3xl font-semibold leading-tight tracking-tight text-foreground sm:text-4xl text-balance">
+                    {certificate.course_title}
+                </h2>
+                <dl className="mx-auto mt-8 grid max-w-md grid-cols-2 gap-6 border-t border-border pt-6 text-left">
+                    <div>
+                        <dt className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+                            Issued
+                        </dt>
+                        <dd className="mt-1 text-sm font-medium text-foreground">
+                            {new Date(certificate.issued_at).toLocaleDateString(undefined, {
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                            })}
+                        </dd>
+                    </div>
+                    <div>
+                        <dt className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+                            Credential ID
+                        </dt>
+                        <dd className="mt-1 font-mono text-xs text-foreground">
+                            {certificate.code}
+                        </dd>
+                    </div>
+                </dl>
+                <div className="mt-8">
+                    <Button variant="outline" onClick={() => window.print()}>
+                        Download / print
+                    </Button>
+                </div>
             </div>
-            <div className="mt-8">
-                <Button variant="secondary" onClick={() => window.print()}>
-                    Download / Print
-                </Button>
-            </div>
-        </Card>
+        </article>
     );
 }

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { api } from "@/lib/api";
 import { Button } from "@/components/ui/Button";
-import { Card } from "@/components/ui/Card";
+import { Verified } from "@/components/icons";
 
 interface Question {
     id: string;
@@ -49,7 +49,7 @@ export default function QuizInterface({
                     enrollment: enrollmentId,
                     lesson: lessonId,
                     answers: formattedAnswers,
-                }
+                },
             );
 
             setResult({ score: res.score, is_passed: res.is_passed });
@@ -62,36 +62,57 @@ export default function QuizInterface({
     };
 
     if (result) {
+        const pct = Math.round(result.score);
         return (
-            <Card className="p-8 text-center">
-                <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-3">
+            <div className="rounded-2xl border border-border bg-card p-10 text-center">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
                     Quiz result
                 </p>
-                <h3 className="font-serif text-3xl text-foreground mb-2">
-                    {result.is_passed ? "Passed" : "Try again"}
-                </h3>
-                <p className="text-2xl font-serif text-accent">{result.score}%</p>
-            </Card>
+                <p className="mt-3 font-display text-5xl font-semibold tabular-nums text-foreground">
+                    {pct}%
+                </p>
+                <div
+                    className={`mx-auto mt-5 inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-sm font-medium ${
+                        result.is_passed
+                            ? "border-[color:var(--success)]/25 bg-[color:var(--success)]/10 text-[color:var(--success)]"
+                            : "border-[color:var(--warning)]/30 bg-[color:var(--warning)]/15 text-[#8a6326]"
+                    }`}
+                >
+                    {result.is_passed ? <Verified className="h-4 w-4" /> : null}
+                    {result.is_passed ? "Lesson passed" : "Try again"}
+                </div>
+            </div>
         );
     }
 
-    return (
-        <Card className="p-6 md:p-8">
-            <div className="border-b border-border pb-4 mb-6">
-                <h2 className="font-serif text-2xl text-foreground">Quiz</h2>
-                <p className="text-sm text-muted-foreground mt-1">
-                    Answer all {questions.length} questions to complete the lesson.
-                </p>
-            </div>
+    const allAnswered = Object.keys(answers).length >= questions.length;
 
-            <div className="space-y-6">
+    return (
+        <div className="space-y-6">
+            <header className="border-b border-border pb-5">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
+                    Quiz
+                </p>
+                <h3 className="mt-1.5 font-display text-2xl font-semibold leading-tight tracking-tight text-foreground">
+                    Answer all {questions.length} questions to complete the lesson.
+                </h3>
+            </header>
+
+            <div className="space-y-4">
                 {questions.map((q, idx) => (
-                    <div key={q.id} className="border border-border rounded-md p-5">
-                        <p className="font-medium text-foreground mb-4">
-                            <span className="text-muted-foreground mr-2">{idx + 1}.</span>
-                            {q.text}
-                        </p>
-                        <div className="space-y-2">
+                    <article
+                        key={q.id}
+                        className="rounded-2xl border border-border bg-card p-5"
+                    >
+                        <div className="flex items-baseline gap-2.5">
+                            <span className="font-display text-xs font-semibold tabular-nums text-muted-foreground">
+                                {String(idx + 1).padStart(2, "0")}
+                            </span>
+                            <p className="font-display text-base font-semibold leading-snug text-foreground">
+                                {q.text}
+                            </p>
+                        </div>
+                        <div className="mt-4 space-y-2">
                             {(["A", "B", "C", "D"] as const).map((optKey) => {
                                 const optText = q[`option_${optKey.toLowerCase()}` as keyof Question];
                                 if (!optText) return null;
@@ -99,10 +120,10 @@ export default function QuizInterface({
                                 return (
                                     <label
                                         key={optKey}
-                                        className={`flex items-center gap-3 cursor-pointer px-4 py-3 rounded-md border transition-colors ${
+                                        className={`flex cursor-pointer items-center gap-3 rounded-md border px-4 py-3 text-sm transition-colors ${
                                             selected
-                                                ? "border-accent bg-accent/5"
-                                                : "border-border hover:border-foreground/40 hover:bg-muted"
+                                                ? "border-primary bg-[color:var(--primary)]/5 text-foreground"
+                                                : "border-border bg-card text-foreground hover:border-foreground/30 hover:bg-muted"
                                         }`}
                                     >
                                         <input
@@ -111,26 +132,33 @@ export default function QuizInterface({
                                             value={optKey}
                                             checked={selected}
                                             onChange={() => handleSelect(q.id, optKey)}
-                                            className="accent-accent"
+                                            className="h-4 w-4 accent-primary"
                                         />
-                                        <span className="text-sm text-foreground">{optText}</span>
+                                        <span className="flex-1">{optText}</span>
+                                        <span className="font-display text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                                            {optKey}
+                                        </span>
                                     </label>
                                 );
                             })}
                         </div>
-                    </div>
+                    </article>
                 ))}
             </div>
 
-            <div className="mt-6 pt-6 border-t border-border flex justify-end">
+            <div className="flex items-center justify-between border-t border-border pt-5">
+                <span className="text-xs text-muted-foreground">
+                    {Object.keys(answers).length} of {questions.length} answered
+                </span>
                 <Button
                     variant="primary"
                     onClick={handleSubmit}
-                    disabled={submitting || Object.keys(answers).length < questions.length}
+                    disabled={submitting || !allAnswered}
+                    isLoading={submitting}
                 >
-                    {submitting ? "Submitting..." : "Submit quiz"}
+                    Submit quiz
                 </Button>
             </div>
-        </Card>
+        </div>
     );
 }
