@@ -1,0 +1,3176 @@
+CHAPTER ONE
+
+1. Introduction
+
+1.1 Background of the Organization / Background of the Project
+
+In recent years, the rapid advancement of information and communication technologies has
+significantly transformed the way knowledge is accessed, shared, and delivered across the world.
+Digital platforms have become central to education, enabling learners to overcome geographical,
+time, and resource constraints. This transformation has particularly impacted professional and
+adult learners who seek flexible learning opportunities that align with their daily responsibilities.
+As a result, online and technology-assisted learning systems have become essential tools for
+bridging gaps between knowledge providers and learners in various fields.
+
+Despite the global growth of digital education platforms, access to structured and flexible Islamic
+education remains limited, especially for adult learners who did not have the opportunity to learn
+foundational religious knowledge earlier in life. In many Muslim communities, including
+Ethiopia and other developing regions, Quranic and Islamic learning has traditionally been
+delivered through physical madrasas, mosques, or informal study circles. While these institutions
+play a vital role, their rigid schedules, location dependency, and limited instructor availability
+often make them inaccessible to working adults, parents, and individuals with demanding daily
+routines.
+
+At the same time, there exists a growing number of qualified Islamic teachers (Ustaz) who
+possess strong knowledge in Quran recitation, Tajwid, Hadith, Arabic language, and other
+Islamic disciplines, but lack access to modern platforms that allow them to offer their services
+beyond their immediate local communities. Many of these teachers rely solely on in-person
+teaching methods, which restrict their reach and limit their ability to serve learners who are
+willing and able to learn but cannot physically attend traditional learning centers. This disconnect
+between learners and teachers creates an inefficiency in the delivery of Islamic knowledge in the
+modern digital era.
+
+The emergence of online learning marketplaces in other domains, such as language learning and
+professional skill development, demonstrates the effectiveness of platforms that connect learners
+directly with instructors through flexible scheduling and transparent pricing models. However,
+existing global platforms rarely address the unique needs of Islamic education, particularly with
+respect to cultural sensitivity, trust, structured religious guidance, and teacher verification.
+Furthermore, most existing Islamic learning platforms focus narrowly on Quran recitation alone,
+often neglecting broader Islamic knowledge areas such as Hadith studies, Arabic language
+learning, and Islamic skills like calligraphy and religious arts.
+
+Risala Islamic Knowledge and Skills PLC is conceived in response to these challenges. The
+organization aims to create a digital learning platform that connects learners with verified
+Islamic knowledge providers through a professional, flexible, and scalable system. The platform
+is designed as a marketplace where Islamic teachers independently define their availability,
+session duration, and pricing, while learners are empowered to choose instructors that best match
+their time schedules, learning goals, and financial capacity. Unlike traditional online madrasas,
+Risala does not employ or own the teachers; instead, it facilitates a trusted digital environment
+that enables ethical, transparent, and mutually beneficial interactions between learners and
+educators.
+
+The background of this project is rooted in the recognition that modern Muslim learners--
+especially working adults--require learning systems that adapt to their lives rather than forcing
+them to adapt to rigid institutional structures. By leveraging modern web technologies, secure
+payment systems, and real-time scheduling mechanisms, Risala seeks to modernize the delivery
+of Islamic knowledge while preserving its authenticity, integrity, and purpose. The project is
+initiated as a Minimum Viable Product (MVP) focusing on working adult Quran beginners, with
+a long-term vision of expanding into a comprehensive digital ecosystem for Islamic knowledge
+and skills.
+
+Ultimately, this project represents an intersection between technology and religious education,
+aiming to address long-standing accessibility challenges while opening new opportunities for
+both learners and teachers. Risala Islamic Knowledge and Skills PLC positions itself not merely
+as an online learning platform, but as a sustainable digital infrastructure that supports lifelong
+Islamic learning in a rapidly evolving digital world.
+
+1.2 Statement of the Problem
+
+Access to structured and flexible Islamic education, particularly Quran learning for adults,
+remains a significant challenge in many parts of the world. While the desire to learn the Quran
+exists among working adults, professionals, and late beginners, existing learning methods are
+often rigid, location-bound, and not designed to accommodate modern lifestyles. Traditional
+Quran learning centers usually require physical presence at fixed times, which makes them
+inaccessible for individuals with full-time jobs, family responsibilities, or irregular schedules.
+
+Another major problem is the lack of learner-centered flexibility in current online Islamic
+learning platforms. Many existing systems rely on fixed class schedules determined by
+institutions rather than by individual teachers (Ustaz). This one-size-fits-all scheduling approach
+does not reflect the real availability of qualified teachers, nor does it allow students to choose
+learning times that match their personal routines. As a result, learners are either forced to
+compromise on timing or abandon learning altogether.
+
+There is also a significant issue related to transparency and efficiency in teacher availability. In
+many platforms, students cannot clearly see when a teacher is available, which time slots are
+already booked, or how schedules change dynamically. This often leads to double bookings,
+manual coordination through messaging applications, delayed responses, and confusion between
+students and teachers. Such inefficiencies reduce trust in the platform and negatively impact the
+learning experience.
+
+Furthermore, working adult Quran beginners often struggle to find teachers who understand their
+specific learning needs. Most existing platforms focus either on children or on full-time students,
+leaving adult beginners underserved. These learners require a supportive environment, flexible
+pacing, and skills-oriented instruction that balances Quran recitation, basic tajwid, and practical
+understanding, all within limited time slots.
+
+From the teachers' perspective, many qualified Ustaz lack a professional digital platform that
+allows them to independently manage their teaching schedules, showcase their availability, and
+connect with students globally. Most rely on informal arrangements through social media or
+messaging apps, which do not scale well and offer no systematic way to manage time, payments,
+or student progress.
+
+In addition, there is a gap in integrating both knowledge and practical skills within a single
+Islamic learning platform. Existing solutions often focus solely on content delivery without
+emphasizing structured skill development, such as gradual Quran recitation improvement,
+consistent practice schedules, and measurable learning outcomes.
+
+The absence of a centralized, well-structured, and technology-driven system that connects
+working adult learners with qualified teachers--while allowing teachers to control their own
+schedules--creates a critical gap in modern Islamic education. This problem highlights the need
+for a flexible, transparent, and skill-oriented digital platform that supports dynamic scheduling,
+real-time availability management, and learner-focused Quran education.
+
+Risala Islamic Knowledge and Skills PLC is designed to address these challenges by providing
+a professional digital platform where Ustaz can define their own recurring availability (for
+example, specific days and time ranges), and students can view real-time schedules, select
+available time slots, and book sessions without conflict. By combining flexible scheduling,
+transparency, and a focus on both Islamic knowledge and practical learning skills, the proposed
+system aims to overcome the limitations of existing Quran learning methods and platforms.
+
+1.3 Objective of the Project
+
+1.3.1 General Objective
+
+The general objective of this project is to design and develop a flexible, digital Islamic learning
+platform that enables working adult Quran beginners to acquire Islamic knowledge and practical
+Quran recitation skills through qualified teachers using a transparent and efficient scheduling
+system.
+
+1.3.2 Specific Objectives
+
+     To identify and analyze the learning needs of working adult Quran beginners.
+     To identify the functional and non-functional requirements of a digital Islamic learning
+
+         platform.
+     To design a system that allows Ustaz to independently define and manage their teaching
+
+         availability.
+     To develop a dynamic scheduling mechanism that displays real-time teacher availability
+
+         to students.
+     To implement a booking system that prevents time-slot conflicts and double reservations.
+     To enable students to browse teachers based on availability, expertise, and learning focus.
+     To design user-friendly interfaces for students, teachers, and administrators.
+     To integrate structured Quran learning that combines both theoretical knowledge and
+
+         practical skills.
+     To ensure secure user authentication and role-based access control within the system.
+     To test and validate the system to ensure reliability, usability, and performance.
+     To deploy the system on a scalable web-based platform accessible to users regardless of
+
+         location.
+
+1.4 Methodology
+
+This section describes the systematic approach followed in conducting the study and developing
+the proposed system. It outlines the methods used to collect data, the software development
+process model adopted, the design pattern applied, and the programming languages selected for
+implementing the system. The methodology ensures that the project is developed in a structured,
+reliable, and scientifically sound manner, from problem identification to system deployment.
+
+1.4.1 Data Collection
+
+Data collection is a critical activity in system development, as it ensures that the proposed system
+addresses real user needs and existing challenges. For this project, both primary and secondary
+data collection methods are used to gather accurate and relevant information.
+
+The following data collection tools are employed:
+
+     Questionnaires/Surveys:
+         Structured questionnaires are prepared and distributed to potential users, particularly
+         working adult Quran learners and instructors. These questionnaires are used to collect
+         quantitative data related to learning preferences, availability constraints, challenges faced
+         with traditional learning methods, and expectations from a digital Islamic learning
+         platform.
+
+     Interviews:
+         Semi-structured interviews are conducted with selected Ustaz and experienced Quran
+         teachers. These interviews help gather qualitative insights into teaching methodologies,
+         scheduling practices, student management challenges, and the feasibility of digital
+         instruction.
+
+     Observation:
+         Observation is used to understand existing Quran teaching practices, including class
+         scheduling, teacher�student interaction, and session management. This method helps
+         identify gaps between traditional practices and digital solutions.
+
+     Document Analysis:
+         Relevant documents such as existing Islamic learning platforms, research papers,
+         institutional reports, and online learning system documentation are reviewed. This helps
+         identify best practices, common system features, and limitations in existing solutions.
+All data collection instruments used in this project are documented and included in the appendix
+section of the final report.
+
+1.4.2 System Development Process Model
+
+A system development process model defines the structured steps followed to design, develop,
+test, and deploy a software system. These models help manage complexity, reduce development
+risks, and ensure that the final product meets user requirements.
+
+For this project, the Agile Software Development Model is selected. Agile emphasizes iterative
+development, continuous feedback, and incremental delivery of system features. Unlike
+traditional linear models, Agile allows flexibility in accommodating changing requirements,
+which is essential for systems involving multiple user roles such as students, teachers, and
+administrators.
+
+The Agile model is suitable for this project because:
+
+     User requirements, especially related to scheduling and learning preferences, may evolve
+         during development.
+
+     Continuous feedback from Ustaz and students is necessary to refine system features.
+     The system can be developed in small functional modules such as authentication,
+
+         scheduling, booking, and learning management.
+     Early testing and validation reduce the risk of major failures at later stages.
+
+The Agile process followed in this project includes requirement gathering, iterative design,
+implementation, testing, review, and refinement. A diagram illustrating the Agile development
+cycle is included in this section to visually represent the development flow.
+
+1.4.3 Design Pattern
+
+A design pattern provides a reusable solution to common software design problems and
+improves system maintainability, scalability, and clarity.
+
+This project follows the Model�View�Controller (MVC) design pattern. The MVC pattern
+separates the system into three interconnected components: the Model, the View, and the
+Controller.
+
+     The Model represents the system's data and business logic, such as users, schedules,
+         bookings, and learning content.
+
+     The View handles the user interface and presentation layer, displaying information to
+         users in a clear and accessible manner.
+
+     The Controller acts as an intermediary between the Model and the View, processing user
+         requests, applying business rules, and returning appropriate responses.
+
+The MVC pattern is chosen because it:
+     Promotes separation of concerns, making the system easier to understand and maintain.
+     Supports parallel development of frontend and backend components.
+     Is well-supported by modern web frameworks used in this project.
+     Enhances scalability and code reusability.
+
+By applying MVC, the system achieves a clean architecture that simplifies future enhancements
+and maintenance.
+
+1.4.4 Programming Language
+
+The development of the system involves multiple layers, each requiring appropriate
+programming languages based on performance, scalability, and maintainability considerations.
+
+     Backend Programming Language:
+         The backend of the system is developed using Python. Python is chosen due to its
+         simplicity, readability, and strong ecosystem for web development. It enables rapid
+         development and supports clean architectural patterns such as MVC. Python is also
+         highly suitable for building secure, scalable, and maintainable server-side applications.
+
+     Frontend Programming Languages:
+         The frontend is developed using HTML, CSS, and JavaScript. HTML provides the
+         structural layout of the application, CSS is used for styling and responsive design, and
+         JavaScript enables interactivity and dynamic content rendering.
+
+     Database Query Language:
+         SQL is used to interact with the relational database, allowing efficient data storage,
+         retrieval, and management.
+
+The combination of these languages ensures smooth interaction between system components and
+supports the functional requirements of the platform.
+
+1.5 Tools
+
+Tools play a crucial role in the successful development, testing, deployment, and documentation
+of a software system. This section describes the hardware and software tools used (and to be
+used) throughout the lifecycle of the project. The selection of these tools is based on their
+reliability, compatibility, scalability, and suitability for developing a modern web-based Islamic
+learning platform.
+
+1.5.1 Hardware Tools
+
+The following hardware resources are utilized during the development and testing of the system:
+
+     Personal Computer (PC) / Laptop:
+         A computer with sufficient processing power, memory, and storage is used for system
+         development, coding, testing, and documentation. It serves as the primary development
+         environment for both frontend and backend components.
+     Mobile Devices (Smartphones and Tablets):
+         Mobile devices are used to test system responsiveness, usability, and accessibility across
+         different screen sizes and operating systems. This ensures that the system provides a
+         consistent user experience for mobile users.
+
+     Internet Connectivity Devices:
+         Reliable internet access is required for cloud-based development, version control
+         synchronization, testing remote deployments, and accessing online resources and
+         documentation.
+
+1.5.2 Software Tools
+
+Various software tools are employed to support system development, design, testing,
+deployment, and documentation. Each tool serves a specific purpose within the project
+workflow.
+
+     Operating System:
+         A modern operating system such as Windows or Linux is used to provide a stable
+         development environment and support the required development tools and frameworks.
+
+     Integrated Development Environment (IDE):
+         An IDE such as Visual Studio Code or PyCharm is used for writing, debugging, and
+         managing source code. These IDEs enhance productivity through features such as syntax
+         highlighting, code completion, debugging tools, and version control integration.
+
+     Backend Framework:
+         Django is used as the backend web framework. Django provides a robust structure for
+         rapid development, built-in security features, ORM support, and scalability, making it
+         suitable for developing complex systems involving authentication, scheduling, and data
+         management.
+
+     Frontend Frameworks and Libraries:
+         NextJS is used for frontend development. CSS frameworks such as tailwindcss is used to
+         enhance responsiveness and ensure a consistent user interface design.
+
+     Database Management System (DBMS):
+         PostgreSQL is used as the primary database management system. It provides reliability,
+         strong data integrity, and efficient handling of relational data required by the system.
+
+     Web Server:
+         A web server such as Nginx is used to serve the application in a production environment,
+         handle HTTP requests, and manage static and media files efficiently.
+
+     Version Control System:
+         Git is used for source code version control, allowing tracking of changes, collaboration,
+         and rollback to previous versions when necessary. Platforms such as GitHub are used for
+         repository hosting.
+
+     Diagram and Modeling Tools:
+         Tools such as Draw.io, Lucidchart, or similar software are used to create system
+         diagrams including use case diagrams, class diagrams, sequence diagrams, and entity-
+         relationship (ER) diagrams.
+     UI/UX Design Tools:
+         Design tools such as Figma or Adobe XD are used to design user interface prototypes
+         and layouts before implementation, ensuring usability and visual consistency.
+
+     Web Browsers:
+         Browsers such as Google Chrome and Mozilla Firefox are used for testing and debugging
+         the web application.
+
+     Documentation Tools:
+         Word processors and markdown-based editors are used to prepare project documentation,
+         reports, and technical manuals.
+
+The selected tools collectively support efficient development, high-quality system design, proper
+testing, and reliable deployment of the proposed system.
+
+1.6 Scope and Limitation of the Project
+
+Every software project must clearly define its scope and limitations to establish boundaries,
+manage expectations, and guide development efforts. This section outlines what the proposed
+system will cover (scope) and what it will not address (limitations). Defining these aspects
+ensures clarity for stakeholders and helps prevent scope creep during development and
+deployment.
+
+1.6.1 Scope of the Project
+
+The scope of this project defines the functional, operational, and technological boundaries of the
+proposed Islamic knowledge and skills learning platform. The system is designed to be
+comprehensive, scalable, and inclusive, covering a wide range of Islamic educational needs.
+
+The scope of the project includes the following:
+
+     Geographical Scope:
+         The system is designed to operate globally and can be accessed by users from different
+         regions, provided they have internet connectivity. It is not limited to a specific country or
+         locality and supports cross-border participation between instructors and learners.
+
+     Target Users:
+         The platform serves multiple user groups, including:
+             o Students of all age groups seeking Islamic knowledge and skills
+             o Qualified instructors (Ustaz/Ustaza) offering Islamic education services
+             o Platform administrators responsible for system management and moderation
+
+     Educational Coverage:
+         The system supports a wide range of Islamic learning domains, including but not limited
+         to:
+             o Qur'an recitation and memorization (all levels)
+             o Tajweed and proper pronunciation
+             o Islamic studies and foundational knowledge
+             o Hadith studies
+             o Arabic language skills
+             o Practical Islamic skills and personal development
+     Learning Modes:
+
+         The platform supports structured and flexible learning through:
+             o One-to-one learning sessions
+             o Group-based learning sessions
+             o Scheduled and instructor-defined availability
+             o Student-driven session booking based on instructor availability
+
+     Scheduling and Availability Management:
+         Instructors can define their own availability schedules by selecting recurring time ranges
+         (e.g., specific days and time intervals). Students can view instructor availability in real
+         time, and booked time slots are automatically marked as unavailable to prevent conflicts.
+
+     Platform Accessibility:
+         The system is developed as a web-based platform accessible through modern web
+         browsers on desktop and mobile devices. The responsive design ensures usability across
+         different screen sizes.
+
+     Core System Features:
+         The platform includes major functional components such as:
+             o User registration and authentication
+             o Role-based access control (student, instructor, administrator)
+             o Instructor profile management
+             o Course and skill category management
+             o Dynamic scheduling and booking system
+             o Learning session management
+             o Communication and notification mechanisms
+             o Administrative monitoring and moderation tools
+
+     Technology Scope:
+         The system is built using modern web technologies, including:
+             o Next.js with Tailwind CSS for frontend development
+             o Django and Django REST Framework for backend services
+             o A relational database for secure and structured data storage
+             o API-based communication between frontend and backend
+
+     Operational Timeframe:
+         The system is designed for continuous availability, allowing users to access the platform
+         at any time, subject to instructor availability and system maintenance schedules.
+
+1.6.2 Limitations of the Project
+
+Despite its broad scope, the project has certain limitations that are acknowledged due to
+technical, operational, and resource constraints. These limitations help define realistic
+expectations for system capabilities.
+
+The limitations of the project include the following:
+     Platform Dependency:
+         The system is primarily web-based and requires an active internet connection. Users
+         without reliable internet access may face challenges in using the platform effectively.
+
+     Limited Offline Functionality:
+         The system does not support offline learning or session access. All features, including
+         scheduling and learning sessions, require online connectivity.
+
+     Language Support Limitations:
+         Initial versions of the system may support a limited number of interface languages, which
+         may restrict accessibility for users who do not understand the available languages.
+
+     Real-Time Communication Constraints:
+         The system may rely on third-party tools or integrations for real-time audio or video
+         communication, which could be affected by external service limitations.
+
+     Advanced Analytics Restrictions:
+         While basic reporting and tracking are included, advanced analytics, predictive insights,
+         or AI-driven performance analysis may not be fully implemented in the initial release.
+
+     Instructor Availability Dependency:
+         Learning opportunities depend on instructor-defined schedules. If instructors are
+         unavailable, students may experience limited access to learning sessions.
+
+     Hardware and Device Variability:
+         Differences in user devices, browsers, and hardware performance may affect the quality
+         of user experience.
+
+     Scalability Constraints in Early Deployment:
+         The initial deployment may have limited scalability until additional infrastructure
+         resources are allocated based on user growth.
+
+1.7 Significance of the Project
+
+The significance of this project lies in its contribution to education, society, technology, and
+economic development by providing a structured, accessible, and modern platform for Islamic
+knowledge and skill acquisition. The system addresses critical gaps in traditional and existing
+digital learning methods by integrating technology with faith-based education in a scalable and
+sustainable manner.
+
+The significance of the project can be analyzed from the perspectives of different stakeholders as
+follows:
+
+Significance to Learners (Students)
+
+     Provides flexible access to qualified instructors regardless of geographical location.
+     Enables learners to choose instructors based on availability, expertise, and learning
+
+         preferences.
+     Supports diverse learning needs, including religious knowledge, language skills, and
+
+         practical Islamic competencies.
+     Allows working individuals and students to learn at convenient times without disrupting
+
+         daily responsibilities.
+     Enhances learning continuity through structured scheduling and session management.
+     Encourages lifelong learning by accommodating learners of all ages and backgrounds.
+
+Significance to Instructors (Ustaz/Ustaza)
+
+     Offers a professional digital platform to reach a wider audience beyond physical teaching
+         environments.
+
+     Empowers instructors to independently manage their availability and teaching schedules.
+     Enables monetization of teaching skills in a structured and transparent manner.
+     Reduces administrative burden related to scheduling and student coordination.
+     Enhances professional visibility through instructor profiles and skill categorization.
+     Supports the preservation and transmission of Islamic knowledge using modern tools.
+
+Significance to the Organization
+
+     Establishes a scalable digital education model that can expand to new learning domains
+         over time.
+
+     Strengthens organizational credibility through structured and documented system
+         processes.
+
+     Enables data-driven decision-making through system usage and interaction insights.
+     Creates opportunities for partnerships with educational institutions and community
+
+         organizations.
+     Provides a foundation for future innovation in Islamic digital learning services.
+
+Social and Cultural Significance
+
+     Promotes the preservation and dissemination of Islamic knowledge in a modern,
+         accessible format.
+
+     Encourages cross-cultural and cross-regional knowledge exchange within the Muslim
+         community.
+
+     Supports inclusive education by removing physical and social barriers to learning.
+     Strengthens religious literacy and understanding in a structured and guided environment.
+     Contributes to community development through skill-building and ethical education.
+
+Technological Significance
+
+     Demonstrates the application of modern web technologies in faith-based education
+         systems.
+
+     Serves as a practical case study for scalable learning management platforms.
+     Encourages the adoption of digital solutions within traditionally offline educational
+
+         sectors.
+     Integrates modular system architecture suitable for future enhancements.
+
+Economic Significance
+
+     Creates income-generating opportunities for instructors.
+     Supports sustainable digital entrepreneurship within the education sector.
+     Reduces operational costs compared to traditional physical learning centers.
+     Encourages innovation-driven employment and skill development.
+
+1.8 Feasibility Study
+
+A feasibility study is a critical analysis conducted before project development to determine
+whether the project is technically, economically, operationally, and legally viable. For the Risala
+Islamic Knowledge and Skills platform, the feasibility study ensures that the proposed system
+can be successfully developed, deployed, and maintained while meeting user expectations and
+organizational goals.
+
+This study evaluates four key areas of feasibility: technical, economic, operational, and legal,
+providing a comprehensive assessment of project viability.
+
+1.8.1 Technical Feasibility
+
+Technical feasibility assesses whether the existing technology, tools, and expertise are sufficient
+to develop and deploy the proposed system. For the Risala platform, the technical feasibility has
+been evaluated as follows:
+
+     Hardware and Software Resources:
+         The project requires standard desktop and laptop PCs for development, testing, and
+         administrative access. Students and instructors can access the platform via modern
+         browsers on both desktop and mobile devices. The system will operate on cloud-hosted
+         servers with sufficient storage and processing capacity to handle concurrent users.
+
+     Technology Stack Suitability:
+             o Frontend: Next.js and Tailwind CSS are selected for modern, responsive, and
+                  maintainable UI development. Next.js provides server-side rendering and API
+                  integration capabilities, ensuring scalability and performance.
+             o Backend: Django with Django REST Framework provides a robust, secure, and
+                  scalable framework for managing user roles, scheduling, and session
+                  management.
+             o Database: A relational database (PostgreSQL) ensures structured data storage,
+                  consistency, and reliable transaction management.
+             o APIs and Integrations: Integration with video conferencing services and
+                  payment providers ensures real-time session delivery and secure transactions.
+
+     Team Capabilities:
+         The development team possesses sufficient technical expertise in full-stack web
+         development, cloud deployment, and secure software engineering practices. The team can
+         implement, maintain, and scale the system efficiently.
+
+     Conclusion:
+         The available technical resources, technology stack, and team expertise are fully capable
+         of supporting the design, development, and deployment of the Risala platform.
+
+1.8.2 Economic Feasibility
+Economic feasibility evaluates whether the project is financially viable and sustainable.
+
+     Development Costs:
+         The project leverages open-source frameworks (Django, Next.js, Tailwind CSS) which
+         significantly reduces licensing costs. Cloud hosting costs for the initial deployment are
+         moderate and scalable as user adoption increases.
+
+     Operational Costs:
+         Operational costs include server maintenance, cloud storage, video conferencing
+         integration, and payment gateway fees. These costs are expected to be offset by the
+         platform's revenue model, which includes commission from instructor sessions.
+
+     Return on Investment:
+         By providing a marketplace for Islamic learning, the platform generates a sustainable
+         income stream for both instructors and the organization. The low initial investment,
+         combined with scalable technology, ensures positive economic viability.
+
+     Conclusion:
+         The project is economically feasible as development, deployment, and operational costs
+         are manageable relative to expected revenue and social impact.
+
+1.8.3 Operational Feasibility
+
+Operational feasibility determines whether the system can be successfully operated and
+maintained in the intended environment.
+
+     User Accessibility:
+         The system is web-based and accessible globally, providing 24/7 availability to students
+         and instructors.
+
+     System Reliability:
+         Features such as real-time availability, scheduling, and booking management ensure
+         efficient operation and prevent scheduling conflicts. Administrators can monitor system
+         performance and handle any operational issues.
+
+     Maintainability:
+         The modular architecture, use of modern frameworks, and clear documentation facilitate
+         ongoing maintenance, updates, and feature expansion.
+
+     Conclusion:
+         The system is operationally feasible as it supports reliable, user-friendly access and is
+         maintainable with the current technical team and infrastructure.
+
+1.8.4 Legal Feasibility
+
+Legal feasibility examines potential legal constraints in system development and operation.
+
+     Content Compliance:
+         The platform ensures all educational materials adhere to Islamic principles and avoids
+         content that may violate religious or community norms.
+     Payment Compliance:
+         All financial transactions are conducted through legally recognized and secure payment
+         providers, ensuring transparency and compliance with local financial regulations.
+
+     User Privacy and Data Protection:
+         User information, including personal and financial data, will be collected, stored, and
+         processed according to applicable privacy laws and regulations.
+
+     Conclusion:
+         The project is legally feasible as it adheres to regulatory, religious, and ethical standards,
+         ensuring a safe and compliant learning environment.
+
+Overall Feasibility Conclusion
+
+Based on the above analyses, the Risala Islamic Knowledge and Skills platform is technically,
+economically, operationally, and legally feasible. The project has a strong foundation for
+successful development, deployment, and long-term sustainability while meeting user needs and
+organizational objectives.
+
+1.9 Risk Assessment
+
+Risk assessment is a critical component of project planning, aimed at identifying, analyzing, and
+mitigating potential risks that could affect the development, deployment, and operation of the
+Risala Islamic Knowledge and Skills platform. This section outlines the major risks associated
+with the project and strategies to minimize their impact, ensuring project success and
+sustainability.
+
+1.9.1 Risk
+
+The following risks have been identified as potentially impacting the project:
+
+    1. Technical Risks
+             o Risk: Integration challenges between backend (Django REST Framework) and
+                  frontend (Next.js + Tailwind CSS) could delay development.
+                  Mitigation: Follow modular architecture, conduct iterative testing, and ensure
+                  clear API documentation.
+             o Risk: Scalability issues may arise if user traffic increases rapidly.
+                  Mitigation: Utilize cloud-based deployment with scalable server instances and
+                  load balancing to handle high concurrent usage.
+             o Risk: Video conferencing integration may face latency or compatibility issues.
+                  Mitigation: Use tested APIs from reliable providers, perform extensive cross-
+                  device testing, and provide fallback solutions.
+
+    2. Operational Risks
+             o Risk: Teachers (Ustaz/Ustaza) may have inconsistent scheduling or fail to update
+                  availability.
+                  Mitigation: Implement automated reminders and validation checks to ensure
+                  schedules are accurately maintained.
+             o Risk: Students may double-book sessions due to system errors.
+                  Mitigation: Implement real-time booking validation and locking of time slots
+                  upon confirmation.
+
+    3. Financial Risks
+             o Risk: Low initial adoption could impact revenue projections and sustainability.
+                  Mitigation: Launch targeted marketing campaigns and referral programs to
+                  attract early users.
+             o Risk: Payment gateway failures or transaction delays could affect trust and
+                  revenue.
+                  Mitigation: Use multiple secure payment providers and implement transaction
+                  monitoring and alerting.
+
+    4. Legal and Compliance Risks
+             o Risk: Non-compliance with local or international data protection regulations.
+                  Mitigation: Implement strong encryption, secure data storage, and adhere to
+                  privacy policies and legal guidelines.
+             o Risk: Potential copyright or content licensing issues for learning materials.
+                  Mitigation: Use verified, original, or properly licensed content only.
+
+    5. Social and Cultural Risks
+             o Risk: Misinterpretation or misuse of Islamic content leading to negative
+                  feedback.
+                  Mitigation: Ensure content review by qualified scholars, provide disclaimers, and
+                  maintain clear content moderation policies.
+
+1.9.2 Assumptions
+
+The project development, deployment, and operation are based on the following assumptions:
+
+     Qualified instructors are available and willing to participate in the digital platform.
+     Students are motivated to use an online learning platform for Islamic knowledge and
+
+         skills.
+     Internet access is sufficiently available to support video-based learning sessions.
+     Payment gateways will remain operational and secure.
+     The development team possesses the required technical skills and access to necessary
+
+         resources.
+
+1.9.3 Constraints
+
+The project development and operations are constrained by the following factors:
+
+     Limited budget for marketing and server infrastructure in the initial phase.
+     Dependency on third-party services for video conferencing and payments.
+     Availability and responsiveness of instructors may vary.
+     Regulatory or cultural restrictions affecting content and platform accessibility.
+     Time constraints for development, testing, and deployment to meet launch schedules.
+Overall Risk Management Conclusion
+
+The Risala platform has identifiable risks across technical, operational, financial, legal, and
+social dimensions. By proactively analyzing these risks and implementing clear mitigation
+strategies, the project can minimize potential negative impacts and ensure a reliable, sustainable,
+and successful platform for Islamic knowledge and skills acquisition.
+
+1.10 Work Breakdown
+
+The Work Breakdown Structure (WBS) provides a visual and structured representation of the
+project tasks, their dependencies, and the timeline for completion. It ensures effective project
+planning, resource allocation, and monitoring of progress for the Risala Islamic Knowledge and
+Skills platform. The WBS is broken down into major phases, tasks, and subtasks.
+
+Work Breakdown Structure
+
+        Phase        Task            Subtasks/Activities             Duration  Dependencies
+Phase 1: Project                                                     (Weeks)
+Initiation
+                  Define project     Conduct brainstorming, finalize           None
+Phase 2:          scope and          platform name, define vision and 1
+Requirements      objectives         goals
+Gathering &
+Analysis          Feasibility Study  Technical, economic,            1         None
+                                     operational, legal assessment
+Phase 3: System
+Design            Competitor         Identify key competitors,
+                  Analysis
+                                     strengths, weaknesses, and      1         None
+
+                                     differentiators
+
+                  Data Collection    Survey students & teachers,     2         Phase 1
+                                     conduct interviews
+
+                  Requirement        Identify functional and non-    1         Data Collection
+                  Analysis           functional requirements
+                                                                               Requirements
+                  Architecture       Define system modules,          2         Analysis
+                  Design             database schema, API structure
+                                                                               Requirements
+                  UI/UX Design       Create wireframes, mockups,     2         Analysis
+                                     and user flow
+Phase                 Task         Subtasks/Activities                 Duration  Dependencies
+                                                                       (Weeks)
+
+Phase 4: System     Backend        Implement user authentication,
+Development         Development
+(MVP)                              roles, teacher & student            4         Design Phase
+
+                                   modules, scheduling & booking
+
+                    Frontend       Develop responsive UI using                   Backend
+                    Development    Next.js + Tailwind CSS, integrate 4           Development
+                                   API endpoints                                 (partial)
+
+                    Integration &  Video integration, payment          2         Backend +
+                    APIs           gateways, schedule management                 Frontend
+
+Phase 5: Testing &  Unit &         Test backend logic, frontend        2         Development
+Quality Assurance   Integration    interactions, API connectivity                Complete
+                    Testing
+
+                    User Acceptance Conduct test sessions with         1         Unit &
+                                                                                 Integration
+                    Testing        sample students and teachers                  Testing
+
+Phase 6:            Server         Deploy on cloud infrastructure      1         Testing Complete
+Deployment &        Deployment     (Render/Vercel)
+Launch
+
+                    Soft Launch    Launch with limited users,          1         Server
+                                   monitor performance                           Deployment
+
+Phase 7: Post-      Feedback       Collect feedback from students      2         Soft Launch
+Launch Operations   Collection     and instructors
+& Iteration
+
+                    Bug Fixes &    Address issues, implement    minor  2         Feedback
+                    Updates        feature updates                               Collection
+
+                    Marketing &    Launch campaigns, partner with      Ongoing   Soft Launch
+                    Outreach       masjids, onboard new teachers
+
+Gantt Chart Representation (Text Version)
+
+Phase/Weeks 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+
+---------------------------------------------------------
+
+Phase 1          
+
+Phase 2             
+
+Phase 3               
+Phase 4  
+Phase 5                  
+Phase 6                           
+Phase 7                                 
+
+Legend:
+
+ Each  represents one week of planned activity.
+ Phases overlap where parallel development is possible (e.g., frontend development can
+
+    start while backend is partially complete).
+ Timeline assumes a total duration of ~15 weeks for MVP development and soft launch,
+
+    excluding ongoing marketing and platform growth.
+
+Notes on Work Breakdown
+
+ Parallel Activities: Some tasks, like frontend and backend development, are partially
+    parallel to optimize time.
+
+ Dependencies: Each phase has dependencies that must be completed before dependent
+    tasks begin.
+
+ Flexibility: Timeline may adjust depending on real-world testing feedback or
+    instructor/student participation rates.
+
+ Future Expansion: Post-launch operations include iterative updates, adding features like
+    group classes, chat, ratings, and multilingual support.
+
+CHAPTER TWO
+
+2. Business Area Analysis and Requirement Definition
+2.1 Introduction
+
+Business area analysis is a critical phase in system development that focuses on understanding
+the operational environment, stakeholders, workflows, and challenges within the domain where
+the proposed system will operate. This analysis ensures that the system requirements are aligned
+with real-world needs and organizational objectives.
+
+The Risala Islamic Knowledge and Skills platform operates within the digital education and
+religious learning domain. The platform is designed to bridge the gap between learners seeking
+Islamic knowledge and qualified instructors offering various Islamic disciplines and skills. These
+include Qur'an learning, Tajwid improvement, Hadith studies, Arabic language instruction, and
+Islamic creative skills such as calligraphy and related arts.
+
+This chapter presents a detailed analysis of the current business environment, identifies existing
+challenges, defines the rules governing the system, and introduces the proposed system. It also
+establishes clear system requirements that will guide the design and implementation phases. The
+analysis is conducted to ensure the system is user-centered, scalable, and aligned with both
+educational and organizational goals.
+
+2.2 Current System
+
+The current system for acquiring Islamic knowledge and skills primarily relies on traditional,
+informal, and semi-digital methods. In many communities, learning is conducted through
+physical mosques, madrassas, private tutors, or informal study groups. While these methods have
+served learners for generations, they face significant limitations in accessibility, flexibility,
+scalability, and organization.
+
+In some cases, learners depend on personal referrals to find instructors, which limits choice and
+transparency. Scheduling is often manual and inconsistent, making it difficult for working adults
+and learners with busy schedules to participate regularly. Payment processes are typically
+informal, lacking standardized pricing or clear service structures.
+
+Although some global online platforms exist, they often focus on limited subject areas, do not
+fully accommodate Islamic learning ethics, or lack customization for local contexts such as
+language, time zones, and cultural expectations. Additionally, many instructors are unfamiliar
+with digital teaching tools and lack platforms that support them professionally.
+
+Overall, the current system lacks a centralized, structured, and user-friendly digital solution
+that integrates instructor discovery, scheduling, payment, and live teaching in a single platform
+while supporting diverse Islamic knowledge and skills.
+
+2.2.1 Players of the Existing System
+
+The existing system involves multiple stakeholders who interact through fragmented and often
+inefficient processes. The primary players include:
+
+Learners (Students)
+
+Learners consist of individuals from different age groups and backgrounds seeking Islamic
+knowledge or skills. This includes working adults, beginners in Qur'an reading, students
+improving Tajwid, language learners, and individuals interested in Islamic arts. Learners often
+face challenges in finding suitable instructors, flexible schedules, and structured learning paths.
+
+Instructors (Ustaz/Ustaza)
+
+Instructors are individuals with expertise in Islamic knowledge or skills. They may teach in
+mosques, private settings, or informal online sessions. Many instructors rely on word-of-mouth
+to find students and lack professional digital tools to manage schedules, payments, and learner
+communication.
+
+Religious Institutions
+Mosques, madrassas, and Islamic centers act as learning hubs but are limited by physical
+capacity, geographic reach, and fixed schedules. Their offerings may not align with the
+availability of modern learners, especially working adults.
+
+Informal Online Tools
+
+Tools such as messaging apps and video conferencing platforms are sometimes used to facilitate
+learning. However, these tools operate independently and lack integrated scheduling, payment
+handling, learner management, and quality assurance mechanisms.
+
+2.3 Business Rules
+
+Business rules define the constraints, policies, and conditions under which the Risala Islamic
+Knowledge and Skills platform operates. These rules ensure proper system behavior, role-based
+access control, data integrity, and consistent interaction among learners, instructors, and
+administrators.
+
+The following business rules govern the operation of the proposed system:
+
+     BR-01: All instructors (Ustaz/Ustaza) must provide accurate personal information,
+         qualifications, and areas of expertise during registration before being approved to offer
+         services on the platform.
+
+     BR-02: Instructor accounts must be reviewed and approved by the system administrator
+         before they become visible to learners.
+
+     BR-03: Learners must register and authenticate through the system before booking any
+         learning session.
+
+     BR-04: Instructors are responsible for defining their own availability schedules within
+         the permitted time range set by the system (minimum and maximum session durations).
+
+     BR-05: Only time slots explicitly activated by an instructor shall be displayed as
+         available to learners.
+
+     BR-06: Once a learner successfully books a session, the selected time slot must be
+         immediately marked as unavailable to prevent double booking.
+
+     BR-07: Learners can only book sessions that fall within the instructor's published
+         availability and must complete payment before the booking is confirmed.
+
+     BR-08: Instructors are not permitted to modify or cancel confirmed sessions without
+         following the system's cancellation and rescheduling policies.
+
+     BR-09: The system must automatically generate and assign live session access details
+         (e.g., video conferencing link) after successful booking and payment.
+
+     BR-10: Learners can only access their own profiles, bookings, and session history; access
+         to other users' data is strictly restricted.
+
+     BR-11: Instructors can only access their own profiles, schedules, session records, and
+         earnings information.
+
+     BR-12: The platform shall deduct a predefined service commission from each completed
+         session before instructor payouts.
+
+     BR-13: All financial transactions must be securely recorded and traceable for auditing
+         and reporting purposes.
+     BR-14: Ratings and feedback can only be submitted by learners after a session has been
+         completed.
+
+     BR-15: The system administrator is responsible for managing user roles, platform
+         configurations, content categories, and dispute resolution.
+
+     BR-16: Any modification to critical system data (such as schedules, payments,
+         commissions, or user status) must be logged and traceable.
+
+     BR-17: The system must enforce compliance with ethical and Islamic content guidelines
+         and restrict content that violates platform policies.
+
+     BR-18: Regular system backups must be performed to ensure data integrity and service
+         continuity.
+
+2.4 Proposed System
+
+The proposed system is a web-based digital learning marketplace designed to connect learners
+seeking Islamic knowledge and skills with qualified instructors through a centralized, secure, and
+user-friendly platform. The system aims to modernize the process of Islamic education delivery
+by integrating instructor discovery, scheduling, payment processing, and live session
+management into a single unified solution.
+
+Unlike traditional learning methods and fragmented digital tools, the proposed system introduces
+a structured and scalable approach that supports multiple Islamic disciplines and skills. These
+include Qur'an learning, Tajwid improvement, Hadith studies, Arabic language instruction, and
+Islamic creative skills such as calligraphy and related arts. The system is designed to serve
+diverse user groups, including working adults, beginners, advanced learners, and instructors with
+varying levels of digital experience.
+
+The proposed system addresses the limitations of the current system by offering flexibility,
+transparency, and automation. Learners can browse instructors based on subject, availability,
+pricing, and expertise, while instructors can independently manage their teaching schedules and
+services. Administrative functions ensure quality control, role management, and platform
+governance.
+
+2.4.1 Overview
+
+The Risala Islamic Knowledge and Skills platform operates as a role-based system with three
+primary user categories: learners (students), instructors (Ustaz/Ustaza), and system
+administrators. Each role interacts with the system through controlled access rights and clearly
+defined functionalities.
+
+From the learner's perspective, the system provides an intuitive interface for discovering
+instructors, viewing real-time availability schedules, booking live sessions, and accessing session
+details. Learners are only shown time slots that are actively published and not already booked,
+ensuring clarity and preventing scheduling conflicts.
+
+From the instructor's perspective, the system enables instructors to define their teaching services,
+set availability ranges (such as recurring weekly schedules), determine session durations within
+allowed limits, and manage bookings. Once an instructor activates a schedule, it becomes visible
+to learners, and any booked slot is automatically marked as unavailable.
+
+From the administrative perspective, the system supports instructor verification, category
+management, commission configuration, dispute handling, and platform monitoring.
+Administrators ensure compliance with platform policies, ethical guidelines, and operational
+standards.
+
+The system is implemented as a web-based application using modern technologies, with a
+frontend built using Next.js and Tailwind CSS, and a backend developed using Django and
+Django REST Framework. Communication between frontend and backend is handled through
+secure RESTful APIs. The platform integrates third-party services for video conferencing and
+payment processing, ensuring reliable live sessions and secure financial transactions.
+
+Overall, the proposed system provides a flexible, scalable, and sustainable digital infrastructure
+that supports the growth of Islamic knowledge dissemination while maintaining professionalism,
+trust, and accessibility.
+
+2.4.2 Requirement Definition
+
+This section defines the detailed requirements of the proposed system. Requirements describe
+what the system must do and how well it must perform to satisfy user needs and business
+objectives. The requirements are categorized into functional requirements and non-functional
+requirements to ensure clarity, completeness, and traceability during system development.
+
+The requirement definition is aligned with the system objectives, user roles, and business rules
+established earlier in the document.
+
+2.4.2.1 Functional Requirements
+
+Functional requirements specify the core operations and behaviors that the system must support.
+These requirements are organized based on system users and operational modules.
+
+A. User Management Requirements
+
+FR-01: The system shall allow users to register as learners or instructors using valid personal
+information.
+FR-02: The system shall require email or phone verification during registration to ensure
+account authenticity.
+FR-03: The system shall allow registered users to securely log in and log out of the platform.
+FR-04: The system shall support password recovery and reset functionality.
+FR-05: The system shall allow users to update their profile information, including name, profile
+photo, and contact details.
+FR-06: The system shall restrict users from accessing functionalities outside their assigned roles.
+
+B. Instructor Management Requirements
+
+FR-07: The system shall allow instructors to create and manage their teaching profiles, including
+biography, qualifications, and areas of expertise.
+FR-08: The system shall allow instructors to select teaching categories such as Qur'an, Tajwid,
+Arabic, Hadith, or Islamic skills.
+FR-09: The system shall allow instructors to define session pricing based on duration and
+subject.
+FR-10: The system shall allow instructors to upload required documents for verification
+purposes.
+FR-11: The system shall restrict instructors from becoming visible to learners until approved by
+the system administrator.
+FR-12: The system shall allow instructors to activate or deactivate their teaching availability.
+
+C. Scheduling and Booking Requirements
+
+FR-13: The system shall allow instructors to create availability schedules using date and time
+ranges.
+FR-14: The system shall allow instructors to define recurring availability (e.g., weekly
+schedules).
+FR-15: The system shall display only available and unbooked time slots to learners.
+FR-16: The system shall allow learners to book sessions based on instructor availability.
+FR-17: The system shall prevent double-booking of the same time slot.
+FR-18: The system shall automatically update availability once a session is booked.
+FR-19: The system shall notify both learner and instructor upon successful booking.
+
+D. Payment and Financial Requirements
+
+FR-20: The system shall allow learners to pay for sessions using supported online payment
+methods.
+FR-21: The system shall calculate instructor earnings based on session price and platform
+commission rules.
+FR-22: The system shall generate transaction records for all payments.
+FR-23: The system shall allow learners to view payment history.
+FR-24: The system shall allow administrators to configure commission percentages.
+FR-25: The system shall prevent session confirmation until payment is successfully completed.
+
+E. Live Session and Communication Requirements
+
+FR-26: The system shall integrate with a live video conferencing service for real-time sessions.
+FR-27: The system shall generate unique session links for each booked session.
+FR-28: The system shall restrict session access to authorized participants only.
+FR-29: The system shall allow instructors to start sessions only within the scheduled time.
+FR-30: The system shall log session start and end times.
+
+F. Administrative Requirements
+
+FR-31: The system shall allow administrators to approve, suspend, or remove instructor
+accounts.
+FR-32: The system shall allow administrators to manage teaching categories and system
+configurations.
+FR-33: The system shall allow administrators to view system usage reports.
+FR-34: The system shall allow administrators to handle disputes and complaints.
+FR-35: The system shall log all critical system actions for auditing purposes.
+
+2.4.2.2 Non-Functional Requirements
+
+Non-functional requirements define the quality attributes of the system and how it performs
+under various conditions.
+
+A. Security Requirements
+
+NFR-01: The system shall enforce secure authentication and authorization mechanisms.
+NFR-02: The system shall encrypt sensitive data such as passwords and payment information.
+NFR-03: The system shall prevent unauthorized access to user data.
+NFR-04: The system shall maintain audit logs for sensitive operations.
+
+B. Performance Requirements
+
+NFR-05: The system shall support concurrent users without significant performance
+degradation.
+NFR-06: The system shall respond to user requests within acceptable time limits under normal
+load.
+NFR-07: The system shall optimize database queries to ensure efficient data retrieval.
+
+C. Usability Requirements
+
+NFR-08: The system shall provide a simple and intuitive user interface.
+NFR-09: The system shall be accessible on both desktop and mobile devices.
+NFR-10: The system shall provide clear feedback messages for user actions.
+
+D. Reliability and Availability Requirements
+
+NFR-11: The system shall ensure high availability with minimal downtime.
+NFR-12: The system shall perform regular data backups.
+NFR-13: The system shall recover gracefully from system failures.
+E. Scalability and Maintainability Requirements
+
+NFR-14: The system shall support future expansion without major architectural changes.
+NFR-15: The system shall follow modular design principles for easier maintenance.
+NFR-16: The system shall support system updates without affecting existing data.
+
+Got it. I'm going to be extremely careful, systematic, and rational here.
+No guessing, no filler, no "nice-to-have" fluff.
+Everything below is structural, complete, and fit to shape the entire system correctly.
+
+I will strictly follow your sample format, tabular structure, academic tone, and logical
+completeness.
+
+We will do this in three controlled phases:
+
+    1. Actor Identification (ALL roles, no missing ones)
+    2. Use Case Identification (ALL required use cases, rationally derived)
+    3. Use Case Descriptions
+
+             o In this response: UC-1  UC-6
+             o Remaining use cases  next prompt (as you instructed)
+
+2.4.3.1 Use Case Model
+
+2.4.3.1.1 Actor Identification
+
+Table 2.1: Actor Identification
+
+Actor  Actor Name                Description                 Roles and Responsibilities
+  ID
+
+                                                             � Register and manage personal
+
+AC- Learner        A registered user who enrolls in Islamic  account� Browse instructors and
+01 (Student)       learning services such as Qur'an          learning categories� View instructor
+                   recitation, Tajweed, Hadith studies,      availability schedules� Book learning
+                   Arabic language, and other Islamic        sessions� Make payments for sessions�
+                   knowledge and skill-based sessions        Attend live learning sessions� View
+                   through the platform.                     booking history� Provide feedback and
+                                                             ratings for instructors� View
+
+                                                             notifications and system updates
+Actor  Actor Name                 Description                   Roles and Responsibilities
+  ID
+
+                                                                � Register and manage instructor
+
+                                                                profile� Submit credentials for
+
+AC-    Instructor      A qualified Islamic teacher who          verification� Define and manage
+02     (Ustaz/Ustaza)  provides online learning sessions        availability schedules� Accept or reject
+                       through the platform based on defined    booking requests� Conduct live
+                       availability schedules.                  teaching sessions� View session history
+                                                                and earnings� Request withdrawal of
+
+                                                                earnings� Receive learner feedback and
+
+                                                                ratings� View notifications
+
+                                                                � Approve or reject instructor
+
+                                                                accounts� Manage learner and
+
+                       A privileged user responsible for        instructor accounts� Manage learning
+
+AC- System             managing and maintaining the overall categories and services� Configure
+
+03 Administrator platform configuration, security, and system-wide settings� Manage user
+
+                       core system operations.                  roles and permissions� Monitor
+
+                                                                platform activities� Ensure data
+
+                                                                security and system integrity
+
+                                                                � Monitor platform revenue and
+
+                       A system user responsible for            transactions� Manage instructor
+
+AC- Finance            overseeing financial operations related payout requests� Define and update
+
+04 Administrator to payments, commissions, and                  platform commission rates� Generate
+
+                       earnings.                                financial and earnings reports� Ensure
+
+                                                                payment accuracy and accountability
+
+                                                                � View and manage support requests�
+
+AC-                    A user responsible for handling system- Respond to learner and instructor
+05
+       Support Staff   related inquiries, technical issues, and issues� Escalate unresolved issues to
+
+                       user complaints.                         administrators� Track resolution status
+
+                                                                of support tickets
+
+AC-    External        An external third-party system           � Process learner payments securely�
+06     Payment         integrated with the platform to process  Validate transactions� Send payment
+       Gateway         secure online payments.                  confirmation or failure responses to the
+                                                                system
+
+AC-    Video           An external service integrated to        � Generate secure session links� Enable
+07     Conferencing    facilitate real-time online learning     live audio/video communication�
+       Service         sessions.                                Support real-time interaction between
+                                                                learners and instructors
+Actor  Actor Name             Description                 Roles and Responsibilities
+  ID
+
+Identification Actor Name     Description                 Role
+
+AC-00  Learner (Student)      A registered individual     Can register, log in, manage profile,
+                              who enrolls in Qur'an       browse instructors, book sessions,
+                              and Islamic learning        make payments, attend live classes,
+                              sessions through the        view learning history, and provide
+                              system. Typically           feedback.
+                              working adults, but not
+                              limited by age or
+                              background.
+
+AC-01  Instructor (Teacher /  A qualified Qur'an or       Can manage profile, set availability,
+       Ustadh)                Islamic studies instructor  accept bookings, conduct live sessions,
+                              who provides live           track sessions, and view earnings
+                              teaching sessions           history.
+                              through the platform.
+
+AC-02  System                 A technical                 Can approve instructors, manage users,
+       Administrator          administrator               configure system settings, manage
+                              responsible for             roles and permissions, and monitor
+                              managing system             system activity.
+                              configuration, users,
+                              content categories, and
+                              platform security.
+
+AC-03  Finance                A system role               Can view transactions, manage
+       Administrator          responsible for handling    platform commissions, generate
+                              financial operations and    financial reports, and monitor payouts.
+                              monitoring payments.
+
+                              A support role
+
+                              responsible for handling Can view reported issues, respond to
+
+AC-04  Support Staff          user complaints,            support tickets, and assist users
+
+                              disputes, and assistance without modifying core system data.
+
+                              requests.
+
+AC-05  External Payment       A third-party financial     Processes payments, validates
+       Gateway                service that processes      transactions, and returns payment
+                              online payments             status to the system.
+                              securely.
+Actor  Actor Name                     Description              Roles and Responsibilities
+  ID
+
+AC-06        Video Conferencing       An external service      Provides secure video/audio
+             Service                  integrated to enable     communication links for scheduled
+                                      real-time live learning  sessions.
+                                      sessions.
+
+2.4.3.1.2 Use Case Identification
+
+Table 2.2: Use Case Identification
+
+Use Case ID         Use Case Name
+
+UC-1         Register Account
+
+UC-2         Login
+
+UC-3         Manage Profile
+
+UC-4         Browse Instructors
+
+UC-5         View Instructor Profile
+
+UC-6         Book Learning Session
+
+UC-7         Make Payment
+
+UC-8         View Booking History
+
+UC-9         Attend Live Session
+
+UC-10        Provide Feedback & Rating
+
+UC-11        Manage Availability
+
+UC-12        Accept / Reject Booking
+
+UC-13        Conduct Live Session
+
+UC-14        View Earnings
+
+UC-15        Withdraw Earnings
+
+UC-16        Approve Instructor Account
+Use Case ID          Use Case Name
+
+UC-17        Manage Users
+
+UC-18        Manage Categories & Courses
+
+UC-19        Manage System Settings
+
+UC-20        View Financial Reports
+
+UC-21        Manage Platform Commission
+
+UC-22        Handle Support Requests
+
+UC-23        Send Notifications
+
+UC-24        View Notifications
+
+UC-25        Logout
+2.4.3.1.3 Use Case Description
+
+Table 2.3: Use Case Description � Register Account
+
+Field                                Description
+
+UC              UC-1
+Identification
+
+Use Case        Register Account
+Name
+
+Description     This use case allows a new learner or instructor to create an account in the online
+                Qur'an learning platform.
+
+Actor           Learner, Instructor
+
+Pre-condition   The user must not already have an existing account and must have access to the
+                registration interface.
+
+Post-           A new user account is created and stored in the system; instructor accounts remain
+condition       pending approval.
+
+Basic Flow      1. The user navigates to the registration page.2. The system displays a registration
+                form.3. The user enters required information (name, email, password, role).4. The
+Field                                                         Description
+
+                system validates the input.5. The system creates the account and sends a confirmation
+                notification.
+
+Table 2.4: Use Case Description � Login
+
+Field                                    Description
+
+UC              UC-2
+Identification
+
+Use Case        Login
+Name
+
+Description This use case allows a registered user to authenticate and access the system.
+
+Actor           Learner, Instructor, System Administrator, Finance Administrator, Support Staff
+
+Pre-condition The user must have a registered account with valid credentials.
+
+Post-condition The user is authenticated and redirected to a role-specific dashboard.
+
+Basic Flow      1. The user navigates to the login page.2. The system displays the login form.3. The user
+                enters credentials.4. The system validates credentials.5. Access is granted and
+                dashboard is displayed.
+
+Table 2.5: Use Case Description � Manage Profile
+
+Field                                    Description
+
+UC              UC-3
+Identification
+
+Use Case        Manage Profile
+Name
+
+Description This use case allows users to view and update their personal profile information.
+
+Actor           Learner, Instructor
+
+Pre-condition The user must be logged into the system.
+Field                                  Description
+
+Post-condition Profile information is updated and saved successfully.
+
+Basic Flow      1. The user opens the profile section.2. The system displays current profile data.3. The
+                user edits permitted fields.4. The system validates and saves changes.5. The system
+                confirms the update.
+
+Table 2.6: Use Case Description � Browse Instructors
+
+Field                                  Description
+
+UC              UC-4
+Identification
+
+Use Case        Browse Instructors
+Name
+
+Description     Allows learners to explore available instructors based on subject, availability, and
+                experience.
+
+Actor           Learner
+
+Pre-condition The learner must be logged into the system.
+
+Post-condition A filtered list of instructors is displayed.
+
+Basic Flow      1. Learner navigates to instructor listing.2. System displays available instructors.3.
+                Learner applies filters.4. System updates results accordingly.
+
+Table 2.7: Use Case Description � View Instructor Profile
+
+       Field                           Description
+
+UC              UC-5
+Identification
+
+Use Case Name View Instructor Profile
+
+Description Allows learners to view detailed instructor information before booking a session.
+
+Actor           Learner
+       Field                                       Description
+
+Pre-condition The learner must be logged in.
+
+Post-condition Instructor profile details are displayed.
+
+Basic Flow      1. Learner selects an instructor.2. System displays profile details (bio, expertise,
+                availability, rating).
+
+Table 2.8: Use Case Description � Book Learning Session
+
+       Field                                       Description
+
+UC              UC-6
+Identification
+
+Use Case Name Book Learning Session
+
+Description Enables learners to book an available session with a selected instructor.
+
+Actor           Learner
+
+Pre-condition Learner must be logged in and instructor availability must exist.
+
+Post-condition Session booking is created and pending payment confirmation.
+
+Basic Flow      1. Learner selects time slot.2. System verifies availability.3. Booking is created.4.
+                Learner is redirected to payment.
+
+Table 2.9: Use Case Description � Make Payment
+
+Field                                              Description
+
+UC              UC-7
+Identification
+
+Use Case        Make Payment
+Name
+
+Description     This use case allows a learner to pay for a booked learning session using an integrated
+                payment gateway.
+
+Actor           Learner, External Payment Gateway
+Field                                 Description
+
+Pre-condition The learner must have an active booking pending payment.
+
+Post-           Payment is successfully processed and the booking is confirmed.
+condition
+
+Basic Flow      1. The learner proceeds to payment from the booking page.2. The system redirects to
+                the payment gateway.3. The learner enters payment details.4. The payment gateway
+                validates and processes the transaction.5. The system receives payment confirmation
+                and updates booking status.
+
+Table 2.10: Use Case Description � View Booking History
+
+Field                                 Description
+
+UC              UC-8
+Identification
+
+Use Case        View Booking History
+Name
+
+Description Allows learners and instructors to view their past and upcoming session bookings.
+
+Actor           Learner, Instructor
+
+Pre-condition The user must be logged into the system.
+
+Post-condition Booking history is displayed to the user.
+
+Basic Flow      1. The user navigates to booking history.2. The system retrieves booking records.3. The
+                system displays bookings grouped by status and date.
+
+Table 2.11: Use Case Description � Attend Live Session
+
+Field                                 Description
+
+UC              UC-9
+Identification
+
+Use Case        Attend Live Session
+Name
+Field                                                Description
+
+Description Enables learners to join a scheduled live learning session at the assigned time.
+
+Actor           Learner, Video Conferencing Service
+
+Pre-condition The session must be scheduled and paid for.
+
+Post-condition The learner successfully joins the live session.
+
+Basic Flow      1. Learner accesses the session dashboard.2. System verifies session time and status.3.
+                System generates a secure session link.4. Learner joins the live session.
+
+Table 2.12: Use Case Description � Provide Feedback & Rating
+
+Field                                                Description
+
+UC              UC-10
+Identification
+
+Use Case        Provide Feedback & Rating
+Name
+
+Description Allows learners to rate and review instructors after completing a session.
+
+Actor           Learner
+
+Pre-condition The learning session must be completed.
+
+Post-condition Feedback and rating are stored and reflected on the instructor profile.
+
+Basic Flow      1. Learner opens completed session details.2. System displays feedback form.3. Learner
+                submits rating and comments.4. System saves feedback and updates instructor rating.
+
+Table 2.13: Use Case Description � Manage Availability
+
+Field                                                Description
+
+UC              UC-11
+Identification
+
+Use Case        Manage Availability
+Name
+Field                                        Description
+
+Description Enables instructors to define and update their available teaching time slots.
+
+Actor           Instructor
+
+Pre-condition Instructor must be logged in and approved.
+
+Post-condition Availability schedule is updated and visible to learners.
+
+Basic Flow      1. Instructor navigates to availability settings.2. Instructor selects recurring or specific
+                time slots.3. System validates overlaps and conflicts.4. Availability is saved and
+                published.
+
+Table 2.14: Use Case Description � Accept / Reject Booking
+
+Field                                        Description
+
+UC              UC-12
+Identification
+
+Use Case        Accept / Reject Booking
+Name
+
+Description Allows instructors to accept or decline booking requests made by learners.
+
+Actor           Instructor
+
+Pre-condition A booking request must exist.
+
+Post-condition Booking status is updated and learner is notified.
+
+Basic Flow      1. Instructor views pending bookings.2. Instructor reviews booking details.3. Instructor
+                accepts or rejects the request.4. System updates booking status and notifies learner.
+
+Table 2.15: Use Case Description � Conduct Live Session
+
+Field                                        Description
+
+UC              UC-13
+Identification
+Field                                          Description
+
+Use Case        Conduct Live Session
+Name
+
+Description Enables instructors to conduct live teaching sessions with learners.
+
+Actor           Instructor, Video Conferencing Service
+
+Pre-condition Session must be scheduled and confirmed.
+
+Post-condition Live session is completed successfully.
+
+Basic Flow      1. Instructor accesses session dashboard.2. System generates secure session link.3.
+                Instructor starts the live session.4. Session ends and status is updated.
+
+Table 2.16: Use Case Description � View Earnings
+
+       Field                                            Description
+
+UC              UC-14
+Identification
+
+Use Case Name View Earnings
+
+Description Allows instructors to view earnings from completed sessions.
+
+Actor           Instructor
+
+Pre-condition Instructor must have completed paid sessions.
+
+Post-condition Earnings summary is displayed.
+
+Basic Flow      1. Instructor opens earnings dashboard.2. System retrieves transaction data.3. System
+                displays earnings breakdown.
+
+Table 2.17: Use Case Description � Withdraw Earnings
+
+Field                                          Description
+
+UC              UC-15
+Identification
+Field                                       Description
+
+Use Case        Withdraw Earnings
+Name
+
+Description Enables instructors to request withdrawal of accumulated earnings.
+
+Actor           Instructor
+
+Pre-condition Instructor must have sufficient withdrawable balance.
+
+Post-condition Withdrawal request is recorded and processed.
+
+Basic Flow      1. Instructor initiates withdrawal request.2. System validates balance.3. Request is
+                forwarded to finance administrator.4. System updates withdrawal status.
+
+Table 2.18: Use Case Description � Approve Instructor Account
+
+Field                                       Description
+
+UC              UC-16
+Identification
+
+Use Case        Approve Instructor Account
+Name
+
+Description Allows administrators to review and approve instructor registrations.
+
+Actor           System Administrator
+
+Pre-condition Instructor account must be pending approval.
+
+Post-condition Instructor account is approved or rejected.
+
+Basic Flow      1. Administrator reviews instructor application.2. Administrator verifies credentials.3.
+                Administrator approves or rejects application.4. System notifies the instructor.
+
+Table 2.19: Use Case Description � Manage Users
+
+       Field                                Description
+
+UC              UC-17
+Identification
+       Field                                    Description
+
+Use Case Name Manage Users
+
+Description Enables administrators to manage learner and instructor accounts.
+
+Actor           System Administrator
+
+Pre-condition Administrator must be logged in.
+
+Post-condition User records are updated accordingly.
+
+Basic Flow      1. Administrator views user list.2. Administrator edits, suspends, or removes users.3.
+                System saves changes.
+
+Table 2.20: Use Case Description � Manage Categories & Courses
+
+       Field                                    Description
+
+UC              UC-18
+Identification
+
+Use Case Name Manage Categories & Courses
+
+Description Allows administrators to manage learning categories and course classifications.
+
+Actor           System Administrator
+
+Pre-condition Administrator must be authenticated.
+
+Post-condition Categories and course data are updated.
+
+Basic Flow      1. Administrator accesses category management.2. Adds, edits, or deletes
+                categories.3. System updates records.
+
+Table 2.21: Use Case Description � Manage System Settings
+
+       Field                                    Description
+
+UC              UC-19
+Identification
+
+Use Case Name Manage System Settings
+       Field                                     Description
+
+Description Enables administrators to configure platform-wide settings.
+
+Actor           System Administrator
+
+Pre-condition Administrator must be logged in.
+
+Post-condition System settings are updated and applied.
+
+Basic Flow      1. Administrator opens system settings.2. Updates configuration values.3. System
+                validates and saves settings.
+
+Table 2.22: Use Case Description � View Financial Reports
+
+       Field                                     Description
+
+UC              UC-20
+Identification
+
+Use Case Name View Financial Reports
+
+Description Allows finance administrators to view revenue and payout reports.
+
+Actor           Finance Administrator
+
+Pre-condition Financial data must exist.
+
+Post-condition Financial reports are displayed.
+
+Basic Flow      1. Finance admin selects report type.2. System generates report.3. Report is
+                displayed.
+
+Table 2.23: Use Case Description � Manage Platform Commission
+
+       Field                                     Description
+
+UC              UC-21
+Identification
+
+Use Case Name Manage Platform Commission
+
+Description Enables administrators to define platform commission rates.
+       Field                                     Description
+
+Actor           Finance Administrator
+
+Pre-condition Administrator must be authenticated.
+
+Post-condition Commission settings are updated.
+
+Basic Flow      1. Administrator updates commission values.2. System validates inputs.3. Changes are
+                saved.
+
+Table 2.24: Use Case Description � Handle Support Requests
+
+       Field                                     Description
+
+UC              UC-22
+Identification
+
+Use Case Name Handle Support Requests
+
+Description Allows support staff to manage user inquiries and complaints.
+
+Actor           Support Staff
+
+Pre-condition Support request must exist.
+
+Post-condition Issue is resolved or escalated.
+
+Basic Flow      1. Support staff views request.2. Responds or escalates issue.3. System updates
+                request status.
+
+Table 2.25: Use Case Description � Send Notifications
+
+       Field                                     Description
+
+UC Identification UC-23
+
+Use Case Name Send Notifications
+
+Description Enables the system to send notifications related to bookings, payments, and updates.
+
+Actor           System Administrator
+
+Pre-condition Triggering event must occur.
+       Field                                 Description
+
+Post-condition Notification is delivered to intended user.
+
+Basic Flow      1. Event triggers notification.2. System generates message.3. Notification is sent.
+
+Table 2.26: Use Case Description � View Notifications
+
+       Field                           Description
+
+UC Identification UC-24
+
+Use Case Name View Notifications
+
+Description Allows users to view received notifications.
+
+Actor           Learner, Instructor
+
+Pre-condition User must be logged in.
+
+Post-condition Notifications are displayed.
+
+Basic Flow      1. User opens notification panel.2. System displays notifications.
+
+Table 2.27: Use Case Description � Logout
+
+       Field                                 Description
+
+UC              UC-25
+Identification
+
+Use Case Name Logout
+
+Description Allows users to securely exit the system.
+
+Actor           All Users
+
+Pre-condition User must be logged in.
+
+Post-condition User session is terminated.
+
+Basic Flow      1. User selects logout option.2. System invalidates session.3. User is redirected to
+                login page.
+2.4.3.2 Sequence Diagram
+
+2.4.3.2.1 Overview
+
+A sequence diagram illustrates how different actors and system components interact with each
+other over time to complete a specific task.
+In the proposed Risala Islamic Knowledge and Skills Platform, sequence diagrams are used to
+model dynamic interactions such as user authentication, session booking, payment processing,
+and live session initiation.
+
+This section presents the primary and most critical sequence in the system:
+ Booking and Conducting a Live Learning Session
+
+This sequence represents the core business value of the platform.
+
+2.4.3.2.2 Sequence Diagram Description: Book and Attend Live Session
+
+Actors and Components Involved
+
+     Learner (Student)
+     Instructor (Ustaz)
+     Web Application (Frontend � Next.js)
+     Backend API (Django REST Framework)
+     Database (Supabase / PostgreSQL)
+     Payment Gateway
+     Video Conferencing Service
+
+Textual Flow of the Sequence (Narrative Explanation)
+
+    1. The Learner logs into the system using valid credentials.
+    2. The system authenticates the Learner and grants access to the learner dashboard.
+    3. The Learner browses available instructors and applies filters such as subject, price, and
+
+         available time.
+    4. The system retrieves instructor profiles and availability schedules from the database.
+    5. The Learner selects a preferred instructor and views the instructor's available time slots.
+    6. The Learner selects a desired time slot and submits a booking request.
+    7. The system checks the availability of the selected time slot to prevent conflicts.
+    8. The system redirects the Learner to the payment process.
+    9. The Learner completes the payment through the integrated payment gateway.
+    10. The payment gateway validates the transaction and sends the payment status to the
+
+         system.
+    11. Upon successful payment, the system confirms the booking and marks the selected time
+
+         slot as unavailable.
+    12. The system generates a live session link using the video conferencing service.
+    13. Notifications are sent to both the Learner and the Instructor.
+    14. At the scheduled time, the Learner and Instructor join the live session using the generated
+         link.
+
+    15. After the session ends, the system updates session status and records attendance.
+    16. The Learner is allowed to submit feedback and rating for the Instructor.
+
+Why This Sequence Diagram Is Correct and Safe
+
+ Matches teacher-defined schedules
+ Prevents double booking
+ Separates frontend, backend, and external services
+ Reflects real-world payment and live session flow
+ Aligns perfectly with previously defined use cases
+
+This diagram can be referenced in:
+
+     System design validation
+     Implementation phase
+     Defense / project presentation
+
+Activity Diagram � Risala Full-Stack
+Application
+
+Purpose of the Activity Diagram
+
+The activity diagram shows:
+
+     The flow of actions
+     Decision points
+     Parallel processes
+     User + system interaction
+
+         from start to end of major workflows.
+
+Overall System Activity Flow (High Level)
+
+Actors involved
+
+     Guest User
+     Registered Student
+ Teacher (Ustaz)
+ Admin
+ System (Backend + Services)
+
+1. User Authentication Activity
+
+Activity Flow (Text UML)
+
+[Start]
+
+|
+
+v
+
+User opens application
+
+|
+
+v
+
+Is user authenticated?
+
+|
+
+|-- No --> Show Login / Register Page
+
+|           |
+
+|           v
+
+|        User submits credentials
+
+|           |
+
+|           v
+
+|        Validate credentials
+
+|           |
+
+|        Are credentials valid?
+
+|           |
+
+|        |-- No --> Show error message
+
+|        |                       |
+
+|        |                       v
+
+|        |              Retry login
+
+|        |
+
+|        |-- Yes --> Generate JWT / Session
+
+|                                |
+
+|                                v
+
+|              Redirect to Dashboard
+
+|
+
+|-- Yes --> Load Dashboard
+
+|
+
+v
+
+[End]
+
+2. Course Enrollment & Payment Activity
+
+[Start]
+     |
+     v
+
+Student browses courses
+     |
+     v
+
+Select course
+     |
+     v
+
+Is student already enrolled?
+     |
+|-- Yes --> Access course content
+
+|
+
+|-- No --> Proceed to payment
+
+          |
+
+          v
+
+       Select payment method
+
+          |
+
+          v
+
+       Process payment (Gateway)
+
+          |
+
+          v
+
+       Is payment successful?
+
+          |
+
+       |-- No --> Show failure message
+
+       |     |
+
+       |     v
+
+       |     Retry / Cancel
+
+       |
+
+       |-- Yes --> Confirm enrollment
+
+             |
+
+             v
+
+             Grant course access
+
+             |
+
+             v
+
+             Send confirmation email
+
+|
+
+v
+
+[End]
+
+3. Learning & Live Session Activity
+
+[Start]
+     |
+     v
+
+Student opens enrolled course
+     |
+     v
+
+View lessons / materials
+     |
+     v
+
+Is there a live session?
+     |
+     |-- No --> Continue self-paced learning
+     |
+     |-- Yes --> Join live session
+                                  |
+                                  v
+                    Connect via WebSocket / WebRTC
+                                  |
+                                  v
+                     Live Quran recitation
+                                  |
+                                  v
+                     Teacher listens & corrects
+                                  |
+                                  v
+        Teacher submits feedback
+                    |
+                    v
+
+        Save progress & feedback
+
+     |
+     v
+[End]
+
+4. Teacher (Ustaz) Activity Flow
+
+[Start]
+     |
+     v
+
+Teacher logs in
+     |
+     v
+
+Access teacher dashboard
+     |
+     v
+
+Manage courses?
+     |
+     |-- Upload materials
+     |-- Schedule live classes
+     |-- Review student progress
+     |
+     v
+
+Conduct live session
+     |
+     v
+
+Provide corrections & notes
+     |
+     v
+
+Submit evaluation
+     |
+     v
+
+[End]
+
+5. Admin Management Activity
+
+[Start]
+     |
+     v
+
+Admin logs in
+     |
+     v
+
+Access admin panel
+     |
+     v
+
+Choose action
+     |
+     |-- Manage users
+     |-- Manage courses
+     |-- Assign teachers
+     |-- Monitor payments
+     |-- View reports & analytics
+     |
+     v
+Apply changes
+
+     |
+     v
+System updates database
+     |
+     v
+Log admin activity
+     |
+     v
+[End]
+
+6. Error Handling & System Activities (Parallel)
+
+[System]
+     |
+     |-- Monitor authentication failures
+     |-- Handle payment callbacks
+     |-- Log user activity
+     |-- Send notifications (email / push)
+     |-- Auto-scale services
+     |-- Backup data
+
+These run in parallel with user actions.
+
+State Chart Diagram � Risala Islamic Full-
+Stack Application
+
+1. Purpose of the State Chart Diagram
+
+The State Chart Diagram models:
+
+     States an object can be in
+     Transitions between states
+     Events / actions causing transitions
+
+In Risala, the most important stateful entities are:
+
+     User Account
+     Course Enrollment
+     Live Class Session
+     Payment Transaction
+2. State Chart � User Account
+
+States
+
+     Guest
+     Registered
+     Email Unverified
+     Active
+     Suspended
+     Deactivated
+
+State Transitions (Text UML)
+
+[Initial]
+     |
+     v
+
+Guest
+     |
+     |-- Register -->
+     v
+
+Registered
+     |
+     |-- Email Verification Required -->
+     v
+
+Email Unverified
+     |
+     |-- Verify Email -->
+     v
+
+Active
+     |
+     |-- Policy Violation -->
+     v
+
+Suspended
+     |
+     |-- Admin Re-activate -->
+     v
+
+Active
+     |
+     |-- User Deletes Account -->
+     v
+
+Deactivated
+
+Professional Notes
+
+     A Guest has read-only access
+     Only Active users can enroll, pay, or join live sessions
+     Suspended users retain data but lose access
+     Deactivated is a terminal state
+3. State Chart � Course Enrollment
+
+States
+
+     Not Enrolled
+     Payment Pending
+     Enrolled
+     In Progress
+     Completed
+     Cancelled
+     Expired
+
+State Transitions
+
+[Initial]
+     |
+     v
+
+Not Enrolled
+     |
+     |-- Select Course -->
+     v
+
+Payment Pending
+     |
+     |-- Payment Success -->
+     v
+
+Enrolled
+     |
+     |-- Start Learning -->
+     v
+
+In Progress
+     |
+     |-- Finish All Modules -->
+     v
+
+Completed
+     |
+     |-- Subscription Time Over -->
+     v
+
+Expired
+Payment Pending
+
+     |
+     |-- Payment Failed -->
+     v
+Not Enrolled
+Enrolled / In Progress
+     |
+     |-- User Cancels -->
+     v
+Cancelled
+Professional Notes
+
+     Enrollment state is independent per course
+     Expired applies to time-bound subscriptions
+     Cancelled preserves history for reporting
+
+4. State Chart � Live Class Session
+
+States
+
+     Scheduled
+     Open
+     In Session
+     Paused
+     Ended
+     Cancelled
+
+State Transitions
+
+[Initial]
+     |
+     v
+
+Scheduled
+     |
+     |-- Teacher Starts Session -->
+     v
+
+Open
+     |
+     |-- Students Join -->
+     v
+
+In Session
+     |
+     |-- Network Issue -->
+     v
+
+Paused
+     |
+     |-- Resume -->
+     v
+
+In Session
+     |
+     |-- Teacher Ends -->
+     v
+
+Ended
+Scheduled
+
+     |
+     |-- Teacher Cancels -->
+     v
+Cancelled
+
+Professional Notes
+
+     Open allows participants to join
+     Paused handles connectivity or moderation issues
+     Ended is a final state used for archives
+
+5. State Chart � Payment Transaction
+
+States
+
+     Initiated
+     Processing
+     Successful
+     Failed
+     Refunded
+
+State Transitions
+
+[Initial]
+     |
+     v
+
+Initiated
+     |
+     |-- Redirect to Gateway -->
+     v
+
+Processing
+     |
+     |-- Success Callback -->
+     v
+
+Successful
+Processing
+
+     |
+     |-- Failure Callback -->
+     v
+Failed
+Successful
+     |
+     |-- Admin Refund -->
+     v
+Refunded
+2.4.3.5 Class Diagram (Conceptual & Logical Model)
+1. Core Design Philosophy
+
+The Risala system is designed around four foundational domains:
+
+    1. Identity & Access Control
+    2. Education & Learning Management
+    3. Scheduling & Live Interaction
+    4. Payments, Compliance & Auditing
+
+Each domain is loosely coupled but strongly consistent.
+
+2. Identity & Access Control Domain
+
+2.1 User (Abstract Root Class)
+
+This is the root superclass for all system actors.
+
+Attributes
+
+     id (UUID, immutable)
+     full_name
+     email (unique, verified)
+     phone_number (optional, verified)
+     password_hash
+     gender
+     date_of_birth
+     country
+     timezone
+     preferred_language
+     is_active
+     is_suspended
+     suspension_reason
+     created_at
+     updated_at
+     last_login_at
+
+Responsibilities
+
+     Authentication
+     Identity ownership
+     Base authorization context
+
+Notes
+     NEVER store roles here
+     NEVER mix business logic with identity
+
+2.2 Role
+
+Represents system-level authority, not behavior.
+Attributes
+
+     id
+     name (Admin, Ustaz, Student, Finance, Support)
+     description
+     created_at
+Relationships
+     User -- Role (Many-to-Many)
+
+2.3 Permission
+
+Fine-grained access control.
+Attributes
+
+     id
+     code (e.g. CREATE_SESSION)
+     description
+     scope (SYSTEM / COURSE / SESSION)
+Relationships
+     Role -- Permission
+
+3. Education & Learning Domain
+
+3.1 TeacherProfile (Ustaz)
+
+Extends User through composition (NOT inheritance in DB).
+Attributes
+
+     user_id (FK  User)
+     biography
+     qualifications
+     years_of_experience
+     teaching_languages
+     teaching_levels (Beginner, Intermediate, Advanced)
+     specialization (Tajweed, Hifz, Tafsir, Arabic)
+     hourly_rate
+     rating_average
+     total_students
+     verification_status
+     verified_by_admin
+     profile_visibility
+
+Responsibilities
+
+     Teaching authority
+     Availability definition
+     Content ownership
+
+3.2 StudentProfile
+
+Attributes
+
+     user_id (FK  User)
+     learning_goals
+     current_level
+     preferred_schedule
+     guardian_contact (optional)
+     enrollment_status
+     joined_at
+
+3.3 Course
+
+Represents a learning offering, not a class session.
+
+Attributes
+
+     id
+     title
+     description
+     category (Quran, Tajweed, Arabic)
+     level
+     duration_type (Fixed / Subscription)
+     total_weeks
+     syllabus
+     prerequisites
+     created_by (FK  TeacherProfile)
+     is_published
+     created_at
+     updated_at
+
+3.4 CourseModule
+
+Logical subdivision of a course.
+
+Attributes
+
+     id
+     course_id
+     title
+     order_index
+     learning_objectives
+     estimated_duration
+     is_mandatory
+
+3.5 Lesson
+
+Atomic learning unit.
+
+Attributes
+
+     id
+     module_id
+     title
+     lesson_type (Video, Live, Reading)
+     content_reference
+     duration_minutes
+     requires_attendance
+     is_free_preview
+4. Scheduling & Live Interaction Domain
+
+4.1 TeacherAvailability
+
+Defines availability ranges, not bookings.
+
+Attributes
+
+     id
+     teacher_id
+     day_of_week
+     start_time
+     end_time
+     timezone
+     is_recurring
+     effective_from
+     effective_to
+
+4.2 TimeSlot
+
+Derived entity (system-generated).
+
+Attributes
+
+     id
+     availability_id
+     start_datetime
+     end_datetime
+     status (Available, Reserved, Booked, Blocked)
+
+4.3 LiveSession
+
+Actual live teaching instance.
+
+Attributes
+
+     id
+     course_id
+     teacher_id
+     scheduled_start
+     scheduled_end
+     session_type (One-to-One / Group)
+     max_participants
+     session_status (Scheduled, Live, Ended, Cancelled)
+     meeting_link
+     recording_link
+     created_at
+
+4.4 SessionParticipant
+
+Attributes
+
+     id
+     session_id
+     student_id
+     join_time
+     leave_time
+     attendance_status
+     participation_notes
+
+5. Enrollment & Learning Progress Domain
+
+5.1 Enrollment
+
+Central transactional entity.
+
+Attributes
+
+     id
+     student_id
+     course_id
+     enrollment_type (Free / Paid)
+     status (Pending, Active, Completed, Cancelled, Expired)
+     enrolled_at
+     completed_at
+     expiry_date
+5.2 LessonProgress
+
+Attributes
+
+     id
+     enrollment_id
+     lesson_id
+     progress_percentage
+     last_accessed_at
+     completed_at
+
+5.3 Assessment
+
+Attributes
+
+     id
+     course_id
+     assessment_type
+     passing_score
+     total_score
+
+5.4 AssessmentResult
+
+Attributes
+
+     id
+     assessment_id
+     student_id
+     score
+     feedback
+     graded_by
+     graded_at
+
+6. Payments & Financial Domain
+
+6.1 Payment
+
+Attributes
+     id
+     student_id
+     enrollment_id
+     amount
+     currency
+     payment_method
+     status (Initiated, Processing, Successful, Failed, Refunded)
+     transaction_reference
+     paid_at
+
+6.2 Invoice
+
+Attributes
+
+     id
+     payment_id
+     invoice_number
+     issued_at
+     tax_amount
+     total_amount
+     invoice_file_url
+
+6.3 Refund
+
+Attributes
+
+     id
+     payment_id
+     reason
+     refunded_amount
+     refunded_at
+
+7. Communication & Notifications Domain
+
+7.1 Notification
+
+Attributes
+
+     id
+     user_id
+     title
+     message
+     type (System, Reminder, Payment)
+     is_read
+     sent_at
+
+7.2 Message
+
+Attributes
+
+     id
+     sender_id
+     receiver_id
+     content
+     message_type
+     sent_at
+     read_at
+
+8. Auditing, Security & Compliance
+
+8.1 AuditLog
+
+Attributes
+
+     id
+     actor_id
+     action
+     entity_type
+     entity_id
+     old_value
+     new_value
+     ip_address
+     user_agent
+     timestamp
+
+8.2 SystemSetting
+
+Attributes
+     id
+     key
+     value
+     description
+     last_updated_by
+     updated_at
+
+2.4.3.6.1 Entity Relationship (ER) Diagram �
+Textual Representation
+
+Risala Islamic Full-Stack Learning Platform
+
+1. Core Identity Relationships
+
+ENTITY: User
+
+     PK: user.id
+
+This is the root entity of the system.
+
+User -- Role Relationship
+
+Relationship:
+
+User (1) ---- (M) UserRole (M) ---- (1) Role
+
+     A User can have multiple Roles
+     A Role can be assigned to multiple Users
+     Implemented via user_roles (junction table)
+
+Cardinality:
+     User  Role = Many-to-Many
+     Mandatory on both sides
+
+Role -- Permission Relationship
+
+Relationship:
+
+Role (1) ---- (M) RolePermission (M) ---- (1) Permission
+
+     A Role aggregates multiple Permissions
+     A Permission can belong to multiple Roles
+
+Cardinality:
+
+     Role  Permission = Many-to-Many
+     Mandatory on Role side
+
+2. Profile Specialization (Inheritance by Composition)
+
+User -- TeacherProfile
+
+Relationship:
+
+User (1) ---- (0..1) TeacherProfile
+
+     A User may or may not be a Teacher
+     A TeacherProfile must belong to exactly one User
+
+Cardinality:
+
+     One-to-One (Optional on User side)
+     Enforced via teacher_profiles.user_id (UNIQUE)
+
+User -- StudentProfile
+
+Relationship:
+
+User (1) ---- (0..1) StudentProfile
+
+     A User may or may not be a Student
+     A StudentProfile must belong to exactly one User
+
+Cardinality:
+
+     One-to-One (Optional on User side)
+
+ Important:
+This allows one user to be both Teacher and Student, without conflict.
+
+3. Course Structure Relationships
+
+TeacherProfile -- Course
+
+Relationship:
+
+TeacherProfile (1) ---- (M) Course
+
+     A Teacher can create many Courses
+     A Course is created by exactly one Teacher
+Cardinality:
+
+     One-to-Many
+     Mandatory on Course side
+
+Course -- CourseModule
+
+Relationship:
+
+Course (1) ---- (M) CourseModule
+
+     A Course consists of one or more Modules
+     A Module belongs to exactly one Course
+
+Cardinality:
+
+     One-to-Many
+     Mandatory
+
+CourseModule -- Lesson
+
+Relationship:
+
+CourseModule (1) ---- (M) Lesson
+
+     A Module contains many Lessons
+     A Lesson belongs to exactly one Module
+
+Cardinality:
+
+     One-to-Many
+     Mandatory
+
+4. Enrollment & Learning Progress
+
+StudentProfile -- Enrollment
+
+Relationship:
+
+StudentProfile (1) ---- (M) Enrollment
+
+     A Student can have multiple Enrollments
+     Each Enrollment belongs to one Student
+
+Cardinality:
+
+     One-to-Many
+
+Course -- Enrollment
+Relationship:
+
+Course (1) ---- (M) Enrollment
+
+     A Course can have many Enrollments
+     An Enrollment refers to one Course
+
+Cardinality:
+
+     One-to-Many
+
+Enrollment -- LessonProgress
+
+Relationship:
+
+Enrollment (1) ---- (M) LessonProgress
+
+     An Enrollment tracks progress per lesson
+     A LessonProgress belongs to one Enrollment
+
+Cardinality:
+
+     One-to-Many
+
+Lesson -- LessonProgress
+
+Relationship:
+
+Lesson (1) ---- (M) LessonProgress
+
+     A Lesson can have progress records from many students
+     A LessonProgress refers to exactly one Lesson
+
+Cardinality:
+
+     One-to-Many
+
+5. Scheduling & Live Teaching
+
+TeacherProfile -- TeacherAvailability
+
+Relationship:
+
+TeacherProfile (1) ---- (M) TeacherAvailability
+
+     A Teacher defines multiple availability slots
+     Each availability belongs to one teacher
+
+Course -- LiveSession
+Relationship:
+
+Course (1) ---- (M) LiveSession
+
+     A Course may have many live sessions
+     A LiveSession belongs to one course
+
+TeacherProfile -- LiveSession
+
+Relationship:
+
+TeacherProfile (1) ---- (M) LiveSession
+
+     A Teacher conducts many sessions
+     A session has exactly one teacher
+
+LiveSession -- SessionParticipant
+
+Relationship:
+
+LiveSession (1) ---- (M) SessionParticipant
+
+     A LiveSession has many participants
+     Each participation record belongs to one session
+
+StudentProfile -- SessionParticipant
+
+Relationship:
+
+StudentProfile (1) ---- (M) SessionParticipant
+
+     A Student may join many sessions
+     Each participation belongs to one student
+
+6. Assessment Relationships
+
+Course -- Assessment
+
+Relationship:
+
+Course (1) ---- (M) Assessment
+
+     A course may have multiple assessments
+
+Assessment -- AssessmentResult
+
+Relationship:
+
+Assessment (1) ---- (M) AssessmentResult
+
+StudentProfile -- AssessmentResult
+Relationship:
+
+StudentProfile (1) ---- (M) AssessmentResult
+
+     Each result belongs to one student and one assessment
+
+User (Teacher/Admin) -- AssessmentResult (Grader)
+
+Relationship:
+
+User (1) ---- (M) AssessmentResult
+
+     Tracks who graded the assessment
+     Optional (system auto-grading allowed)
+7. Financial Relationships (Strict & Auditable)
+
+Enrollment -- Payment
+
+Relationship:
+
+Enrollment (1) ---- (M) Payment
+
+     One enrollment can have multiple payments (installments, retries)
+
+StudentProfile -- Payment
+
+Relationship:
+
+StudentProfile (1) ---- (M) Payment
+
+Payment -- Invoice
+
+Relationship:
+
+Payment (1) ---- (0..1) Invoice
+
+     Not all payments require invoices
+     Invoice cannot exist without payment
+
+Payment -- Refund
+
+Relationship:
+
+Payment (1) ---- (0..M) Refund
+
+8. Communication & Auditing
+
+User -- Notification
+Relationship:
+
+User (1) ---- (M) Notification
+
+User -- Message (Sender)
+
+Relationship:
+
+User (1) ---- (M) Message
+
+User -- Message (Receiver)
+
+Relationship:
+
+User (1) ---- (M) Message
+
+Same entity, different semantic roles
+
+User -- AuditLog
+
+Relationship:
+
+User (1) ---- (M) AuditLog
+
+     Every critical system action is traceable
+
+9. ER Integrity Guarantees
+
+ No circular dependencies
+ No orphan records
+ No redundant relationships
+ Fully supports soft-deletes
+ Enforces business rules implicitly
+ Directly implementable in Django
+
