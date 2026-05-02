@@ -1,0 +1,371 @@
+
+12
+
+Automatic Zoom
+ To implement a booking system that prevents time-slot conflicts and double reservations. 
+ To enable students to browse teachers based on availability, expertise, and learning focus. 
+ To design user-friendly interfaces for students, teachers, and administrators. 
+ To integrate structured Quran learning that combines both theoretical knowledge and 
+practical skills. 
+ To ensure secure user authentication and role-based access control within the system. 
+ To test and validate the system to ensure reliability, usability, and performance. 
+ To deploy the system on a scalable web-based platform accessible to users regardless of 
+location. 
+1.4 Methodology 
+This section describes the systematic approach followed in conducting the study and developing 
+the proposed system. It outlines the methods used to collect data, the software development 
+process model adopted, the design pattern applied, and the programming languages selected for 
+implementing the system. The methodology ensures that the project is developed in a structured, 
+reliable, and scientifically sound manner, from problem identification to system deployment. 
+1.4.1 Data Collection 
+Data collection is a critical activity in system development, as it ensures that the proposed system 
+addresses real user needs and existing challenges. For this project, both primary and secondary 
+data collection methods are used to gather accurate and relevant information. The following data collection tools are employed: 
+ Questionnaires/Surveys: 
+Structured questionnaires are prepared and distributed to potential users, particularly 
+working adult Quran learners and instructors. These questionnaires are used to collect 
+quantitative data related to learning preferences, availability constraints, challenges faced 
+with traditional learning methods, and expectations from a digital Islamic learning 
+platform. 
+ Interviews: 
+Semi-structured interviews are conducted with selected Ustaz and experienced Quran 
+teachers. These interviews help gather qualitative insights into teaching methodologies, 
+scheduling practices, student management challenges, and the feasibility of digital 
+instruction. 
+ Observation: 
+Observation is used to understand existing Quran teaching practices, including class 
+scheduling, teacher–student interaction, and session management. This method helps 
+identify gaps between traditional practices and digital solutions. 
+ Document Analysis: 
+Relevant documents such as existing Islamic learning platforms, research papers, 
+institutional reports, and online learning system documentation are reviewed. This helps 
+identify best practices, common system features, and limitations in existing solutions. 
+All data collection instruments used in this project are documented and included in the appendix 
+section of the final report. 
+1.4.2 System Development Process Model 
+A system development process model defines the structured steps followed to design, develop, 
+test, and deploy a software system. These models help manage complexity, reduce development 
+risks, and ensure that the final product meets user requirements. For this project, the Agile Software Development Model is selected. Agile emphasizes iterative 
+development, continuous feedback, and incremental delivery of system features. Unlike 
+traditional linear models, Agile allows flexibility in accommodating changing requirements, 
+which is essential for systems involving multiple user roles such as students, teachers, and 
+administrators. The Agile model is suitable for this project because: 
+ User requirements, especially related to scheduling and learning preferences, may evolve 
+during development. 
+ Continuous feedback from Ustaz and students is necessary to refine system features. 
+ The system can be developed in small functional modules such as authentication, 
+scheduling, booking, and learning management. 
+ Early testing and validation reduce the risk of major failures at later stages. The Agile process followed in this project includes requirement gathering, iterative design, 
+implementation, testing, review, and refinement. A diagram illustrating the Agile development 
+cycle is included in this section to visually represent the development flow. 
+1.4.3 Design Pattern 
+A design pattern provides a reusable solution to common software design problems and 
+improves system maintainability, scalability, and clarity. This project follows the Model–View–Controller (MVC) design pattern. The MVC pattern 
+separates the system into three interconnected components: the Model, the View, and the 
+Controller. 
+ The Model represents the system’s data and business logic, such as users, schedules, 
+bookings, and learning content. 
+ The View handles the user interface and presentation layer, displaying information to 
+users in a clear and accessible manner. 
+ The Controller acts as an intermediary between the Model and the View, processing user 
+requests, applying business rules, and returning appropriate responses. The MVC pattern is chosen because it: 
+ Promotes separation of concerns, making the system easier to understand and maintain. 
+ Supports parallel development of frontend and backend components. 
+ Is well-supported by modern web frameworks used in this project. 
+ Enhances scalability and code reusability. By applying MVC, the system achieves a clean architecture that simplifies future enhancements 
+and maintenance. 
+1.4.4 Programming Language 
+The development of the system involves multiple layers, each requiring appropriate 
+programming languages based on performance, scalability, and maintainability considerations. 
+ Backend Programming Language: 
+The backend of the system is developed using Python. Python is chosen due to its 
+simplicity, readability, and strong ecosystem for web development. It enables rapid 
+development and supports clean architectural patterns such as MVC. Python is also 
+highly suitable for building secure, scalable, and maintainable server-side applications. 
+ Frontend Programming Languages: 
+The frontend is developed using HTML, CSS, and JavaScript. HTML provides the 
+structural layout of the application, CSS is used for styling and responsive design, and 
+JavaScript enables interactivity and dynamic content rendering. 
+ Database Query Language: 
+SQL is used to interact with the relational database, allowing efficient data storage, 
+retrieval, and management. The combination of these languages ensures smooth interaction between system components and 
+supports the functional requirements of the platform. 
+1.5 Tools 
+Tools play a crucial role in the successful development, testing, deployment, and documentation 
+of a software system. This section describes the hardware and software tools used (and to be 
+used) throughout the lifecycle of the project. The selection of these tools is based on their 
+reliability, compatibility, scalability, and suitability for developing a modern web-based Islamic 
+learning platform. 
+1.5.1 Hardware Tools 
+The following hardware resources are utilized during the development and testing of the system: 
+ Personal Computer (PC) / Laptop: 
+A computer with sufficient processing power, memory, and storage is used for system 
+development, coding, testing, and documentation. It serves as the primary development 
+environment for both frontend and backend components. 
+ Mobile Devices (Smartphones and Tablets): 
+Mobile devices are used to test system responsiveness, usability, and accessibility across 
+different screen sizes and operating systems. This ensures that the system provides a 
+consistent user experience for mobile users. 
+ Internet Connectivity Devices: 
+Reliable internet access is required for cloud-based development, version control 
+synchronization, testing remote deployments, and accessing online resources and 
+documentation. 
+1.5.2 Software Tools 
+Various software tools are employed to support system development, design, testing, 
+deployment, and documentation. Each tool serves a specific purpose within the project 
+workflow. 
+ Operating System: 
+A modern operating system such as Windows or Linux is used to provide a stable 
+development environment and support the required development tools and frameworks. 
+ Integrated Development Environment (IDE): 
+An IDE such as Visual Studio Code or PyCharm is used for writing, debugging, and 
+managing source code. These IDEs enhance productivity through features such as syntax 
+highlighting, code completion, debugging tools, and version control integration. 
+ Backend Framework: 
+Django is used as the backend web framework. Django provides a robust structure for 
+rapid development, built-in security features, ORM support, and scalability, making it 
+suitable for developing complex systems involving authentication, scheduling, and data 
+management. 
+ Frontend Frameworks and Libraries: 
+NextJS is used for frontend development. CSS frameworks such as tailwindcss is used to 
+enhance responsiveness and ensure a consistent user interface design. 
+ Database Management System (DBMS): 
+PostgreSQL is used as the primary database management system. It provides reliability, 
+strong data integrity, and efficient handling of relational data required by the system. 
+ Web Server: 
+A web server such as Nginx is used to serve the application in a production environment, 
+handle HTTP requests, and manage static and media files efficiently. 
+ Version Control System: 
+Git is used for source code version control, allowing tracking of changes, collaboration, 
+and rollback to previous versions when necessary. Platforms such as GitHub are used for 
+repository hosting. 
+ Diagram and Modeling Tools: 
+Tools such as Draw.io, Lucidchart, or similar software are used to create system 
+diagrams including use case diagrams, class diagrams, sequence diagrams, and entity-
+relationship (ER) diagrams. 
+ UI/UX Design Tools: 
+Design tools such as Figma or Adobe XD are used to design user interface prototypes 
+and layouts before implementation, ensuring usability and visual consistency. 
+ Web Browsers: 
+Browsers such as Google Chrome and Mozilla Firefox are used for testing and debugging 
+the web application. 
+ Documentation Tools: 
+Word processors and markdown-based editors are used to prepare project documentation, 
+reports, and technical manuals. The selected tools collectively support efficient development, high-quality system design, proper 
+testing, and reliable deployment of the proposed system. 
+1.6 Scope and Limitation of the Project 
+Every software project must clearly define its scope and limitations to establish boundaries, 
+manage expectations, and guide development efforts. This section outlines what the proposed 
+system will cover (scope) and what it will not address (limitations). Defining these aspects 
+ensures clarity for stakeholders and helps prevent scope creep during development and 
+deployment. 
+1.6.1 Scope of the Project 
+The scope of this project defines the functional, operational, and technological boundaries of the 
+proposed Islamic knowledge and skills learning platform. The system is designed to be 
+comprehensive, scalable, and inclusive, covering a wide range of Islamic educational needs. The scope of the project includes the following: 
+ Geographical Scope: 
+The system is designed to operate globally and can be accessed by users from different 
+regions, provided they have internet connectivity. It is not limited to a specific country or 
+locality and supports cross-border participation between instructors and learners. 
+ Target Users: 
+The platform serves multiple user groups, including: 
+o Students of all age groups seeking Islamic knowledge and skills 
+o Qualified instructors (Ustaz/Ustaza) offering Islamic education services 
+o Platform administrators responsible for system management and moderation 
+ Educational Coverage: 
+The system supports a wide range of Islamic learning domains, including but not limited 
+to: 
+o Qur’an recitation and memorization (all levels) 
+o Tajweed and proper pronunciation 
+o Islamic studies and foundational knowledge 
+o Hadith studies 
+o Arabic language skills 
+o Practical Islamic skills and personal development 
+ Learning Modes: 
+The platform supports structured and flexible learning through: 
+o One-to-one learning sessions 
+o Group-based learning sessions 
+o Scheduled and instructor-defined availability 
+o Student-driven session booking based on instructor availability 
+ Scheduling and Availability Management: 
+Instructors can define their own availability schedules by selecting recurring time ranges 
+(e.g., specific days and time intervals). Students can view instructor availability in real 
+time, and booked time slots are automatically marked as unavailable to prevent conflicts. 
+ Platform Accessibility: 
+The system is developed as a web-based platform accessible through modern web 
+browsers on desktop and mobile devices. The responsive design ensures usability across 
+different screen sizes. 
+ Core System Features: 
+The platform includes major functional components such as: 
+o User registration and authentication 
+o Role-based access control (student, instructor, administrator) 
+o Instructor profile management 
+o Course and skill category management 
+o Dynamic scheduling and booking system 
+o Learning session management 
+o Communication and notification mechanisms 
+o Administrative monitoring and moderation tools 
+ Technology Scope: 
+The system is built using modern web technologies, including: 
+o Next.js with Tailwind CSS for frontend development 
+o Django and Django REST Framework for backend services 
+o A relational database for secure and structured data storage 
+o API-based communication between frontend and backend 
+ Operational Timeframe: 
+The system is designed for continuous availability, allowing users to access the platform 
+at any time, subject to instructor availability and system maintenance schedules. 
+ 
+1.6.2 Limitations of the Project 
+Despite its broad scope, the project has certain limitations that are acknowledged due to 
+technical, operational, and resource constraints. These limitations help define realistic 
+expectations for system capabilities. The limitations of the project include the following: 
+ Platform Dependency: 
+The system is primarily web-based and requires an active internet connection. Users 
+without reliable internet access may face challenges in using the platform effectively. 
+ Limited Offline Functionality: 
+The system does not support offline learning or session access. All features, including 
+scheduling and learning sessions, require online connectivity. 
+ Language Support Limitations: 
+Initial versions of the system may support a limited number of interface languages, which 
+may restrict accessibility for users who do not understand the available languages. 
+ Real-Time Communication Constraints: 
+The system may rely on third-party tools or integrations for real-time audio or video 
+communication, which could be affected by external service limitations. 
+ Advanced Analytics Restrictions: 
+While basic reporting and tracking are included, advanced analytics, predictive insights, 
+or AI-driven performance analysis may not be fully implemented in the initial release. 
+ Instructor Availability Dependency: 
+Learning opportunities depend on instructor-defined schedules. If instructors are 
+unavailable, students may experience limited access to learning sessions. 
+ Hardware and Device Variability: 
+Differences in user devices, browsers, and hardware performance may affect the quality 
+of user experience. 
+ Scalability Constraints in Early Deployment: 
+The initial deployment may have limited scalability until additional infrastructure 
+resources are allocated based on user growth. 
+1.7 Significance of the Project 
+The significance of this project lies in its contribution to education, society, technology, and 
+economic development by providing a structured, accessible, and modern platform for Islamic 
+knowledge and skill acquisition. The system addresses critical gaps in traditional and existing 
+digital learning methods by integrating technology with faith-based education in a scalable and 
+sustainable manner. The significance of the project can be analyzed from the perspectives of different stakeholders as 
+follows: 
+Significance to Learners (Students) 
+ Provides flexible access to qualified instructors regardless of geographical location. 
+ Enables learners to choose instructors based on availability, expertise, and learning 
+preferences. 
+ Supports diverse learning needs, including religious knowledge, language skills, and 
+practical Islamic competencies. 
+ Allows working individuals and students to learn at convenient times without disrupting 
+daily responsibilities. 
+ Enhances learning continuity through structured scheduling and session management. 
+ Encourages lifelong learning by accommodating learners of all ages and backgrounds. 
+Significance to Instructors (Ustaz/Ustaza) 
+ Offers a professional digital platform to reach a wider audience beyond physical teaching 
+environments. 
+ Empowers instructors to independently manage their availability and teaching schedules. 
+ Enables monetization of teaching skills in a structured and transparent manner. 
+ Reduces administrative burden related to scheduling and student coordination. 
+ Enhances professional visibility through instructor profiles and skill categorization. 
+ Supports the preservation and transmission of Islamic knowledge using modern tools. 
+Significance to the Organization 
+ Establishes a scalable digital education model that can expand to new learning domains 
+over time. 
+ Strengthens organizational credibility through structured and documented system 
+processes. 
+ Enables data-driven decision-making through system usage and interaction insights. 
+ Creates opportunities for partnerships with educational institutions and community 
+organizations. 
+ Provides a foundation for future innovation in Islamic digital learning services. 
+Social and Cultural Significance 
+ Promotes the preservation and dissemination of Islamic knowledge in a modern, 
+accessible format. 
+ Encourages cross-cultural and cross-regional knowledge exchange within the Muslim 
+community. 
+ Supports inclusive education by removing physical and social barriers to learning. 
+ Strengthens religious literacy and understanding in a structured and guided environment. 
+ Contributes to community development through skill-building and ethical education. 
+Technological Significance 
+ Demonstrates the application of modern web technologies in faith-based education 
+systems. 
+ Serves as a practical case study for scalable learning management platforms. 
+ Encourages the adoption of digital solutions within traditionally offline educational 
+sectors. 
+ Integrates modular system architecture suitable for future enhancements. 
+Economic Significance 
+ Creates income-generating opportunities for instructors. 
+ Supports sustainable digital entrepreneurship within the education sector. 
+ Reduces operational costs compared to traditional physical learning centers. 
+ Encourages innovation-driven employment and skill development. 
+1.8 Feasibility Study 
+A feasibility study is a critical analysis conducted before project development to determine 
+whether the project is technically, economically, operationally, and legally viable. For the Risala 
+Islamic Knowledge and Skills platform, the feasibility study ensures that the proposed system 
+can be successfully developed, deployed, and maintained while meeting user expectations and 
+organizational goals. This study evaluates four key areas of feasibility: technical, economic, operational, and legal, 
+providing a comprehensive assessment of project viability. 
+1.8.1 Technical Feasibility 
+Technical feasibility assesses whether the existing technology, tools, and expertise are sufficient 
+to develop and deploy the proposed system. For the Risala platform, the technical feasibility has 
+been evaluated as follows: 
+ Hardware and Software Resources: 
+The project requires standard desktop and laptop PCs for development, testing, and 
+administrative access. Students and instructors can access the platform via modern 
+browsers on both desktop and mobile devices. The system will operate on cloud-hosted 
+servers with sufficient storage and processing capacity to handle concurrent users. 
+ Technology Stack Suitability: 
+o Frontend: Next.js and Tailwind CSS are selected for modern, responsive, and 
+maintainable UI development. Next.js provides server-side rendering and API 
+integration capabilities, ensuring scalability and performance. 
+o Backend: Django with Django REST Framework provides a robust, secure, and 
+scalable framework for managing user roles, scheduling, and session 
+management. 
+o Database: A relational database (PostgreSQL) ensures structured data storage, 
+consistency, and reliable transaction management. 
+o APIs and Integrations: Integration with video conferencing services and 
+payment providers ensures real-time session delivery and secure transactions. 
+ Team Capabilities: 
+The development team possesses sufficient technical expertise in full-stack web 
+development, cloud deployment, and secure software engineering practices. The team can 
+implement, maintain, and scale the system efficiently. 
+ Conclusion: 
+The available technical resources, technology stack, and team expertise are fully capable 
+of supporting the design, development, and deployment of the Risala platform. 
+1.8.2 Economic Feasibility 
+Economic feasibility evaluates whether the project is financially viable and sustainable. 
+ Development Costs: 
+The project leverages open-source frameworks (Django, Next.js, Tailwind CSS) which 
+significantly reduces licensing costs. Cloud hosting costs for the initial deployment are 
+moderate and scalable as user adoption increases. 
+ Operational Costs: 
+Operational costs include server maintenance, cloud storage, video conferencing 
+integration, and payment gateway fees. These costs are expected to be offset by the 
+platform’s revenue model, which includes commission from instructor sessions. 
+ Return on Investment: 
+By providing a marketplace for Islamic learning, the platform generates a sustainable 
+income stream for both instructors and the organization. The low initial investment, 
+combined with scalable technology, ensures positive economic viability. 
+ Conclusion: 
+The project is economically feasible as development, deployment, and operational costs 
+are manageable relative to expected revenue and social impact. 
+1.8.3 Operational Feasibility 
+Operational feasibility determines whether the system can be successfully operated and 
+maintained in the intended environment. 
+ User Accessibility: 
+The system is web-based and accessible globally, providing 24/7 availability to students 
+and instructors. 
+ System Reliability: 
+Features such as real-time availability, scheduling, and booking management ensure 
+efficient operation and prevent scheduling conflicts. Administrators can monitor system 
+performance and handle any operational issues. 
+ Maintainability: 
+The modular architecture, use of modern frameworks, and clear documentation facilitate 
+ongoing maintenance, updates, and feature expansion. 
+ Conclusion: 
+The system is operationally feasible as it supports reliable, user-friendly access and is 
+maintainable with the current technical team and infrastructure. 
+1.8.4 Legal Feasibility 
+Legal feasibility examines potential legal constraints in system development and operation. 
+ Content Compliance: 
+The platform ensures all educational materials adhere to Islamic principles and avoids 
+content that may violate religious or community norms. 
