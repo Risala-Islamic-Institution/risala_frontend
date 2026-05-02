@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { api } from "@/lib/api"; // Assuming api wrapper exists
+import { api } from "@/lib/api";
+import { Button } from "@/components/ui/Button";
+import { Card } from "@/components/ui/Card";
 
 interface Certificate {
     code: string;
     course_title: string;
     issued_at: string;
-    // content can be added here
 }
 
 export default function CertificateDisplay({ courseSlug }: { courseSlug: string }) {
@@ -17,10 +18,9 @@ export default function CertificateDisplay({ courseSlug }: { courseSlug: string 
     useEffect(() => {
         const fetchCertificate = async () => {
             try {
-                // Assuming we have an endpoint to get certificate by course or generic list
-                // For now, let's assume we filter by the current course enrollment
-                const res = await api.get<Certificate[]>(`/courses/certificates/?course_slug=${courseSlug}`);
-                // The API returns a list, we take the first one if it exists
+                const res = await api.get<Certificate[]>(
+                    `/courses/certificates/?course_slug=${courseSlug}`
+                );
                 if (res && res.length > 0) {
                     setCertificate(res[0]);
                 }
@@ -30,28 +30,27 @@ export default function CertificateDisplay({ courseSlug }: { courseSlug: string 
                 setLoading(false);
             }
         };
-
         fetchCertificate();
     }, [courseSlug]);
 
-    if (loading) return null;
-    if (!certificate) return null;
+    if (loading || !certificate) return null;
 
     return (
-        <div className="p-6 border-2 border-gold-500 rounded-lg bg-cream-50 text-center shadow-lg mt-8">
-            <h3 className="text-2xl font-serif text-gold-700 mb-2">Certificate of Completion</h3>
-            <p className="text-gray-700 mb-4">This certifies that you have successfully completed</p>
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">{certificate.course_title}</h2>
-            <div className="text-sm text-gray-500">
-                <p>Issued on: {new Date(certificate.issued_at).toLocaleDateString()}</p>
-                <p>Certificate ID: {certificate.code}</p>
+        <Card className="p-10 text-center bg-muted">
+            <p className="text-xs uppercase tracking-[0.3em] text-accent mb-4">Certificate of Completion</p>
+            <p className="text-sm text-muted-foreground mb-3">This certifies that you have completed</p>
+            <h2 className="font-serif text-3xl md:text-4xl text-foreground mb-6 leading-tight">
+                {certificate.course_title}
+            </h2>
+            <div className="inline-flex flex-col gap-1 text-sm text-muted-foreground border-t border-border pt-4 mt-2">
+                <p>Issued on {new Date(certificate.issued_at).toLocaleDateString()}</p>
+                <p className="font-mono text-xs">ID: {certificate.code}</p>
             </div>
-            <button
-                onClick={() => window.print()}
-                className="mt-6 px-4 py-2 bg-gold-600 text-white rounded hover:bg-gold-700 transition"
-            >
-                Download / Print
-            </button>
-        </div>
+            <div className="mt-8">
+                <Button variant="secondary" onClick={() => window.print()}>
+                    Download / Print
+                </Button>
+            </div>
+        </Card>
     );
 }

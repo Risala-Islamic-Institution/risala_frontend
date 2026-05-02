@@ -29,34 +29,30 @@ export class ErrorBoundary extends Component<Props, State> {
     public render() {
         if (this.state.hasError) {
             return (
-                <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-6 text-center">
-                    <div className="bg-white p-8 rounded-2xl shadow-xl border border-red-100 max-w-md w-full">
-                        <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <span className="text-3xl">⚠️</span>
-                        </div>
-                        <h1 className="text-xl font-bold text-gray-900 mb-2">Something went wrong</h1>
-                        <p className="text-gray-500 mb-6 text-sm">
-                            We encountered an unexpected error. Please try refreshing the page.
+                <div className="min-h-screen flex flex-col items-center justify-center bg-background p-6 text-center">
+                    <div className="bg-card border border-border rounded-md max-w-md w-full p-8">
+                        <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-4">
+                            An unexpected error
+                        </p>
+                        <h1 className="font-serif text-3xl text-foreground mb-3">Something went wrong</h1>
+                        <p className="text-muted-foreground mb-6 text-sm leading-relaxed">
+                            We encountered an unexpected error. Please try refreshing the page or returning to the previous one.
                         </p>
 
-                        <div className="bg-red-50 p-3 rounded-lg border border-red-100 text-left mb-6 overflow-hidden">
-                            <p className="text-xs text-red-800 font-mono break-words">{this.state.error?.message}</p>
-                        </div>
+                        {this.state.error?.message && (
+                            <div className="bg-muted border border-border rounded-md p-3 text-left mb-6 overflow-hidden">
+                                <p className="text-xs text-muted-foreground font-mono break-words">
+                                    {this.state.error.message}
+                                </p>
+                            </div>
+                        )}
 
                         <div className="flex gap-3 justify-center">
-                            <Button
-                                variant="outline"
-                                onClick={() => window.history.back()}
-                                className="rounded-xl"
-                            >
-                                Go Back
+                            <Button variant="secondary" onClick={() => window.history.back()}>
+                                Go back
                             </Button>
-                            <Button
-                                variant="primary"
-                                onClick={() => window.location.reload()}
-                                className="rounded-xl"
-                            >
-                                Refresh Page
+                            <Button variant="primary" onClick={() => window.location.reload()}>
+                                Refresh page
                             </Button>
                         </div>
                     </div>

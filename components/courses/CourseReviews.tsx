@@ -1,33 +1,21 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { api } from "@/lib/api";
+import { Button } from "@/components/ui/Button";
+import { Card } from "@/components/ui/Card";
 
-interface Review {
-    id: string;
-    rating: number;
-    comment: string;
-    created_at: string;
-    student_name?: string; // Assuming API expands this
-}
-
-export default function CourseReviews({ courseId, enrollmentId }: { courseId: string; enrollmentId?: string }) {
-    const [reviews, setReviews] = useState<Review[]>([]);
+export default function CourseReviews({
+    courseId,
+    enrollmentId,
+}: {
+    courseId: string;
+    enrollmentId?: string;
+}) {
     const [newRating, setNewRating] = useState(5);
     const [newComment, setNewComment] = useState("");
     const [submitting, setSubmitting] = useState(false);
-
-    useEffect(() => {
-        const fetchReviews = async () => {
-            // Mocking endpoint structure, adjust query as needed
-            // Ideally backend filters by course via enrollment__course
-            // Currently CourseReviewViewSet filters by user. 
-            // We might need a public endpoint for course reviews. 
-            // For now, let's assume we can fetch own reviews or we need to update backend to list per course.
-            // Let's implement the submission part mainly which is user request.
-        };
-        // fetchReviews();
-    }, [courseId]);
+    const [submitted, setSubmitted] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -39,7 +27,7 @@ export default function CourseReviews({ courseId, enrollmentId }: { courseId: st
                 rating: newRating,
                 comment: newComment,
             });
-            alert("Review submitted!");
+            setSubmitted(true);
             setNewComment("");
         } catch (error) {
             console.error("Failed to submit review", error);
@@ -48,45 +36,60 @@ export default function CourseReviews({ courseId, enrollmentId }: { courseId: st
         }
     };
 
-    if (!enrollmentId) return null; // Only show add form if enrolled
+    if (!enrollmentId) return null;
 
     return (
-        <div className="mt-8 p-6 bg-white rounded-lg shadow-sm">
-            <h3 className="text-xl font-bold mb-4">Leave a Review</h3>
-            <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Rating</label>
-                    <div className="flex space-x-2">
-                        {[1, 2, 3, 4, 5].map((star) => (
-                            <button
-                                key={star}
-                                type="button"
-                                onClick={() => setNewRating(star)}
-                                className={`text-2xl ${star <= newRating ? "text-yellow-400" : "text-gray-300"}`}
-                            >
-                                ★
-                            </button>
-                        ))}
+        <Card className="p-6">
+            <h3 className="font-serif text-xl text-foreground mb-1">Leave a review</h3>
+            <p className="text-sm text-muted-foreground mb-6">
+                Share your experience to help future students.
+            </p>
+
+            {submitted ? (
+                <div className="bg-muted border border-border rounded-md p-4 text-sm text-foreground">
+                    Thank you. Your review has been submitted.
+                </div>
+            ) : (
+                <form onSubmit={handleSubmit} className="space-y-5">
+                    <div>
+                        <label className="block text-xs uppercase tracking-wide text-muted-foreground mb-2">
+                            Rating
+                        </label>
+                        <div className="flex gap-1">
+                            {[1, 2, 3, 4, 5].map((star) => (
+                                <button
+                                    key={star}
+                                    type="button"
+                                    onClick={() => setNewRating(star)}
+                                    className={`text-2xl transition-colors ${
+                                        star <= newRating ? "text-accent" : "text-border"
+                                    }`}
+                                    aria-label={`${star} stars`}
+                                >
+                                    &#9733;
+                                </button>
+                            ))}
+                        </div>
                     </div>
-                </div>
-                <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Comment</label>
-                    <textarea
-                        value={newComment}
-                        onChange={(e) => setNewComment(e.target.value)}
-                        className="w-full border-gray-300 rounded-md shadow-sm focus:ring-gold-500 focus:border-gold-500 p-2 border"
-                        rows={3}
-                        placeholder="Share your experience..."
-                    />
-                </div>
-                <button
-                    type="submit"
-                    disabled={submitting}
-                    className="px-4 py-2 bg-slate-900 text-white rounded hover:bg-slate-800 disabled:opacity-50"
-                >
-                    {submitting ? "Posting..." : "Post Review"}
-                </button>
-            </form>
-        </div>
+                    <div>
+                        <label className="block text-xs uppercase tracking-wide text-muted-foreground mb-2">
+                            Comment
+                        </label>
+                        <textarea
+                            value={newComment}
+                            onChange={(e) => setNewComment(e.target.value)}
+                            placeholder="Share your experience..."
+                            rows={4}
+                            className="w-full px-4 py-2.5 rounded-md border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring resize-none"
+                        />
+                    </div>
+                    <div className="flex justify-end">
+                        <Button type="submit" disabled={submitting} variant="primary">
+                            {submitting ? "Posting..." : "Post review"}
+                        </Button>
+                    </div>
+                </form>
+            )}
+        </Card>
     );
 }
