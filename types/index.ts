@@ -17,6 +17,14 @@ export interface Teacher {
     biography: string;
     hourly_rate: string;
     specialization: string;
+    // Optional fields returned by the API and used across the UI
+    verification_status?: string;
+    rating_average?: number | string | null;
+    rating_count?: number | null;
+    teaching_level?: string;
+    languages?: string;
+    years_experience?: number | string | null;
+    sessions_completed?: number | null;
 }
 
 // Booking
