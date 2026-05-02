@@ -1,21 +1,22 @@
 @import "tailwindcss";
 
 :root {
-  /* Brand palette (Risala color theory) */
-  --background: #f7f8f5;        /* Warm Pearl White */
-  --foreground: #1c1f26;        /* Midnight Charcoal Blue */
-  --primary: #0f3d2e;           /* Deep Emerald Serenity */
+  /* Risala palette — exact 5 colors + semantic */
+  --background: #f7f8f5;
+  --foreground: #1c1f26;
+  --primary: #0f3d2e;
   --primary-foreground: #f7f8f5;
-  --secondary: #1c1f26;         /* Midnight Charcoal */
+  --secondary: #1c1f26;
   --secondary-foreground: #f7f8f5;
-  --accent: #c6a75e;            /* Soft Luminous Gold */
+  --accent: #c6a75e;
   --accent-foreground: #1c1f26;
-  --neutral: #d6d2c4;           /* Sandstone Grey */
-  --muted: #efeee8;             /* Slightly cooler pearl for surfaces */
+  --neutral: #d6d2c4;
+  --muted: #efeee8;
   --muted-foreground: #5a5d65;
   --card: #ffffff;
   --card-foreground: #1c1f26;
   --border: #e4e1d6;
+  --input: #e4e1d6;
   --ring: #0f3d2e;
 
   /* Semantic */
@@ -23,9 +24,9 @@
   --warning: #e6b566;
   --error: #b5473f;
 
-  /* Radii */
-  --radius: 0.75rem;
+  /* Refined radii */
   --radius-sm: 0.5rem;
+  --radius: 0.75rem;
   --radius-lg: 1.25rem;
   --radius-xl: 1.75rem;
 }
@@ -45,7 +46,9 @@
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
   --color-border: var(--border);
+  --color-input: var(--input);
   --color-ring: var(--ring);
+
   --color-success: var(--success);
   --color-warning: var(--warning);
   --color-error: var(--error);
@@ -78,7 +81,7 @@ body {
   color: var(--primary);
 }
 
-/* Editorial display utility */
+/* Editorial display utility — Fraunces */
 .font-display {
   font-family: var(--font-fraunces), ui-serif, Georgia, serif;
   font-feature-settings: "ss01", "ss02";
@@ -95,7 +98,7 @@ body {
   background-position: 0 0, 0 0, 0 0;
 }
 
-/* Soft elevation tokens (used inline with shadow-* class composition) */
+/* Soft elevation tokens */
 .shadow-elevated {
   box-shadow:
     0 1px 0 0 color-mix(in oklab, var(--foreground) 4%, transparent),
@@ -104,6 +107,15 @@ body {
 }
 
 .shadow-card {
+  box-shadow:
+    0 1px 0 0 color-mix(in oklab, var(--foreground) 3%, transparent),
+    0 4px 12px -6px color-mix(in oklab, var(--foreground) 10%, transparent);
+}
+
+/* Backwards-compatible utility used in some dashboard surfaces — refined */
+.glass-card {
+  background: var(--card);
+  border: 1px solid var(--border);
   box-shadow:
     0 1px 0 0 color-mix(in oklab, var(--foreground) 3%, transparent),
     0 4px 12px -6px color-mix(in oklab, var(--foreground) 10%, transparent);
@@ -176,6 +188,17 @@ body {
     transparent
   );
   animation: ribbon-sweep 3.6s ease-in-out infinite;
+}
+
+/* Hide scrollbars on horizontal scrollers (used by category chips, tabs) */
+.no-scrollbar::-webkit-scrollbar,
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar,
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 /* Reduced motion */

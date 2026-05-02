@@ -1,13 +1,14 @@
-version: "3"
-
 services:
   risala_frontend:
     container_name: risala_frontend
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}
     restart: always
     ports:
       - 3333:3333
     environment:
       - NODE_ENV=production
+      - NEXT_TELEMETRY_DISABLED=1
