@@ -182,32 +182,29 @@ export default function StudentDashboardPage() {
           userType="student"
         />
 
-        {/* Editorial intro */}
-        <section className="mx-auto w-full max-w-7xl px-4 pt-10 pb-6 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-end">
-            <div className="lg:col-span-8">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
-                As-salāmu ʿalaykum, {profile?.full_name?.split(' ')[0] || profile?.username || 'friend'}
+        {/* Dashboard hero — slim, utility-first */}
+        <section className="mx-auto w-full max-w-7xl px-4 pt-8 pb-6 sm:px-6 lg:px-8">
+          <div className="flex flex-col gap-5 border-b border-border pb-6 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
+                As-salāmu ʿalaykum
               </p>
-              <h1 className="mt-2 font-display text-3xl font-semibold leading-tight tracking-tight text-foreground sm:text-4xl text-balance">
-                Pick up where you left off, with verified Ustaz on your schedule.
+              <h1 className="mt-1.5 font-display text-2xl font-semibold leading-tight tracking-tight text-foreground sm:text-3xl">
+                {profile?.full_name?.split(' ')[0] || profile?.username || 'Welcome back'}
               </h1>
-              <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-                Browse teachers, request a single session or a recurring package, and follow your sessions through approval and payment in one calm flow.
-              </p>
             </div>
-            <dl className="grid grid-cols-3 gap-4 border-t border-border pt-4 lg:col-span-4 lg:border-t-0 lg:pt-0">
+            <dl className="grid grid-cols-3 gap-x-8 gap-y-1 lg:gap-x-10">
               <div>
-                <dt className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">Available Ustaz</dt>
-                <dd className="mt-1 font-display text-2xl font-semibold tabular-nums">{teachers.length}</dd>
+                <dt className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">Available</dt>
+                <dd className="mt-0.5 font-display text-xl font-semibold tabular-nums">{teachers.length}</dd>
               </div>
               <div>
-                <dt className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">Verified</dt>
-                <dd className="mt-1 font-display text-2xl font-semibold tabular-nums">{verifiedTeachers}</dd>
+                <dt className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">Verified</dt>
+                <dd className="mt-0.5 font-display text-xl font-semibold tabular-nums">{verifiedTeachers}</dd>
               </div>
               <div>
-                <dt className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">Active sessions</dt>
-                <dd className="mt-1 font-display text-2xl font-semibold tabular-nums">{activeBookings.length}</dd>
+                <dt className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">Active</dt>
+                <dd className="mt-0.5 font-display text-xl font-semibold tabular-nums">{activeBookings.length}</dd>
               </div>
             </dl>
           </div>

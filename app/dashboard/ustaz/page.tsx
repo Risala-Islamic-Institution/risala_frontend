@@ -87,32 +87,29 @@ export default function UstazDashboardPage() {
           userType="teacher"
         />
 
-        {/* Editorial intro */}
-        <section className="mx-auto w-full max-w-7xl px-4 pt-10 pb-6 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-end">
-            <div className="lg:col-span-8">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+        {/* Dashboard hero — slim, utility-first */}
+        <section className="mx-auto w-full max-w-7xl px-4 pt-8 pb-6 sm:px-6 lg:px-8">
+          <div className="flex flex-col gap-5 border-b border-border pb-6 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
                 Ustaz workspace
               </p>
-              <h1 className="mt-2 font-display text-3xl font-semibold leading-tight tracking-tight text-foreground sm:text-4xl text-balance">
-                Approve requests, manage availability, and shape your courses with calm authority.
+              <h1 className="mt-1.5 font-display text-2xl font-semibold leading-tight tracking-tight text-foreground sm:text-3xl">
+                {user?.full_name?.split(' ')[0] || user?.username || 'Welcome'}
               </h1>
-              <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-                A focused command surface for verified Ustaz — disciplined scheduling, clear approvals, and a structured course studio.
-              </p>
             </div>
-            <dl className="grid grid-cols-2 gap-4 border-t border-border pt-4 lg:col-span-4 lg:grid-cols-3 lg:border-t-0 lg:pt-0">
+            <dl className="grid grid-cols-3 gap-x-8 gap-y-1 lg:gap-x-10">
               <div>
-                <dt className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">Pending</dt>
-                <dd className="mt-1 font-display text-2xl font-semibold tabular-nums">{requestBookings.length}</dd>
+                <dt className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">Pending</dt>
+                <dd className="mt-0.5 font-display text-xl font-semibold tabular-nums">{requestBookings.length}</dd>
               </div>
               <div>
-                <dt className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">Sessions</dt>
-                <dd className="mt-1 font-display text-2xl font-semibold tabular-nums">{confirmedBookings.length}</dd>
+                <dt className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">Sessions</dt>
+                <dd className="mt-0.5 font-display text-xl font-semibold tabular-nums">{confirmedBookings.length}</dd>
               </div>
               <div>
-                <dt className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">Courses</dt>
-                <dd className="mt-1 font-display text-2xl font-semibold tabular-nums">{courses.length}</dd>
+                <dt className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">Courses</dt>
+                <dd className="mt-0.5 font-display text-xl font-semibold tabular-nums">{courses.length}</dd>
               </div>
             </dl>
           </div>

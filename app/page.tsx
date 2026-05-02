@@ -5,13 +5,12 @@ import { TeacherMarketplace } from "@/components/teacher-marketplace";
 import { LearningPaths } from "@/components/learning-paths";
 import { HowItWorks } from "@/components/how-it-works";
 import { UstazPortal } from "@/components/ustaz-portal";
-import { TrustSection } from "@/components/trust-section";
 import { FinalCTA } from "@/components/final-cta";
 import { SiteFooter } from "@/components/site-footer";
 
 export default function HomePage() {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col bg-background">
       <SiteHeader />
       <main className="flex-1">
         <Hero />
@@ -20,7 +19,6 @@ export default function HomePage() {
         <LearningPaths />
         <HowItWorks />
         <UstazPortal />
-        <TrustSection />
         <FinalCTA />
       </main>
       <SiteFooter />
