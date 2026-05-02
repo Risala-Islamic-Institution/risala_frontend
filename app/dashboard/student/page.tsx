@@ -150,7 +150,7 @@ export default function StudentDashboardPage() {
   const handleLogout = () => { clearToken(); window.location.href = '/login'; };
 
   const activeBookings = bookings.filter(b => ['REQUESTED', 'APPROVED', 'RESERVED', 'CONFIRMED'].includes(b.status));
-  const verifiedTeachers = teachers.filter(t => t.verification_status === 'VERIFIED' || t.verification_status === 'verified').length;
+  const completedBookings = bookings.filter(b => b.status === 'PAID').length;
 
   if (loading) return (
     <div className="min-h-screen flex items-center justify-center bg-background">
@@ -207,10 +207,10 @@ export default function StudentDashboardPage() {
               </div>
               <div>
                 <dt className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
-                  Verified
+                  Completed
                 </dt>
                 <dd className="mt-1 font-display text-2xl font-semibold tabular-nums text-foreground">
-                  {verifiedTeachers}
+                  {completedBookings}
                 </dd>
               </div>
               <div>
