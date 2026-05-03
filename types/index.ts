@@ -56,6 +56,7 @@ export interface Course {
     total_weeks: number;
     price: string;
     is_published: boolean;
+    modules?: any[];
 }
 
 // Notification

@@ -3,280 +3,282 @@
 import React, { useMemo, useState } from 'react';
 import { Booking } from '@/types';
 import { Avatar } from '@/components/ui/Avatar';
-import { Calendar, Clock, ArrowRight } from '@/components/icons';
-import { StarOrnament } from '@/components/dashboard/IslamicOrnament';
+import { ChevronLeft, ChevronRight, Clock, Video } from 'lucide-react';
+import { StarOrnament, GeometricDivider } from '@/components/dashboard/IslamicOrnament';
 
 interface ConfirmedSessionsProps {
     bookings: Booking[];
 }
 
-type SessionGroup = {
-    key: string;
-    studentName: string;
-    bookings: Booking[];
-    isPackage: boolean;
-    nextStart: Date;
-    lastStart: Date;
-};
-
-function groupBookings(bookings: Booking[]): SessionGroup[] {
-    const map = new Map<string, Booking[]>();
-    for (const b of bookings) {
-        const key = b.order ? `pkg_${b.order}` : `single_${b.id}`;
-        const list = map.get(key);
-        if (list) list.push(b);
-        else map.set(key, [b]);
-    }
-
-    const groups: SessionGroup[] = [];
-    for (const [key, list] of map.entries()) {
-        const sorted = [...list].sort(
-            (a, b) => new Date(a.start_at).getTime() - new Date(b.start_at).getTime(),
-        );
-        const isPackage = key.startsWith('pkg_') && sorted.length > 1;
-        groups.push({
-            key,
-            studentName: sorted[0].student_name || 'Student',
-            bookings: sorted,
-            isPackage,
-            nextStart: new Date(sorted[0].start_at),
-            lastStart: new Date(sorted[sorted.length - 1].start_at),
-        });
-    }
-    return groups.sort((a, b) => a.nextStart.getTime() - b.nextStart.getTime());
-}
-
-function formatDate(d: Date) {
-    return d.toLocaleDateString(undefined, {
-        weekday: 'short',
-        month: 'short',
-        day: 'numeric',
-    });
-}
-
-function formatTime(d: Date) {
-    return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-}
-
-function formatRange(a: Date, b: Date) {
-    const sameYear = a.getFullYear() === b.getFullYear();
-    return `${a.toLocaleDateString(undefined, {
-        month: 'short',
-        day: 'numeric',
-        year: sameYear ? undefined : 'numeric',
-    })} – ${b.toLocaleDateString(undefined, {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric',
-    })}`;
-}
-
-function GroupRow({ group }: { group: SessionGroup }) {
-    const [expanded, setExpanded] = useState(false);
-
-    if (!group.isPackage) {
-        const b = group.bookings[0];
-        const start = new Date(b.start_at);
-        return (
-            <li className="group/row relative px-5 py-4 transition-colors hover:bg-muted/40">
-                <div className="flex items-start gap-4">
-                    <div className="flex h-12 w-12 shrink-0 flex-col items-center justify-center rounded-md border border-border bg-card text-center">
-                        <span className="text-[9px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-                            {start.toLocaleDateString(undefined, { month: 'short' })}
-                        </span>
-                        <span className="font-display text-base font-semibold leading-none text-foreground">
-                            {start.getDate()}
-                        </span>
-                    </div>
-                    <div className="min-w-0 flex-1">
-                        <div className="flex flex-wrap items-center gap-2">
-                            <Avatar name={group.studentName} size="sm" />
-                            <p className="font-medium text-foreground">{group.studentName}</p>
-                        </div>
-                        <p className="mt-1.5 inline-flex items-center gap-1.5 text-xs text-muted-foreground">
-                            <Calendar className="h-3.5 w-3.5" aria-hidden />
-                            {formatDate(start)}
-                            <span aria-hidden className="opacity-50">·</span>
-                            <Clock className="h-3.5 w-3.5" aria-hidden />
-                            <span className="tabular-nums">{formatTime(start)}</span>
-                        </p>
-                    </div>
-                </div>
-            </li>
-        );
-    }
-
-    // Package row — collapsible
-    return (
-        <li className="relative">
-            <button
-                type="button"
-                onClick={() => setExpanded((e) => !e)}
-                aria-expanded={expanded}
-                className="flex w-full items-start gap-4 px-5 py-4 text-left transition-colors hover:bg-muted/40"
-            >
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-[color:var(--primary)]/[0.06] text-primary">
-                    <span className="font-display text-sm font-semibold tabular-nums">
-                        {group.bookings.length}
-                    </span>
-                </div>
-                <div className="min-w-0 flex-1">
-                    <div className="flex flex-wrap items-center gap-2">
-                        <Avatar name={group.studentName} size="sm" />
-                        <p className="font-medium text-foreground">{group.studentName}</p>
-                        <span className="inline-flex items-center gap-1 rounded-full border border-[color:var(--accent)]/30 bg-[color:var(--accent)]/12 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#7a5a14]">
-                            <StarOrnament size={9} className="text-[color:var(--accent)]" />
-                            Package · {group.bookings.length} sessions
-                        </span>
-                    </div>
-                    <p className="mt-1.5 inline-flex items-center gap-1.5 text-xs text-muted-foreground">
-                        <Calendar className="h-3.5 w-3.5" aria-hidden />
-                        {formatRange(group.nextStart, group.lastStart)}
-                        <span aria-hidden className="opacity-50">·</span>
-                        <Clock className="h-3.5 w-3.5" aria-hidden />
-                        <span className="tabular-nums">
-                            Next {formatDate(group.nextStart)} · {formatTime(group.nextStart)}
-                        </span>
-                    </p>
-                </div>
-                <span
-                    aria-hidden
-                    className={`mt-2 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-border bg-card text-foreground/60 transition-transform ${
-                        expanded ? 'rotate-90' : ''
-                    }`}
-                >
-                    <ArrowRight className="h-3 w-3" />
-                </span>
-            </button>
-
-            {expanded ? (
-                <div className="border-t border-dashed border-border bg-muted/30 px-5 py-4">
-                    <p className="mb-2.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-                        All sessions
-                    </p>
-                    <ul className="grid grid-cols-1 gap-1.5 sm:grid-cols-2">
-                        {group.bookings.map((b, idx) => {
-                            const d = new Date(b.start_at);
-                            return (
-                                <li
-                                    key={b.id}
-                                    className="flex items-center gap-3 rounded-md border border-border bg-card px-3 py-2 text-xs"
-                                >
-                                    <span className="font-display text-[11px] font-semibold tabular-nums text-muted-foreground">
-                                        {String(idx + 1).padStart(2, '0')}
-                                    </span>
-                                    <span className="flex-1 truncate text-foreground">
-                                        {formatDate(d)}
-                                    </span>
-                                    <span className="font-medium tabular-nums text-foreground">
-                                        {formatTime(d)}
-                                    </span>
-                                </li>
-                            );
-                        })}
-                    </ul>
-                </div>
-            ) : null}
-        </li>
-    );
-}
-
-function SessionsBlock({
-    title,
-    eyebrow,
-    accent,
-    groups,
-}: {
-    title: string;
-    eyebrow: string;
-    accent: 'primary' | 'warning';
-    groups: SessionGroup[];
-}) {
-    if (groups.length === 0) return null;
-
-    const headerStyles =
-        accent === 'primary'
-            ? 'bg-[color:var(--primary)]/[0.05] text-primary'
-            : 'bg-[color:var(--warning)]/[0.12] text-[#8a6326]';
-    const dotColor =
-        accent === 'primary' ? 'var(--primary)' : 'var(--warning)';
-
-    return (
-        <section className="overflow-hidden rounded-2xl border border-border bg-card">
-            <header
-                className={`flex items-center justify-between border-b border-border px-5 py-3.5 ${headerStyles}`}
-            >
-                <div className="flex items-center gap-2.5">
-                    <span
-                        aria-hidden
-                        className="h-2 w-2 rounded-full"
-                        style={{ background: dotColor }}
-                    />
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.18em]">
-                        {eyebrow}
-                    </p>
-                    <span aria-hidden className="opacity-40">·</span>
-                    <p className="font-display text-sm font-semibold tracking-tight">
-                        {title}
-                    </p>
-                </div>
-                <span className="rounded-full border border-current/20 bg-card/80 px-2 py-0.5 text-[10px] font-semibold tabular-nums">
-                    {groups.length}
-                </span>
-            </header>
-            <ul className="divide-y divide-border">
-                {groups.map((g) => (
-                    <GroupRow key={g.key} group={g} />
-                ))}
-            </ul>
-        </section>
-    );
-}
-
 export function ConfirmedSessions({ bookings }: ConfirmedSessionsProps) {
-    const { awaiting, confirmed } = useMemo(() => {
-        const awaitingPay = bookings.filter(
-            (b) => b.status === 'APPROVED' || b.status === 'RESERVED',
-        );
-        const confirmedPaid = bookings.filter(
-            (b) => b.status === 'CONFIRMED' || b.status === 'PAID',
-        );
-        return {
-            awaiting: groupBookings(awaitingPay),
-            confirmed: groupBookings(confirmedPaid),
-        };
+    const today = new Date();
+    const [currentDate, setCurrentDate] = useState(new Date(today.getFullYear(), today.getMonth(), 1));
+    const [selectedDate, setSelectedDate] = useState<Date>(today);
+
+    // Group active bookings by YYYY-MM-DD
+    const bookingsByDate = useMemo(() => {
+        const map = new Map<string, Booking[]>();
+        bookings.forEach((b) => {
+            const d = new Date(b.start_at);
+            const key = `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+            if (!map.has(key)) map.set(key, []);
+            map.get(key)!.push(b);
+        });
+        return map;
     }, [bookings]);
 
-    if (bookings.length === 0) {
-        return (
-            <div className="rounded-2xl border border-dashed border-border bg-card p-10 text-center">
-                <span className="mx-auto mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full border border-border bg-muted text-primary">
-                    <Calendar className="h-5 w-5" />
-                </span>
-                <p className="font-display text-base font-semibold text-foreground">
-                    No upcoming sessions
-                </p>
-                <p className="mx-auto mt-1.5 max-w-sm text-sm leading-relaxed text-muted-foreground">
-                    Approved and confirmed sessions will appear here, with package classes grouped together.
-                </p>
-            </div>
-        );
-    }
+    const prevMonth = () => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1));
+    const nextMonth = () => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
+
+    // Generate calendar days
+    const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
+    const firstDayIndex = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay(); // 0 = Sun
+
+    const days = [];
+    for (let i = 0; i < firstDayIndex; i++) days.push(null);
+    for (let i = 1; i <= daysInMonth; i++) days.push(i);
+
+    const selectedKey = `${selectedDate.getFullYear()}-${selectedDate.getMonth()}-${selectedDate.getDate()}`;
+    const selectedBookings = bookingsByDate.get(selectedKey) || [];
+
+    const monthName = currentDate.toLocaleString('default', { month: 'long' });
+    const year = currentDate.getFullYear();
 
     return (
-        <div className="space-y-4">
-            <SessionsBlock
-                eyebrow="Awaiting payment"
-                title="Approved · pending student payment"
-                accent="warning"
-                groups={awaiting}
-            />
-            <SessionsBlock
-                eyebrow="Confirmed"
-                title="Paid & ready to teach"
-                accent="primary"
-                groups={confirmed}
-            />
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-start">
+            {/* ═══════════════════════════════════════════
+                LEFT: The Calendar Grid
+            ═══════════════════════════════════════════ */}
+            <div
+                className="lg:col-span-8 overflow-hidden rounded-2xl shadow-islamic animate-fade-in"
+                style={{
+                    border: '1px solid color-mix(in oklab, var(--primary) 30%, transparent)',
+                    background: 'var(--card)',
+                }}
+            >
+                {/* Header (Month Navigation) */}
+                <div
+                    className="flex items-center justify-between px-6 py-5"
+                    style={{
+                        background: 'color-mix(in oklab, var(--primary) 8%, transparent)',
+                        borderBottom: '1px solid color-mix(in oklab, var(--primary) 15%, transparent)'
+                    }}
+                >
+                    <div className="flex flex-col">
+                        <span className="text-[10px] font-bold uppercase tracking-[0.2em]" style={{ color: 'var(--primary)' }}>
+                            Gregorian Calendar
+                        </span>
+                        <h3 className="font-display text-2xl font-bold text-foreground">
+                            {monthName} <span style={{ color: 'var(--primary)', opacity: 0.6 }}>{year}</span>
+                        </h3>
+                    </div>
+                    <div className="flex gap-2">
+                        <button
+                            onClick={prevMonth}
+                            className="flex h-9 w-9 items-center justify-center rounded-full transition-colors hover:bg-black/5"
+                            style={{ border: '1px solid color-mix(in oklab, var(--primary) 20%, transparent)', color: 'var(--primary)' }}
+                        >
+                            <ChevronLeft className="h-5 w-5" />
+                        </button>
+                        <button
+                            onClick={nextMonth}
+                            className="flex h-9 w-9 items-center justify-center rounded-full transition-colors hover:bg-black/5"
+                            style={{ border: '1px solid color-mix(in oklab, var(--primary) 20%, transparent)', color: 'var(--primary)' }}
+                        >
+                            <ChevronRight className="h-5 w-5" />
+                        </button>
+                    </div>
+                </div>
+
+                {/* Day Labels */}
+                <div
+                    className="grid grid-cols-7 border-b"
+                    style={{
+                        borderColor: 'color-mix(in oklab, var(--primary) 15%, transparent)',
+                        background: 'color-mix(in oklab, var(--primary) 2%, transparent)'
+                    }}
+                >
+                    {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((d) => (
+                        <div
+                            key={d}
+                            className="py-3 text-center text-[10px] font-bold uppercase tracking-[0.16em]"
+                            style={{ color: 'var(--muted-foreground)' }}
+                        >
+                            {d}
+                        </div>
+                    ))}
+                </div>
+
+                {/* The Grid */}
+                <div className="grid grid-cols-7" style={{ background: 'color-mix(in oklab, var(--primary) 4%, transparent)' }}>
+                    {days.map((day, i) => {
+                        if (!day) {
+                            return (
+                                <div
+                                    key={`empty-${i}`}
+                                    className="aspect-square border-b border-r"
+                                    style={{ borderColor: 'color-mix(in oklab, var(--primary) 10%, transparent)' }}
+                                />
+                            );
+                        }
+
+                        const dateStr = `${currentDate.getFullYear()}-${currentDate.getMonth()}-${day}`;
+                        const isSelected = selectedKey === dateStr;
+                        const dayBookings = bookingsByDate.get(dateStr) || [];
+                        const hasBookings = dayBookings.length > 0;
+                        const isToday =
+                            today.getDate() === day &&
+                            today.getMonth() === currentDate.getMonth() &&
+                            today.getFullYear() === currentDate.getFullYear();
+
+                        return (
+                            <button
+                                key={day}
+                                onClick={() =>
+                                    setSelectedDate(new Date(currentDate.getFullYear(), currentDate.getMonth(), day))
+                                }
+                                className="group relative flex aspect-square flex-col items-center justify-center border-b border-r p-1 transition-all hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary/50"
+                                style={{ borderColor: 'color-mix(in oklab, var(--primary) 10%, transparent)' }}
+                            >
+                                {/* Active Selection Border */}
+                                {isSelected && (
+                                    <div
+                                        className="absolute inset-[2px] rounded-lg border-2 pointer-events-none transition-all"
+                                        style={{ borderColor: 'var(--accent)' }}
+                                    />
+                                )}
+
+                                {/* Today Indicator */}
+                                {isToday && (
+                                    <div
+                                        className="absolute top-1.5 left-1.5 h-1.5 w-1.5 rounded-full"
+                                        style={{ background: 'var(--primary)' }}
+                                    />
+                                )}
+
+                                {/* The Number */}
+                                <span
+                                    className={`font-display text-lg transition-colors ${
+                                        hasBookings ? 'font-bold' : 'font-medium'
+                                    }`}
+                                    style={{
+                                        color: hasBookings
+                                            ? 'var(--primary)'
+                                            : isSelected
+                                            ? 'var(--foreground)'
+                                            : 'var(--muted-foreground)',
+                                    }}
+                                >
+                                    {day}
+                                </span>
+
+                                {/* Booking Indicators */}
+                                {hasBookings && (
+                                    <div className="mt-1 flex gap-0.5">
+                                        {dayBookings.slice(0, 3).map((_, idx) => (
+                                            <div
+                                                key={idx}
+                                                className="h-1 w-3 rounded-full"
+                                                style={{ background: 'var(--accent)' }}
+                                            />
+                                        ))}
+                                        {dayBookings.length > 3 && (
+                                            <div
+                                                className="h-1 w-1 rounded-full"
+                                                style={{ background: 'var(--primary)' }}
+                                            />
+                                        )}
+                                    </div>
+                                )}
+                            </button>
+                        );
+                    })}
+                </div>
+            </div>
+
+            {/* ═══════════════════════════════════════════
+                RIGHT: The Daily Session Panel
+            ═══════════════════════════════════════════ */}
+            <div className="lg:col-span-4 flex flex-col gap-4 animate-fade-up" style={{ animationDelay: '100ms' }}>
+                <div
+                    className="overflow-hidden rounded-2xl flex flex-col min-h-[400px]"
+                    style={{
+                        border: '1px solid color-mix(in oklab, var(--primary) 20%, transparent)',
+                        background: 'color-mix(in oklab, var(--primary) 85%, transparent)',
+                        boxShadow: '0 8px 32px -8px rgba(0,0,0,0.5)',
+                    }}
+                >
+                    <div className="px-6 py-5 relative">
+                        <span aria-hidden className="absolute inset-x-0 top-0 h-[2px]" style={{ background: 'var(--accent)' }} />
+                        <div className="flex items-center justify-between mb-2">
+                            <span className="text-[10px] font-bold uppercase tracking-[0.2em]" style={{ color: 'var(--accent)' }}>
+                                Selected Day
+                            </span>
+                            <StarOrnament size={12} style={{ color: 'var(--accent)' }} />
+                        </div>
+                        <h4 className="font-display text-2xl font-bold text-white">
+                            {selectedDate.getDate()}{' '}
+                            <span style={{ opacity: 0.8, fontSize: '0.85em' }}>
+                                {selectedDate.toLocaleString('default', { month: 'short' })}
+                            </span>
+                        </h4>
+                        <p className="mt-1 text-sm font-medium" style={{ color: 'color-mix(in oklab, #fff 60%, transparent)' }}>
+                            {selectedBookings.length} session{selectedBookings.length !== 1 ? 's' : ''} scheduled
+                        </p>
+                    </div>
+
+                    <div className="flex-1 px-4 pb-4 overflow-y-auto">
+                        {selectedBookings.length === 0 ? (
+                            <div className="flex h-full flex-col items-center justify-center text-center p-6 opacity-60">
+                                <GeometricDivider />
+                                <p className="mt-4 text-sm font-semibold text-white">No sessions today.</p>
+                            </div>
+                        ) : (
+                            <ul className="flex flex-col gap-3">
+                                {selectedBookings.map((sb) => {
+                                    const d = new Date(sb.start_at);
+                                    return (
+                                        <li
+                                            key={sb.id}
+                                            className="group flex flex-col rounded-xl p-4 transition-all"
+                                            style={{
+                                                background: 'color-mix(in oklab, #082017 40%, transparent)',
+                                                border: '1px solid color-mix(in oklab, var(--accent) 20%, transparent)',
+                                            }}
+                                        >
+                                            <div className="flex items-start justify-between">
+                                                <div className="flex items-center gap-3">
+                                                    <Avatar name={sb.student_name || 'Student'} size="md" />
+                                                    <div>
+                                                        <p className="font-display text-sm font-bold text-white">
+                                                            {sb.student_name || 'Student'}
+                                                        </p>
+                                                        <div className="mt-0.5 flex items-center gap-1.5 text-xs font-semibold" style={{ color: 'var(--accent)' }}>
+                                                            <Clock className="h-3.5 w-3.5" />
+                                                            {d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button
+                                                    className="flex h-8 w-8 items-center justify-center rounded-full transition-all hover:scale-110"
+                                                    style={{
+                                                        background: 'color-mix(in oklab, var(--accent) 15%, transparent)',
+                                                        color: 'var(--accent)',
+                                                        border: '1px solid color-mix(in oklab, var(--accent) 30%, transparent)'
+                                                    }}
+                                                    title="Join Session"
+                                                >
+                                                    <Video className="h-4 w-4" />
+                                                </button>
+                                            </div>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        )}
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
@@ -57,30 +57,50 @@ export function DashboardHeader({
 
     return (
         <header
-            className={`sticky top-0 z-40 w-full transition-all ${
+            className={`sticky top-0 z-40 w-full transition-all duration-300 ${
                 scrolled
-                    ? 'border-b border-border bg-background/90 backdrop-blur-xl shadow-card'
-                    : 'border-b border-border/60 bg-background'
+                    ? 'shadow-islamic backdrop-blur-xl'
+                    : 'border-b border-border/60'
             }`}
+            style={{
+                background: scrolled
+                    ? 'color-mix(in oklab, #0a2a1f 95%, transparent)'
+                    : '#082017',
+            }}
         >
-            {/* Subtle accent hairline */}
-            <span
-                aria-hidden
-                className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[color:var(--accent)]/45 to-transparent"
+            {/* Islamic subtle geometric background pattern */}
+            <div
+                className="pointer-events-none absolute inset-0 opacity-[0.03]"
+                style={{
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M30 5L34.7 17.6L47.6 13L40 24L52 30L40 36L47.6 47L34.7 42.4L30 55L25.3 42.4L12.4 47L20 36L8 30L20 24L12.4 13L25.3 17.6Z' fill='%23C6A75E' fill-opacity='1'/%3E%3C/svg%3E")`,
+                    backgroundSize: '40px 40px',
+                }}
             />
 
-            <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
+            {/* Glowing gold bottom hairline */}
+            <span
+                aria-hidden
+                className="absolute inset-x-0 bottom-0 h-[2px]"
+                style={{
+                    background: 'linear-gradient(90deg, transparent, var(--accent), transparent)',
+                    opacity: scrolled ? 1 : 0.4,
+                }}
+            />
+
+            <div className="relative mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center gap-5">
-                    <Link href="/" aria-label="Risala home" className="shrink-0">
-                        <BrandMark />
+                    <Link href="/" aria-label="Risala home" className="shrink-0 transition-transform hover:scale-105">
+                        <span style={{ filter: 'brightness(0) invert(1)', display: 'inline-block' }}>
+                            <BrandMark />
+                        </span>
                     </Link>
                     <span
                         aria-hidden
-                        className="hidden h-6 w-px bg-border lg:block"
+                        className="hidden h-6 w-px bg-[color:var(--accent)]/30 lg:block"
                     />
                     <span className="hidden items-center gap-2 lg:inline-flex">
-                        <span className="font-display text-sm font-semibold text-foreground">
-                            {roleLabel} workspace
+                        <span className="font-display text-sm font-bold tracking-wide" style={{ color: 'var(--accent)' }}>
+                            {roleLabel} Workspace
                         </span>
                     </span>
                 </div>
@@ -88,7 +108,7 @@ export function DashboardHeader({
                 {tabs && onTabChange ? (
                     <nav
                         aria-label="Dashboard sections"
-                        className="hidden items-center gap-1 lg:flex"
+                        className="hidden items-center gap-2 lg:flex"
                     >
                         {tabs.map((tab) => {
                             const active = activeTab === tab.id;
@@ -97,33 +117,42 @@ export function DashboardHeader({
                                     key={tab.id}
                                     onClick={() => onTabChange(tab.id)}
                                     aria-current={active ? 'page' : undefined}
-                                    className={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+                                    className={`relative rounded-md px-3 py-2 text-sm font-semibold transition-all ${
                                         active
-                                            ? 'bg-muted text-foreground'
-                                            : 'text-foreground/65 hover:bg-muted hover:text-foreground'
+                                            ? 'text-[color:var(--accent)]'
+                                            : 'text-white/60 hover:text-white'
                                     }`}
                                 >
                                     {tab.label}
+                                    {active && (
+                                        <span
+                                            aria-hidden
+                                            className="absolute -bottom-2 left-1/2 h-[2px] w-full -translate-x-1/2 rounded-t-md"
+                                            style={{ background: 'var(--accent)' }}
+                                        />
+                                    )}
                                 </button>
                             );
                         })}
                     </nav>
                 ) : null}
 
-                <div className="flex items-center gap-2" data-account-menu>
+                <div className="flex items-center gap-3" data-account-menu>
                     {/* Notification bell */}
                     {onNotificationsClick ? (
                         <button
                             type="button"
                             onClick={onNotificationsClick}
                             aria-label={`Notifications${unreadCount ? `, ${unreadCount} unread` : ''}`}
-                            className="relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-transparent text-foreground/70 transition-colors hover:border-border hover:bg-muted hover:text-foreground"
+                            className="relative inline-flex h-9 w-9 items-center justify-center rounded-full transition-all hover:bg-white/10"
+                            style={{ color: 'var(--accent)' }}
                         >
                             <Bell className="h-4 w-4" />
                             {unreadCount > 0 ? (
                                 <span
                                     aria-hidden
-                                    className="absolute -right-0.5 -top-0.5 inline-flex min-w-[18px] items-center justify-center rounded-full border-2 border-background bg-[color:var(--error)] px-1 text-[10px] font-semibold leading-none text-white tabular-nums"
+                                    className="absolute -right-1 -top-1 flex min-w-[18px] items-center justify-center rounded-full border-2 border-[#082017] px-1 text-[9px] font-bold leading-none text-white tabular-nums animate-pulse"
+                                    style={{ background: 'var(--error)' }}
                                 >
                                     {unreadCount > 9 ? '9+' : unreadCount}
                                 </span>
@@ -131,7 +160,7 @@ export function DashboardHeader({
                         </button>
                     ) : null}
 
-                    <span aria-hidden className="hidden h-6 w-px bg-border sm:block" />
+                    <span aria-hidden className="hidden h-5 w-px bg-[color:var(--accent)]/30 sm:block" />
 
                     <div className="relative">
                         <button
@@ -139,10 +168,10 @@ export function DashboardHeader({
                             onClick={() => setMenuOpen((v) => !v)}
                             aria-haspopup="menu"
                             aria-expanded={menuOpen}
-                            className="flex items-center gap-2.5 rounded-md border border-transparent px-1.5 py-1 transition-colors hover:border-border hover:bg-muted"
+                            className="flex items-center gap-2.5 rounded-full pl-2 pr-1 py-1 transition-all hover:bg-white/5 border border-transparent hover:border-[color:var(--accent)]/20"
                         >
                             <div className="hidden flex-col items-end leading-tight sm:flex">
-                                <span className="inline-flex max-w-[16ch] items-center gap-1.5 truncate text-sm font-medium text-foreground">
+                                <span className="inline-flex max-w-[16ch] items-center gap-1.5 truncate text-sm font-bold text-white">
                                     {fullName}
                                     {verified ? (
                                         <Verified
@@ -151,12 +180,12 @@ export function DashboardHeader({
                                         />
                                     ) : null}
                                 </span>
-                                <span className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+                                <span className="text-[9px] uppercase tracking-[0.18em]" style={{ color: 'var(--accent)' }}>
                                     {roleLabel}
                                 </span>
                             </div>
 
-                            <div className="relative h-9 w-9 overflow-hidden rounded-full border border-border bg-muted">
+                            <div className="relative h-9 w-9 overflow-hidden rounded-full border-2" style={{ borderColor: 'var(--accent)' }}>
                                 {profile?.profile_picture ? (
                                     // eslint-disable-next-line @next/next/no-img-element
                                     <img
@@ -165,25 +194,24 @@ export function DashboardHeader({
                                         className="h-full w-full object-cover"
                                     />
                                 ) : (
-                                    <div className="flex h-full w-full items-center justify-center font-display text-sm font-semibold text-primary">
+                                    <div className="flex h-full w-full items-center justify-center font-display text-sm font-bold" style={{ background: 'var(--accent)', color: '#082017' }}>
                                         {initial}
                                     </div>
                                 )}
-                                <span
-                                    aria-hidden
-                                    className="absolute -bottom-0.5 -right-0.5 inline-flex h-3 w-3 items-center justify-center rounded-full ring-2 ring-background"
-                                    style={{ background: 'var(--success)' }}
-                                />
                             </div>
                         </button>
 
                         {menuOpen && (
                             <div
                                 role="menu"
-                                className="absolute right-0 top-full z-50 mt-2 w-60 overflow-hidden rounded-xl border border-border bg-card shadow-elevated"
+                                className="absolute right-0 top-full z-50 mt-3 w-64 overflow-hidden rounded-2xl border bg-card shadow-islamic animate-scale-in"
+                                style={{ borderColor: 'color-mix(in oklab, var(--primary) 30%, transparent)' }}
                             >
-                                <div className="border-b border-border bg-[color:var(--primary)]/[0.04] px-4 py-3.5">
-                                    <p className="inline-flex items-center gap-1.5 truncate text-sm font-medium text-foreground">
+                                <div
+                                    className="px-5 py-4"
+                                    style={{ background: 'color-mix(in oklab, var(--primary) 8%, transparent)', borderBottom: '1px solid color-mix(in oklab, var(--primary) 20%, transparent)' }}
+                                >
+                                    <p className="inline-flex items-center gap-1.5 truncate text-sm font-bold" style={{ color: 'var(--foreground)' }}>
                                         {fullName}
                                         {verified ? (
                                             <Verified
@@ -192,17 +220,18 @@ export function DashboardHeader({
                                             />
                                         ) : null}
                                     </p>
-                                    <p className="truncate text-xs text-muted-foreground">
+                                    <p className="mt-0.5 truncate text-xs" style={{ color: 'var(--muted-foreground)' }}>
                                         {profile?.email || `${roleLabel} workspace`}
                                     </p>
                                 </div>
-                                <div className="py-1.5 text-sm">
+                                <div className="py-2 text-sm font-medium">
                                     <button
                                         onClick={() => {
                                             setMenuOpen(false);
                                             router.push('/');
                                         }}
-                                        className="flex w-full items-center gap-2 px-4 py-2 text-left text-foreground/80 transition-colors hover:bg-muted"
+                                        className="flex w-full items-center gap-2 px-5 py-2.5 text-left transition-colors hover:bg-muted"
+                                        style={{ color: 'var(--foreground)' }}
                                     >
                                         Visit risala.com
                                     </button>
@@ -212,18 +241,20 @@ export function DashboardHeader({
                                                 setMenuOpen(false);
                                                 onTabChange('profile');
                                             }}
-                                            className="flex w-full items-center gap-2 px-4 py-2 text-left text-foreground/80 transition-colors hover:bg-muted"
+                                            className="flex w-full items-center gap-2 px-5 py-2.5 text-left transition-colors hover:bg-muted"
+                                            style={{ color: 'var(--foreground)' }}
                                         >
-                                            Account & profile
+                                            Account & Profile
                                         </button>
                                     ) : null}
                                 </div>
-                                <div className="border-t border-border py-1.5">
+                                <div className="py-2 border-t" style={{ borderColor: 'var(--border)' }}>
                                     <button
                                         onClick={onLogout}
-                                        className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm text-[color:var(--error)] transition-colors hover:bg-[color:var(--error)]/8"
+                                        className="flex w-full items-center gap-2 px-5 py-2.5 text-left text-sm font-bold transition-colors"
+                                        style={{ color: 'var(--error)' }}
                                     >
-                                        Sign out
+                                        Sign Out
                                     </button>
                                 </div>
                             </div>
@@ -235,7 +266,8 @@ export function DashboardHeader({
             {tabs && onTabChange ? (
                 <nav
                     aria-label="Dashboard sections (mobile)"
-                    className="border-t border-border lg:hidden"
+                    className="lg:hidden"
+                    style={{ background: '#061811', borderTop: '1px solid color-mix(in oklab, var(--accent) 20%, transparent)' }}
                 >
                     <div className="mx-auto flex max-w-7xl items-center gap-4 overflow-x-auto px-4 sm:px-6 no-scrollbar">
                         {tabs.map((tab) => {
@@ -245,10 +277,10 @@ export function DashboardHeader({
                                     key={tab.id}
                                     onClick={() => onTabChange(tab.id)}
                                     aria-current={active ? 'page' : undefined}
-                                    className={`relative whitespace-nowrap border-b-2 py-3 text-sm font-medium transition-colors ${
+                                    className={`relative whitespace-nowrap border-b-2 py-3 text-xs font-bold uppercase tracking-wider transition-colors ${
                                         active
-                                            ? 'border-primary text-foreground'
-                                            : 'border-transparent text-muted-foreground hover:text-foreground'
+                                            ? 'border-[color:var(--accent)] text-[color:var(--accent)]'
+                                            : 'border-transparent text-white/50 hover:text-white'
                                     }`}
                                 >
                                     {tab.label}

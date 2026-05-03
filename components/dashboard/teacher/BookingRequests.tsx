@@ -6,7 +6,7 @@ import { api } from '@/lib/api';
 import { Button } from '@/components/ui/Button';
 import { Avatar } from '@/components/ui/Avatar';
 import { Calendar, Clock, Sparkles } from '@/components/icons';
-import { StarOrnament } from '@/components/dashboard/IslamicOrnament';
+import { StarOrnament, GeometricDivider } from '@/components/dashboard/IslamicOrnament';
 
 interface BookingRequestsProps {
     bookings: Booking[];
@@ -64,143 +64,219 @@ export function BookingRequests({ bookings, onChange, onError }: BookingRequests
 
     if (bookings.length === 0) {
         return (
-            <div className="rounded-2xl border border-dashed border-border bg-card p-10 text-center">
-                <span className="mx-auto mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full border border-border bg-muted text-primary">
-                    <Sparkles className="h-5 w-5" />
+            <div
+                className="rounded-2xl p-10 text-center border animate-fade-in"
+                style={{ 
+                    borderColor: 'color-mix(in oklab, var(--primary) 20%, transparent)', 
+                    background: 'color-mix(in oklab, var(--primary) 3%, var(--card))',
+                    boxShadow: 'inset 0 0 40px -10px color-mix(in oklab, var(--primary) 8%, transparent)'
+                }}
+            >
+                <div className="flex justify-center mb-6 opacity-40">
+                    <GeometricDivider />
+                </div>
+                <span
+                    className="mx-auto mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full"
+                    style={{
+                        background: 'color-mix(in oklab, var(--accent) 15%, transparent)',
+                        border: '1px solid color-mix(in oklab, var(--accent) 30%, transparent)',
+                        boxShadow: '0 0 20px -5px color-mix(in oklab, var(--accent) 30%, transparent)'
+                    }}
+                >
+                    <Sparkles className="h-7 w-7" style={{ color: 'var(--accent)' } as React.CSSProperties} />
                 </span>
-                <p className="font-display text-base font-semibold text-foreground">
-                    No pending requests
+                <p className="font-display text-xl font-bold" style={{ color: 'var(--primary)' }}>
+                    Your Inbox is Clear
                 </p>
-                <p className="mx-auto mt-1.5 max-w-sm text-sm leading-relaxed text-muted-foreground">
-                    When students request sessions, they will appear here for your review.
+                <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed" style={{ color: 'var(--muted-foreground)' }}>
+                    No pending session requests at the moment. Take this time to refine your courses or update your availability.
                 </p>
             </div>
         );
     }
 
     return (
-        <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-            {Object.entries(groupedBookings).map(([key, group]) => {
+        <div className="flex flex-col gap-5">
+            {Object.entries(groupedBookings).map(([key, group], cardIdx) => {
                 const isPackage = key.startsWith('pkg_') && group.length > 1;
                 const b = group[0];
                 const orderId = b.order;
                 const studentName = b.student_name || 'Student';
                 const start = new Date(b.start_at);
+                const isBusy = busy === key;
 
                 return (
                     <article
                         key={key}
-                        className="overflow-hidden rounded-2xl border border-border bg-card transition-all hover:-translate-y-0.5 hover:shadow-elevated"
+                        className="overflow-hidden rounded-2xl flex flex-col transition-all animate-fade-up shadow-islamic"
+                        style={{
+                            border: '1px solid color-mix(in oklab, var(--primary) 30%, transparent)',
+                            background: 'color-mix(in oklab, var(--card) 95%, transparent)',
+                            animationDelay: `${cardIdx * 80}ms`,
+                            transform: 'translateY(0)',
+                            transition: 'transform 250ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 250ms ease',
+                        }}
+                        onMouseEnter={(e) => {
+                            (e.currentTarget as HTMLElement).style.transform = 'translateY(-3px)';
+                            (e.currentTarget as HTMLElement).style.boxShadow =
+                                '0 12px 32px -8px color-mix(in oklab, var(--primary) 25%, transparent), 0 0 0 1px color-mix(in oklab, var(--accent) 40%, transparent)';
+                        }}
+                        onMouseLeave={(e) => {
+                            (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
+                            (e.currentTarget as HTMLElement).style.boxShadow =
+                                '0 4px 16px -4px color-mix(in oklab, var(--primary) 20%, transparent)';
+                        }}
                     >
-                        {/* Header */}
-                        <div className="relative border-b border-border bg-[color:var(--primary)]/[0.05] px-5 py-4">
+                        {/* Deep Emerald Header Band */}
+                        <div
+                            className="relative px-6 py-4"
+                            style={{
+                                background: 'color-mix(in oklab, var(--primary) 85%, transparent)',
+                                borderBottom: '1px solid color-mix(in oklab, var(--accent) 30%, transparent)'
+                            }}
+                        >
                             <span
                                 aria-hidden
-                                className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[color:var(--accent)]/40 to-transparent"
+                                className="absolute inset-x-0 bottom-0 h-[1px]"
+                                style={{ background: 'linear-gradient(90deg, transparent, var(--accent), transparent)' }}
                             />
-                            <div className="flex items-start gap-3">
-                                <Avatar name={studentName} size="md" />
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-2">
+                                    <StarOrnament size={12} style={{ color: 'var(--accent)' }} />
+                                    <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white">
+                                        Session Request
+                                    </span>
+                                </div>
+                                <span className="text-[10px] font-bold uppercase tracking-[0.14em]" style={{ color: 'color-mix(in oklab, #fff 60%, transparent)' }}>
+                                    Just now
+                                </span>
+                            </div>
+                        </div>
+
+                        {/* Request Body */}
+                        <div className="px-6 py-5" style={{ background: 'var(--card)' }}>
+                            <div className="flex items-start gap-4">
+                                <Avatar name={studentName} size="lg" />
                                 <div className="min-w-0 flex-1">
-                                    <div className="flex flex-wrap items-center gap-2">
-                                        <p className="truncate font-display text-base font-semibold tracking-tight text-foreground">
+                                    <div className="flex flex-wrap items-center gap-3">
+                                        <p className="truncate font-display text-lg font-bold tracking-tight text-foreground">
                                             {studentName}
                                         </p>
                                         {isPackage ? (
-                                            <span className="inline-flex items-center gap-1 rounded-full border border-[color:var(--accent)]/35 bg-[color:var(--accent)]/12 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#7a5a14]">
-                                                <StarOrnament size={9} className="text-[color:var(--accent)]" />
-                                                Package · {group.length}
+                                            <span
+                                                className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-[0.16em]"
+                                                style={{
+                                                    background: 'color-mix(in oklab, var(--accent) 15%, transparent)',
+                                                    border: '1px solid color-mix(in oklab, var(--accent) 40%, transparent)',
+                                                    color: '#7a5a14',
+                                                }}
+                                            >
+                                                <StarOrnament size={8} />
+                                                Package of {group.length}
                                             </span>
                                         ) : null}
                                     </div>
-                                    <p className="mt-1 inline-flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground">
-                                        <Calendar className="h-3.5 w-3.5" aria-hidden />
-                                        <span>
-                                            {start.toLocaleDateString(undefined, {
-                                                weekday: 'short',
-                                                month: 'short',
+                                    <div className="mt-2 inline-flex flex-wrap items-center gap-2 rounded-lg px-3 py-1.5" style={{ background: 'color-mix(in oklab, var(--primary) 6%, transparent)', border: '1px solid color-mix(in oklab, var(--primary) 15%, transparent)' }}>
+                                        <Calendar className="h-4 w-4" style={{ color: 'var(--primary)' }} />
+                                        <span className="text-xs font-semibold" style={{ color: 'var(--primary)' }}>
+                                            {start.toLocaleDateString('en-US', {
+                                                weekday: 'long',
+                                                month: 'long',
                                                 day: 'numeric',
                                             })}
                                         </span>
                                         {!isPackage ? (
                                             <>
-                                                <span className="opacity-60">·</span>
-                                                <Clock className="h-3.5 w-3.5" aria-hidden />
-                                                <span className="tabular-nums">
-                                                    {start.toLocaleTimeString([], {
-                                                        hour: '2-digit',
-                                                        minute: '2-digit',
-                                                    })}
+                                                <span style={{ color: 'var(--primary)', opacity: 0.3 }}>|</span>
+                                                <Clock className="h-4 w-4" style={{ color: 'var(--primary)' }} />
+                                                <span className="text-xs font-bold tabular-nums" style={{ color: 'var(--primary)' }}>
+                                                    {start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                                 </span>
                                             </>
-                                        ) : (
-                                            <>
-                                                <span className="opacity-60">·</span>
-                                                <span>{group.length} sessions</span>
-                                            </>
-                                        )}
-                                    </p>
+                                        ) : null}
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        {/* Package preview chips */}
+                        {/* Package date chips */}
                         {isPackage ? (
-                            <div className="border-b border-dashed border-border px-5 py-4">
-                                <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-                                    Sessions to approve
+                            <div
+                                className="px-6 py-4"
+                                style={{
+                                    borderTop: '1px dashed color-mix(in oklab, var(--primary) 20%, transparent)',
+                                    background: 'color-mix(in oklab, var(--muted) 40%, transparent)',
+                                }}
+                            >
+                                <p className="mb-3 text-[9px] font-bold uppercase tracking-[0.18em]" style={{ color: 'var(--primary)' }}>
+                                    All requested dates
                                 </p>
-                                <div className="mt-2.5 grid grid-cols-3 gap-1.5 sm:grid-cols-4">
-                                    {group.slice(0, 8).map((sb) => {
+                                <div className="grid grid-cols-4 gap-2 sm:grid-cols-6 lg:grid-cols-8">
+                                    {group.slice(0, 7).map((sb) => {
                                         const d = new Date(sb.start_at);
                                         return (
-                                            <span
+                                            <div
                                                 key={sb.id}
-                                                className="flex flex-col items-center justify-center rounded-md border border-border bg-muted px-2 py-1.5 text-center"
+                                                className="flex flex-col items-center justify-center rounded-xl py-2 text-center transition-transform hover:scale-105"
+                                                style={{
+                                                    border: '1px solid color-mix(in oklab, var(--accent) 30%, transparent)',
+                                                    background: 'color-mix(in oklab, var(--card) 100%, transparent)',
+                                                    boxShadow: '0 2px 8px -4px color-mix(in oklab, var(--accent) 20%, transparent)'
+                                                }}
                                             >
-                                                <span className="text-[9px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                                                    {d.toLocaleDateString([], {
-                                                        weekday: 'short',
-                                                    })}
+                                                <span className="text-[8px] font-bold uppercase tracking-[0.16em]" style={{ color: 'var(--primary)' }}>
+                                                    {d.toLocaleDateString('en-US', { weekday: 'short' })}
                                                 </span>
-                                                <span className="mt-0.5 font-display text-sm font-semibold tabular-nums text-foreground">
+                                                <span className="mt-0.5 font-display text-sm font-bold tabular-nums text-foreground">
                                                     {d.getDate()}
                                                 </span>
-                                                <span className="text-[9px] tabular-nums text-muted-foreground">
-                                                    {d.toLocaleTimeString([], {
-                                                        hour: '2-digit',
-                                                        minute: '2-digit',
-                                                    })}
+                                                <span className="text-[8px] tabular-nums" style={{ color: 'var(--muted-foreground)' }}>
+                                                    {d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                                 </span>
-                                            </span>
+                                            </div>
                                         );
                                     })}
-                                    {group.length > 8 ? (
-                                        <span className="flex items-center justify-center rounded-md border border-dashed border-border text-[10px] font-medium text-muted-foreground">
-                                            +{group.length - 8}
-                                        </span>
+                                    {group.length > 7 ? (
+                                        <div
+                                            className="flex items-center justify-center rounded-xl text-xs font-bold"
+                                            style={{
+                                                border: '1px dashed color-mix(in oklab, var(--primary) 40%, transparent)',
+                                                color: 'var(--primary)',
+                                            }}
+                                        >
+                                            +{group.length - 7}
+                                        </div>
                                     ) : null}
                                 </div>
                             </div>
                         ) : null}
 
                         {/* Actions */}
-                        <div className="flex items-center justify-end gap-2 bg-muted/40 px-5 py-3">
+                        <div
+                            className="flex items-center justify-end gap-3 px-6 py-4"
+                            style={{
+                                borderTop: '1px solid color-mix(in oklab, var(--primary) 15%, transparent)',
+                                background: 'color-mix(in oklab, var(--primary) 3%, transparent)',
+                            }}
+                        >
                             <Button
-                                variant="danger"
+                                variant="outline"
                                 size="sm"
-                                disabled={busy === key}
+                                disabled={isBusy}
                                 onClick={() => handleDecline(key, b, isPackage)}
+                                className="border-red-200 text-red-600 hover:bg-red-50"
                             >
                                 Decline
                             </Button>
                             <Button
                                 variant="primary"
                                 size="sm"
-                                disabled={busy === key}
+                                disabled={isBusy}
                                 onClick={() => handleApprove(key, b, isPackage, orderId)}
-                                isLoading={busy === key}
+                                isLoading={isBusy}
+                                className="shadow-gold-glow"
                             >
-                                Approve{isPackage ? ' all' : ''}
+                                Approve {isPackage ? 'Package' : 'Session'}
                             </Button>
                         </div>
                     </article>
