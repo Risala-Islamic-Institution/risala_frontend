@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 # 1) Base stage for common environment
-FROM node:22-alpine AS base
+FROM node:24-alpine AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
@@ -24,13 +24,15 @@ COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
 ARG NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
 ENV NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=$NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+ARG NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 
 # Use cache mount for Next.js build cache to speed up subsequent builds
 RUN --mount=type=cache,target=/app/.next/cache \
 	pnpm run build
 
 # 4) Runtime image
-FROM node:22-alpine AS runner
+FROM node:24-alpine AS runner
 LABEL app=risala_frontend
 WORKDIR /app
 
